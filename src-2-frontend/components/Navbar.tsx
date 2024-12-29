@@ -22,7 +22,9 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed w-full z-50 transition-all duration-300 bg-gray-900">
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled ? 'bg-[#0D1321]/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">

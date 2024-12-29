@@ -55,19 +55,19 @@ const AiCompanion: React.FC = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2, duration: 0.5 }}
-                className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-all"
+                className="bg-[#1A1F2E] rounded-xl p-8 hover:bg-[#242938] transition-all"
               >
-                <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <feature.icon className="h-8 w-8 text-blue-600" />
+                <div className="bg-[#8B5CF6]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <feature.icon className="h-8 w-8 text-[#8B5CF6]" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3 text-center">
+                <h3 className="text-xl font-semibold text-white mb-3 text-center">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-center mb-6">{feature.description}</p>
+                <p className="text-gray-300 text-center mb-6">{feature.description}</p>
                 <div className="space-y-3">
                   {feature.benefits.map((benefit, idx) => (
-                    <div key={idx} className="flex items-center text-gray-700">
-                      <Check className="h-5 w-5 text-blue-500 mr-2" />
+                    <div key={idx} className="flex items-center text-gray-300">
+                      <Check className="h-5 w-5 text-[#8B5CF6] mr-2" />
                       <span>{benefit}</span>
                     </div>
                   ))}
@@ -78,27 +78,27 @@ const AiCompanion: React.FC = () => {
         );
       case 'capabilities':
         return (
-          <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">AI Companion Capabilities</h3>
-            <ul className="space-y-4 text-gray-600">
+          <div className="bg-[#1A1F2E] rounded-xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold text-white mb-6">AI Companion Capabilities</h3>
+            <ul className="space-y-4 text-gray-300">
               <li className="flex items-center">
-                <Check className="h-5 w-5 text-blue-500 mr-2" />
+                <Check className="h-5 w-5 text-[#8B5CF6] mr-2" />
                 Real-time market trend analysis
               </li>
               <li className="flex items-center">
-                <Check className="h-5 w-5 text-blue-500 mr-2" />
+                <Check className="h-5 w-5 text-[#8B5CF6] mr-2" />
                 Personalized investment strategy recommendations
               </li>
               <li className="flex items-center">
-                <Check className="h-5 w-5 text-blue-500 mr-2" />
+                <Check className="h-5 w-5 text-[#8B5CF6] mr-2" />
                 Contextual financial news summaries
               </li>
               <li className="flex items-center">
-                <Check className="h-5 w-5 text-blue-500 mr-2" />
+                <Check className="h-5 w-5 text-[#8B5CF6] mr-2" />
                 Interactive learning and Q&A sessions
               </li>
               <li className="flex items-center">
-                <Check className="h-5 w-5 text-blue-500 mr-2" />
+                <Check className="h-5 w-5 text-[#8B5CF6] mr-2" />
                 Predictive financial modeling
               </li>
             </ul>
@@ -107,42 +107,42 @@ const AiCompanion: React.FC = () => {
       case 'pricing':
         return (
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white border border-gray-200 rounded-xl p-8 text-center hover:shadow-xl transition-all">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Basic</h3>
-              <p className="text-4xl font-bold text-blue-600 mb-4">$10/mo</p>
-              <ul className="space-y-3 text-gray-600 mb-6">
+            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all">
+              <h3 className="text-xl font-semibold text-white mb-4">Basic</h3>
+              <p className="text-4xl font-bold text-[#8B5CF6] mb-4">$10/mo</p>
+              <ul className="space-y-3 text-gray-300 mb-6">
                 <li>10 AI Interaction Tokens</li>
                 <li>Basic Insights</li>
                 <li>Limited Market Analysis</li>
               </ul>
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Get Started
+              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 flex items-center">
+                Get Started <Check className="ml-2 h-5 w-5" />
               </button>
             </div>
-            <div className="bg-white border-2 border-blue-600 rounded-xl p-8 text-center hover:shadow-xl transition-all">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Pro</h3>
-              <p className="text-4xl font-bold text-blue-600 mb-4">$25/mo</p>
-              <ul className="space-y-3 text-gray-600 mb-6">
+            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all">
+              <h3 className="text-xl font-semibold text-white mb-4">Pro</h3>
+              <p className="text-4xl font-bold text-[#8B5CF6] mb-4">$25/mo</p>
+              <ul className="space-y-3 text-gray-300 mb-6">
                 <li>500 AI Interaction Tokens</li>
                 <li>Advanced Insights</li>
                 <li>Comprehensive Market Analysis</li>
                 <li>Priority Support</li>
               </ul>
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Upgrade
+              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 flex items-center">
+                Upgrade <Check className="ml-2 h-5 w-5" />
               </button>
             </div>
-            <div className="bg-white border border-gray-200 rounded-xl p-8 text-center hover:shadow-xl transition-all">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Enterprise</h3>
-              <p className="text-4xl font-bold text-blue-600 mb-4">Custom</p>
-              <ul className="space-y-3 text-gray-600 mb-6">
+            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all">
+              <h3 className="text-xl font-semibold text-white mb-4">Enterprise</h3>
+              <p className="text-4xl font-bold text-[#8B5CF6] mb-4">Custom</p>
+              <ul className="space-y-3 text-gray-300 mb-6">
                 <li>Unlimited AI Tokens</li>
                 <li>Dedicated AI Companion</li>
                 <li>Custom Integration</li>
                 <li>White-Glove Support</li>
               </ul>
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Contact Sales
+              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 flex items-center">
+                Contact Sales <Check className="ml-2 h-5 w-5" />
               </button>
             </div>
           </div>
@@ -153,8 +153,8 @@ const AiCompanion: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 opacity-50" 
+    <div className="min-h-screen bg-[#0D1321]">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1A1F2E] via-[#2D1B4D] to-[#0D1321] opacity-70" 
         style={{
           backgroundSize: '100px 100px',
           backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)'
@@ -168,12 +168,12 @@ const AiCompanion: React.FC = () => {
         className="container mx-auto px-6 pt-36 pb-12 relative z-10"
       >
         <div className="flex items-center justify-center mb-8">
-          <Cpu className="h-12 w-12 text-blue-600 mr-4" />
-          <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
-            Pulse AI: <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">Your Ultimate Learning Companion</span>
+          <Cpu className="h-12 w-12 text-[#8B5CF6] mr-4" />
+          <h1 className="text-5xl font-extrabold text-white mb-4">
+            Pulse AI: <span className="bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9] text-transparent bg-clip-text">Your Ultimate Learning Companion</span>
           </h1>
         </div>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto text-center">
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto text-center">
           Your intelligent guide through the complex world of financial technology, delivering personalized insights and strategic knowledge.
         </p>
       </motion.div>
@@ -189,8 +189,8 @@ const AiCompanion: React.FC = () => {
               onClick={() => setActiveTab(tab)}
               className={`px-6 py-2 rounded-lg capitalize font-semibold transition-all ${
                 activeTab === tab 
-                  ? 'bg-blue-600 text-white' 
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
+                  ? 'bg-[#8B5CF6] text-white' 
+                  : 'bg-[#1A1F2E] text-gray-300 hover:bg-[#242938] border border-gray-300'
               }`}
             >
               {tab}
