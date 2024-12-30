@@ -7,9 +7,11 @@ import {
   Cpu,
   Check
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const AiCompanion: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const navigate = useNavigate();
 
   const companionFeatures = [
     {
@@ -153,56 +155,70 @@ const AiCompanion: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0D1321]">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#1A1F2E] via-[#2D1B4D] to-[#0D1321] opacity-70" 
+    <div className="min-h-screen bg-[#0D1321] flex flex-col relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1A1F2E] via-[#2D1B4D] to-[#0D1321] opacity-70 h-full" 
         style={{
           backgroundSize: '100px 100px',
           backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)'
         }}
       />
 
-      <motion.div 
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="container mx-auto px-6 pt-36 pb-12 relative z-10"
-      >
-        <div className="flex items-center justify-center mb-8">
-          <Cpu className="h-12 w-12 text-[#8B5CF6] mr-4" />
-          <h1 className="text-5xl font-extrabold text-white mb-4">
-            Pulse AI: <span className="bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9] text-transparent bg-clip-text">Your Ultimate Learning Companion</span>
-          </h1>
-        </div>
-        <p className="text-xl text-gray-300 max-w-2xl mx-auto text-center">
-          Your intelligent guide through the complex world of financial technology, delivering personalized insights and strategic knowledge.
-        </p>
-      </motion.div>
+      <div className="flex-1 flex flex-col relative z-10">
+        {/* Header Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="container mx-auto px-6 pt-36 pb-12 relative z-10"
+        >
+          <div className="flex items-center justify-center mb-8">
+            <Cpu className="h-12 w-12 text-[#8B5CF6] mr-4" />
+            <h1 className="text-5xl font-extrabold text-white mb-4">
+              Pulse AI: <span className="bg-gradient-to-r from-[#8B5CF6] to-[#6D28D9] text-transparent bg-clip-text">Your Ultimate Learning Companion</span>
+            </h1>
+          </div>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto text-center">
+            Your intelligent guide through the complex world of financial technology, delivering personalized insights and strategic knowledge.
+          </p>
+        </motion.div>
 
-      {/* Tabs */}
-      <div className="container mx-auto px-6 mb-8 relative z-10">
-        <div className="flex justify-center space-x-4">
-          {['overview', 'capabilities', 'pricing'].map((tab) => (
-            <motion.button
-              key={tab}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2 rounded-lg capitalize font-semibold transition-all ${
-                activeTab === tab 
-                  ? 'bg-[#8B5CF6] text-white' 
-                  : 'bg-[#1A1F2E] text-gray-300 hover:bg-[#242938] border border-gray-300'
-              }`}
-            >
-              {tab}
-            </motion.button>
-          ))}
+        {/* Tabs */}
+        <div className="container mx-auto px-6 mb-8 relative z-10">
+          <div className="flex justify-center space-x-4">
+            {['overview', 'capabilities', 'pricing'].map((tab) => (
+              <motion.button
+                key={tab}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setActiveTab(tab)}
+                className={`px-6 py-2 rounded-lg capitalize font-semibold transition-all ${
+                  activeTab === tab 
+                    ? 'bg-[#8B5CF6] text-white' 
+                    : 'bg-[#1A1F2E] text-gray-300 hover:bg-[#242938] border border-gray-300'
+                }`}
+              >
+                {tab}
+              </motion.button>
+            ))}
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="container mx-auto px-6 relative z-10 flex-1">
+          {renderTabContent()}
+        </div>
+
+        {/* Try it out Button */}
+        <div className="container mx-auto px-6 relative z-10 py-16 text-center">
+          <button 
+            onClick={() => navigate('/chatbot')}
+            className="inline-flex items-center justify-center px-12 py-4 text-lg font-semibold text-white bg-[#6D28D9] rounded-xl transform hover:scale-102 transition-all duration-300 shadow-lg hover:shadow-[#6D28D9]/30 hover:bg-[#7C3AED] border border-[#8B5CF6]/20 hover:border-[#8B5CF6]/40"
+          >
+            <span className="mr-2">Try it out!</span>
+            <Cpu className="h-5 w-5 group-hover:rotate-180 transition-transform duration-300" />
+          </button>
         </div>
       </div>
-
-      {/* Content */}
-      <section className="container mx-auto px-6 py-12 relative z-10">
-        {renderTabContent()}
-      </section>
     </div>
   );
 };

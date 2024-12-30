@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowLeft, Share2 } from 'lucide-react';
 import { categories } from '../data/articles';
 import ReactMarkdown from 'react-markdown';
@@ -127,12 +126,7 @@ const Article = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="min-h-screen bg-[#0A0F1E] text-white"
-    >
+    <div className="min-h-screen bg-[#0A0F1E] text-white">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32">
         <div className="flex items-center gap-4 mb-8">
@@ -197,12 +191,9 @@ const Article = () => {
             <h2 className="text-2xl font-semibold text-white mb-8">Similar Articles</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {similarArticles.map((article) => (
-                <motion.article
+                <article
                   key={article.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="group bg-[#1E293B] rounded-2xl overflow-hidden hover:transform hover:scale-[1.02] transition-all duration-300"
+                  className="bg-[#1A1F2E] rounded-lg p-6 hover:bg-[#252B3B] transition-colors"
                 >
                   <Link to={`/insights/${article.id}`} className="block p-6">
                     <div className="flex items-center gap-2 mb-4">
@@ -215,7 +206,7 @@ const Article = () => {
                       </span>
                     </div>
                     
-                    <h3 className="text-xl font-semibold text-white mb-3 line-clamp-2 group-hover:text-[#8B5CF6] transition-colors">
+                    <h3 className="text-xl font-semibold text-white mb-3 line-clamp-2 hover:text-[#8B5CF6] transition-colors">
                       {article.title}
                     </h3>
                     
@@ -242,13 +233,13 @@ const Article = () => {
                       </div>
                     </div>
                   </Link>
-                </motion.article>
+                </article>
               ))}
             </div>
           </div>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

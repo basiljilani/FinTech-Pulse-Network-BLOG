@@ -18,10 +18,8 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
     host: true,
-    open: true,
+    open: true
   },
-  base: '/',
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', '@aws-amplify/ui-react'],
-  },
+  root: '.',
+  base: '/'
 });
