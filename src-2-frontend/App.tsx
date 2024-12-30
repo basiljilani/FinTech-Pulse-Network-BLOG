@@ -6,8 +6,6 @@ import Home from './pages/Home';
 import Insights from './pages/Insights';
 import Article from './pages/Article';
 import AiCompanion from './pages/AiCompanion';
-import Profile from './pages/Profile';
-import Settings from './pages/Settings';
 import Community from './pages/Community';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
@@ -29,8 +27,6 @@ function App() {
             <Route path="/fintech-hub" element={<FinTechHub />} />
             <Route path="/insights/:id" element={<Article />} />
             <Route path="/ai-companion" element={<AiCompanion />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/settings" element={<Settings />} />
             <Route path="/community" element={<Community />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />

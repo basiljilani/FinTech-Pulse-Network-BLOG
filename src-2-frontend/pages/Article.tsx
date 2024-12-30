@@ -1,13 +1,98 @@
-import React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowLeft, Share2 } from 'lucide-react';
-import { articles, categories } from '../data/articles';
+import { categories } from '../data/articles';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { ArticleContent, getArticleContent } from '../lib/content';
+
+const MarkdownContent = ({ content }: { content: string }) => (
+  <ReactMarkdown
+    remarkPlugins={[remarkGfm]}
+    components={{
+      h1: ({ children }) => (
+        <h1 className="text-4xl md:text-5xl font-bold mb-8 text-white">
+          {children}
+        </h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className="text-3xl font-bold mb-6 text-white">
+          {children}
+        </h2>
+      ),
+      h3: ({ children }) => (
+        <h3 className="text-2xl font-bold mb-4 text-white">
+          {children}
+        </h3>
+      ),
+      p: ({ children }) => (
+        <p className="text-gray-300 leading-relaxed mb-6 text-lg">
+          {children}
+        </p>
+      ),
+      ul: ({ children }) => (
+        <ul className="list-disc list-inside mb-6 text-gray-300">
+          {children}
+        </ul>
+      ),
+      ol: ({ children }) => (
+        <ol className="list-decimal list-inside mb-6 text-gray-300">
+          {children}
+        </ol>
+      ),
+      li: ({ children }) => (
+        <li className="mb-2 text-lg leading-relaxed">
+          {children}
+        </li>
+      ),
+    }}
+  >
+    {content}
+  </ReactMarkdown>
+);
 
 const Article = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const article = articles.find(a => a.id === id);
+  const [article, setArticle] = useState<ArticleContent | null>(null);
+  const [similarArticles, setSimilarArticles] = useState<ArticleContent[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadArticle() {
+      if (id) {
+        const content = await getArticleContent(id);
+        setArticle(content);
+        
+        // Load similar articles
+        const response = await fetch('/content/index.json');
+        if (response.ok) {
+          const data = await response.json();
+          const similar = data.articles
+            .filter((a: ArticleContent) => 
+              a.id !== id && a.category === content.category
+            )
+            .slice(0, 2);
+          setSimilarArticles(similar);
+        }
+        
+        setLoading(false);
+      }
+    }
+    loadArticle();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0A0F1E] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#8B5CF6] mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading article...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!article) {
     return (
@@ -99,94 +184,68 @@ const Article = () => {
       </div>
 
       {/* Article Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        {/* Introduction */}
-        <p className="text-xl text-gray-300 mb-12 leading-relaxed">
-          {article.excerpt}
-        </p>
-
-        {/* Mock Content Sections */}
-        <div className="prose prose-invert max-w-none">
-          <h2 className="text-2xl font-bold mb-6">Understanding the Impact</h2>
-          <p className="mb-8 text-gray-300 leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </p>
-
-          <h3 className="text-xl font-bold mb-4">Key Benefits</h3>
-          <ul className="list-disc list-inside mb-8 text-gray-300 space-y-2">
-            <li>Enhanced security and compliance measures</li>
-            <li>Improved operational efficiency</li>
-            <li>Reduced costs and overhead</li>
-            <li>Better user experience and satisfaction</li>
-          </ul>
-
-          <div className="bg-[#1E293B] rounded-2xl p-8 mb-8">
-            <h4 className="text-lg font-bold mb-4">💡 Pro Tip</h4>
-            <p className="text-gray-300">
-              When implementing these solutions, start with a small pilot program to test effectiveness and gather user feedback 
-              before rolling out to the entire organization.
-            </p>
-          </div>
-
-          <h3 className="text-xl font-bold mb-4">Implementation Strategy</h3>
-          <p className="mb-8 text-gray-300 leading-relaxed">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-
-          <div className="bg-gradient-to-br from-[#2563EB]/20 via-[#4F46E5]/20 to-[#7C3AED]/20 rounded-2xl p-8 mb-8">
-            <h4 className="text-lg font-bold mb-4">🎯 Key Takeaways</h4>
-            <ul className="list-none space-y-4">
-              <li className="flex items-start gap-2">
-                <span className="text-[#8B5CF6]">1.</span>
-                <span className="text-gray-300">Focus on regulatory compliance from the start</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#8B5CF6]">2.</span>
-                <span className="text-gray-300">Invest in proper training and documentation</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[#8B5CF6]">3.</span>
-                <span className="text-gray-300">Regular audits and updates are crucial</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Related Articles */}
-        <div className="mt-16 pt-16 border-t border-gray-800">
-          <h3 className="text-2xl font-bold mb-8">Related Articles</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {articles
-              .filter(a => a.category === article.category && a.id !== article.id)
-              .slice(0, 2)
-              .map(relatedArticle => (
-                <Link
-                  key={relatedArticle.id}
-                  to={`/insights/${relatedArticle.id}`}
-                  className="group bg-[#1E293B] rounded-2xl p-6 hover:transform hover:scale-[1.02] transition-all duration-300"
-                >
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="px-3 py-1 text-sm rounded-full bg-[#8B5CF6]/20 text-[#8B5CF6]">
-                      {category?.name}
-                    </span>
-                    <span className="flex items-center text-sm text-gray-400">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {relatedArticle.readTime}
-                    </span>
-                  </div>
-                  <h4 className="text-lg font-semibold text-white mb-2 group-hover:text-[#8B5CF6] transition-colors">
-                    {relatedArticle.title}
-                  </h4>
-                  <p className="text-gray-400 text-sm line-clamp-2">
-                    {relatedArticle.excerpt}
-                  </p>
-                </Link>
-              ))}
-          </div>
-        </div>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <MarkdownContent content={article.content} />
       </div>
+
+      {/* Similar Articles */}
+      {similarArticles.length > 0 && (
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+          <div className="border-t border-gray-800 pt-16">
+            <h2 className="text-2xl font-semibold text-white mb-8">Similar Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {similarArticles.map((article) => (
+                <motion.article
+                  key={article.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="group bg-[#1E293B] rounded-2xl overflow-hidden hover:transform hover:scale-[1.02] transition-all duration-300"
+                >
+                  <Link to={`/insights/${article.id}`} className="block p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="px-3 py-1 text-sm rounded-full bg-[#8B5CF6]/20 text-[#8B5CF6]">
+                        {categories.find(c => c.id === article.category)?.name}
+                      </span>
+                      <span className="flex items-center text-sm text-gray-400">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {article.readTime}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-xl font-semibold text-white mb-3 line-clamp-2 group-hover:text-[#8B5CF6] transition-colors">
+                      {article.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 mb-4 line-clamp-2">
+                      {article.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                      <div>
+                        <div className="text-sm font-medium text-white">
+                          {article.author.name}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {article.author.role}
+                        </div>
+                      </div>
+                      <div className="flex items-center text-sm text-gray-400">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {new Date(article.date).toLocaleDateString('en-US', {
+                          month: 'long',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </div>
+                    </div>
+                  </Link>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };

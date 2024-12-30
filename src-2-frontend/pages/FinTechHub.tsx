@@ -31,8 +31,29 @@ const FinTechHub: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900">
+      {/* Coming Soon Overlay */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="fixed inset-0 top-[64px] z-40 bg-gray-900/90 backdrop-blur-sm flex items-center justify-center"
+      >
+        <div className="text-center px-4 -mt-[32px]">
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-6"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Coming Soon</h1>
+            <p className="text-gray-400 text-lg md:text-xl max-w-2xl">
+              We're working on something exciting! The FinTech Hub will be launching soon with cutting-edge insights and analysis.
+            </p>
+          </motion.div>
+        </div>
+      </motion.div>
+
       {/* Fixed Navigation Bar */}
-      <div className="fixed top-[64px] left-0 right-0 bg-gray-950 shadow-lg shadow-black/20 backdrop-blur-lg z-10 border-b border-gray-800">
+      <div className="fixed top-[64px] left-0 right-0 bg-gray-950 shadow-lg shadow-black/20 backdrop-blur-lg z-30 border-b border-gray-800">
         <div className="max-w-5xl mx-auto px-4">
           <nav className="flex justify-center space-x-6 py-3 overflow-x-auto">
             {['Latest', 'Magazine', 'Topics', 'Podcasts', 'Store', 'The Big Idea', 'Data & Visuals', 'Case Selections'].map((item) => (

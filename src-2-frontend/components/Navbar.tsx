@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Activity, UserCircle, Settings, Users, Lightbulb, Cpu } from 'lucide-react';
+import { Menu, X, Activity, UserCircle, Users, Lightbulb, Cpu } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -77,8 +77,7 @@ const Navbar: React.FC = () => {
                   className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5"
                 >
                   <div className="py-1">
-                    <Link to="/profile" className="block px-4 py-2 text-sm text-white hover:bg-gray-800">Profile</Link>
-                    <Link to="/settings" className="block px-4 py-2 text-sm text-white hover:bg-gray-800">Settings</Link>
+                    <span className="block px-4 py-2 text-sm text-gray-400">Coming Soon</span>
                   </div>
                 </motion.div>
               )}
@@ -107,8 +106,6 @@ const Navbar: React.FC = () => {
             <Link to="/ai-companion" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Pulse AI</Link>
             <Link to="/insights" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Insights</Link>
             <Link to="/community" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Community</Link>
-            <Link to="/profile" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Profile</Link>
-            <Link to="/settings" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Settings</Link>
           </div>
         </motion.div>
       )}

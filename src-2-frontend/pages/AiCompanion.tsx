@@ -107,42 +107,42 @@ const AiCompanion: React.FC = () => {
       case 'pricing':
         return (
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all">
+            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all flex flex-col">
               <h3 className="text-xl font-semibold text-white mb-4">Basic</h3>
               <p className="text-4xl font-bold text-[#8B5CF6] mb-4">$10/mo</p>
-              <ul className="space-y-3 text-gray-300 mb-6">
+              <ul className="space-y-3 text-gray-300 mb-8 flex-grow">
                 <li>10 AI Interaction Tokens</li>
                 <li>Basic Insights</li>
                 <li>Limited Market Analysis</li>
               </ul>
-              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 flex items-center">
-                Get Started <Check className="ml-2 h-5 w-5" />
+              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 w-full flex items-center justify-center">
+                Coming Soon! <Check className="ml-2 h-5 w-5" />
               </button>
             </div>
-            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all">
+            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all flex flex-col">
               <h3 className="text-xl font-semibold text-white mb-4">Pro</h3>
               <p className="text-4xl font-bold text-[#8B5CF6] mb-4">$25/mo</p>
-              <ul className="space-y-3 text-gray-300 mb-6">
+              <ul className="space-y-3 text-gray-300 mb-8 flex-grow">
                 <li>500 AI Interaction Tokens</li>
                 <li>Advanced Insights</li>
                 <li>Comprehensive Market Analysis</li>
                 <li>Priority Support</li>
               </ul>
-              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 flex items-center">
-                Upgrade <Check className="ml-2 h-5 w-5" />
+              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 w-full flex items-center justify-center">
+                Coming Soon! <Check className="ml-2 h-5 w-5" />
               </button>
             </div>
-            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all">
+            <div className="bg-[#1A1F2E] rounded-xl p-8 text-center hover:bg-[#242938] transition-all flex flex-col">
               <h3 className="text-xl font-semibold text-white mb-4">Enterprise</h3>
               <p className="text-4xl font-bold text-[#8B5CF6] mb-4">Custom</p>
-              <ul className="space-y-3 text-gray-300 mb-6">
+              <ul className="space-y-3 text-gray-300 mb-8 flex-grow">
                 <li>Unlimited AI Tokens</li>
                 <li>Dedicated AI Companion</li>
                 <li>Custom Integration</li>
                 <li>White-Glove Support</li>
               </ul>
-              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 flex items-center">
-                Contact Sales <Check className="ml-2 h-5 w-5" />
+              <button className="bg-[#8B5CF6] text-white px-6 py-2 rounded-lg hover:bg-[#6D28D9] transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 w-full flex items-center justify-center">
+                Coming Soon! <Check className="ml-2 h-5 w-5" />
               </button>
             </div>
           </div>
