@@ -7,7 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ArticleContent, getArticleContent } from '../lib/content';
 
-const MarkdownContent = ({ content }: { content: string }) => (
+const MarkdownContent = ({ content = '' }: { content: string }) => (
   <ReactMarkdown
     remarkPlugins={[remarkGfm]}
     components={{
@@ -63,18 +63,20 @@ const Article = () => {
     async function loadArticle() {
       if (id) {
         const content = await getArticleContent(id);
-        setArticle(content);
-        
-        // Load similar articles
-        const response = await fetch('/content/index.json');
-        if (response.ok) {
-          const data = await response.json();
-          const similar = data.articles
-            .filter((a: ArticleContent) => 
-              a.id !== id && a.category === content.category
-            )
-            .slice(0, 2);
-          setSimilarArticles(similar);
+        if (content) {
+          setArticle(content);
+          
+          // Load similar articles
+          const response = await fetch('/content/index.json');
+          if (response.ok) {
+            const data = await response.json();
+            const similar = data.articles
+              .filter((a: ArticleContent) => 
+                a.id !== id && a.category === content?.category
+              )
+              .slice(0, 2);
+            setSimilarArticles(similar);
+          }
         }
         
         setLoading(false);
@@ -185,7 +187,7 @@ const Article = () => {
 
       {/* Article Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <MarkdownContent content={article.content} />
+        <MarkdownContent content={article.content || ''} />
       </div>
 
       {/* Similar Articles */}
