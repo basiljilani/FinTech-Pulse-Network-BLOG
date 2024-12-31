@@ -50,19 +50,19 @@ const Community = () => {
       icon: Users,
       title: "Global Network",
       description: "Join a thriving community of fintech professionals, developers, and industry experts from around the world.",
-      stats: "50,000+ Members"
+      stats: "Growing Community"
     },
     {
       icon: MessageCircle,
       title: "Active Discussions",
       description: "Engage in meaningful conversations about the latest trends, challenges, and innovations in financial technology.",
-      stats: "1,000+ Daily Posts"
+      stats: "Daily Discussions"
     },
     {
       icon: Award,
       title: "Expert Contributors",
       description: "Learn from and connect with verified industry experts who share their knowledge and experiences regularly.",
-      stats: "500+ Experts"
+      stats: "Industry Experts"
     }
   ];
 
@@ -169,11 +169,6 @@ const Community = () => {
           <p className="text-xl text-gray-300 mb-12">
             Connect, collaborate, and grow with fellow fintech enthusiasts and professionals
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <div className="bg-[#1A1F2E] px-6 py-2 rounded-full text-gray-300">50,000+ Members</div>
-            <div className="bg-[#1A1F2E] px-6 py-2 rounded-full text-gray-300">1,000+ Daily Posts</div>
-            <div className="bg-[#1A1F2E] px-6 py-2 rounded-full text-gray-300">500+ Experts</div>
-          </div>
         </motion.div>
       </div>
 
@@ -298,8 +293,33 @@ const Community = () => {
         </div>
       </div>
 
-      {/* Testimonials Section */}
+      {/* CTA Section */}
       <div className="py-24">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-2xl mx-auto"
+          >
+            <h2 className="text-3xl font-bold mb-6 text-white">Ready to Join?</h2>
+            <p className="text-gray-300 mb-10 text-lg">
+              Become part of our growing community and help shape the future of financial technology.
+            </p>
+            <a 
+              href="https://discord.gg/NHuzsq9fqe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-10 py-4 bg-[#8B5CF6] rounded-xl hover:bg-[#7C3AED] transition-colors text-lg font-semibold text-white cursor-pointer"
+            >
+              Join the Community
+            </a>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="py-24 bg-[#0D1321]">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -337,29 +357,6 @@ const Community = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="py-24 bg-[#0D1321]">
-        <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-2xl mx-auto"
-          >
-            <h2 className="text-3xl font-bold mb-6 text-white">Ready to Join?</h2>
-            <p className="text-gray-300 mb-10 text-lg">
-              Become part of our growing community and help shape the future of financial technology.
-            </p>
-            <button 
-              className="px-10 py-4 bg-[#8B5CF6] rounded-xl hover:bg-[#7C3AED] transition-colors text-lg font-semibold text-white"
-              onClick={() => navigate('/signup')}
-            >
-              Join the Community
-            </button>
-          </motion.div>
         </div>
       </div>
     </div>

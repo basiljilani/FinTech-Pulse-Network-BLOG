@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Clock, Calendar, Search, Landmark, Brain, FileText } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { categories } from '../data/articles';
 import type { ArticleContent } from '../lib/content';
 
@@ -11,6 +12,13 @@ const Insights: React.FC = () => {
   const [articles, setArticles] = useState<ArticleContent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const location = useLocation();
+
+  const pageTitle = "FinTech Insights & Analysis | FinTech Pulse Network";
+  const pageDescription = "Explore the latest insights on FinTech innovation, AI in finance, digital payments, and emerging market trends. Expert analysis by industry professionals.";
+  const canonicalUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}${location.pathname}`
+    : `https://fintechpulsenetwork.com${location.pathname}`;
 
   useEffect(() => {
     async function loadArticles() {
@@ -89,137 +97,185 @@ const Insights: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E] text-gray-100 pb-20">      
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 pt-32 pb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-4xl mx-auto"
-        >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] via-[#6366F1] to-[#3B82F6] px-2 py-4 leading-normal">
-            Insights & Analysis
-          </h1>
-          <div className="space-y-6">
-            <p className="text-xl md:text-2xl px-4 leading-relaxed">
-              <span className="bg-gradient-to-r from-gray-100 to-gray-300 text-transparent bg-clip-text inline-block py-1">
-                Unlock the power of informed decision-making with our comprehensive insights. Dive into expert analyses, uncover emerging trends, and access strategic recommendations tailored to elevate your strategy.
-              </span>
-            </p>
-            <p className="text-xl md:text-2xl px-4 leading-relaxed">
-              <span className="bg-gradient-to-r from-gray-200 to-gray-400 text-transparent bg-clip-text inline-block py-1">
-                Stay ahead of the curve and make confident choices for a successful future.
-              </span>
-            </p>
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Search Bar */}
-      <div className="container mx-auto px-4 mb-12">
-        <div className="relative max-w-2xl mx-auto">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => handleSearch(e.target.value)}
-            placeholder="Search insights..."
-            className="w-full pl-12 pr-4 py-3 bg-[#1E293B] rounded-xl border border-gray-700 focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors text-white placeholder-gray-400"
-          />
-        </div>
-      </div>
-
-      {/* Category Filters */}
-      <div className="container mx-auto px-4 mb-12">
-        <div className="flex flex-wrap gap-4 justify-center">
-          <button
-            onClick={() => handleFilterChange('all')}
-            className={`px-6 py-3 rounded-2xl transition-all duration-300 ${
-              activeFilter === 'all'
-                ? 'bg-[#8B5CF6] text-white'
-                : 'bg-[#1E293B] text-gray-400 hover:bg-[#1E293B]/70'
-            }`}
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        
+        {/* Open Graph tags */}
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="FinTech Pulse Network" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        
+        {/* Additional SEO meta tags */}
+        <meta name="keywords" content="fintech, financial technology, digital payments, AI in finance, banking innovation, financial inclusion" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Basil Jilani" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "name": "FinTech Pulse Network Insights",
+            "description": pageDescription,
+            "url": canonicalUrl,
+            "author": {
+              "@type": "Person",
+              "name": "Basil Jilani",
+              "jobTitle": "FinTech Expert"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "FinTech Pulse Network"
+            }
+          })}
+        </script>
+      </Helmet>
+      <div className="min-h-screen bg-[#0A0F1E] text-gray-100 pb-20">      
+        {/* Hero Section */}
+        <div className="container mx-auto px-4 pt-32 pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-4xl mx-auto"
           >
-            All
-          </button>
-          {categories.map((category) => (
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] via-[#6366F1] to-[#3B82F6] px-2 py-4 leading-normal">
+              Insights & Analysis
+            </h1>
+            <div className="space-y-6">
+              <p className="text-xl md:text-2xl px-4 leading-relaxed">
+                <span className="bg-gradient-to-r from-gray-100 to-gray-300 text-transparent bg-clip-text inline-block py-1">
+                  Unlock the power of informed decision-making with our comprehensive insights. Dive into expert analyses, uncover emerging trends, and access strategic recommendations tailored to elevate your strategy.
+                </span>
+              </p>
+              <p className="text-xl md:text-2xl px-4 leading-relaxed">
+                <span className="bg-gradient-to-r from-gray-200 to-gray-400 text-transparent bg-clip-text inline-block py-1">
+                  Stay ahead of the curve and make confident choices for a successful future.
+                </span>
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="container mx-auto px-4 mb-12">
+          <div className="relative max-w-2xl mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search insights..."
+              className="w-full pl-12 pr-4 py-3 bg-[#1E293B] rounded-xl border border-gray-700 focus:border-[#8B5CF6] focus:ring-1 focus:ring-[#8B5CF6] transition-colors text-white placeholder-gray-400"
+            />
+          </div>
+        </div>
+
+        {/* Category Filters */}
+        <div className="container mx-auto px-4 mb-12">
+          <div className="flex flex-wrap gap-4 justify-center">
             <button
-              key={category.id}
-              onClick={() => handleFilterChange(category.id)}
-              className={`flex items-center gap-2 px-6 py-3 rounded-2xl transition-all duration-300 ${
-                activeFilter === category.id
+              onClick={() => handleFilterChange('all')}
+              className={`px-6 py-3 rounded-2xl transition-all duration-300 ${
+                activeFilter === 'all'
                   ? 'bg-[#8B5CF6] text-white'
                   : 'bg-[#1E293B] text-gray-400 hover:bg-[#1E293B]/70'
               }`}
             >
-              {getCategoryIcon(category.id)}
-              {category.name}
+              All
             </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Articles Grid */}
-      <div className="container mx-auto px-4">
-        {filteredArticles.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-400">No articles found matching your criteria.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredArticles.map((article) => (
-              <motion.article
-                key={article.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="group bg-[#1E293B] rounded-2xl overflow-hidden hover:transform hover:scale-[1.02] transition-all duration-300"
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => handleFilterChange(category.id)}
+                className={`flex items-center gap-2 px-6 py-3 rounded-2xl transition-all duration-300 ${
+                  activeFilter === category.id
+                    ? 'bg-[#8B5CF6] text-white'
+                    : 'bg-[#1E293B] text-gray-400 hover:bg-[#1E293B]/70'
+                }`}
               >
-                <Link to={`/insights/${article.id}`} className="block p-6">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="px-3 py-1 text-sm rounded-full bg-[#8B5CF6]/20 text-[#8B5CF6]">
-                      {categories.find(c => c.id === article.category)?.name}
-                    </span>
-                    <span className="flex items-center text-sm text-gray-400">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {article.readTime}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-semibold text-white mb-3 line-clamp-2 group-hover:text-[#8B5CF6] transition-colors">
-                    {article.title}
-                  </h3>
-                  
-                  <p className="text-gray-400 mb-4 line-clamp-2">
-                    {article.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
-                    <div>
-                      <div className="text-sm font-medium text-white">
-                        {article.author.name}
-                      </div>
-                      <div className="text-xs text-gray-400">
-                        {article.author.role}
-                      </div>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-400">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {new Date(article.date).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
-                    </div>
-                  </div>
-                </Link>
-              </motion.article>
+                {getCategoryIcon(category.id)}
+                {category.name}
+              </button>
             ))}
           </div>
-        )}
+        </div>
+
+        {/* Articles Grid */}
+        <div className="container mx-auto px-4">
+          {filteredArticles.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-400">No articles found matching your criteria.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredArticles.map((article, index) => (
+                <motion.article
+                  key={article.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5,
+                    delay: index * 0.1,
+                    ease: "easeOut"
+                  }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    transition: { duration: 0.2 }
+                  }}
+                  className="bg-[#1E293B] rounded-2xl overflow-hidden"
+                >
+                  <Link to={`/articles/${article.id}`} className="block p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="px-3 py-1 text-sm rounded-full bg-[#8B5CF6]/20 text-[#8B5CF6]">
+                        {categories.find(c => c.id === article.category)?.name}
+                      </span>
+                      <span className="flex items-center text-sm text-gray-400">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {article.readTime}
+                      </span>
+                    </div>
+                    
+                    <h3 className="text-xl font-semibold text-white mb-3 line-clamp-2 group-hover:text-[#8B5CF6] transition-colors">
+                      {article.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 mb-4 line-clamp-2">
+                      {article.excerpt}
+                    </p>
+                    
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                      <div>
+                        <div className="text-sm font-medium text-white">
+                          {article.author.name}
+                        </div>
+                        <div className="text-sm text-gray-400">
+                          {article.author.role}
+                        </div>
+                      </div>
+                      <div className="flex items-center text-sm text-gray-400">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {new Date(article.date).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </Link>
+                </motion.article>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

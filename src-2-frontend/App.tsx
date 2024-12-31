@@ -1,5 +1,6 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -17,28 +18,33 @@ import FinTechHub from './pages/FinTechHub';
 import Chatbot from './pages/Chatbot';
 
 function App() {
+  const location = useLocation();
+  const isChatbot = location.pathname === '/chatbot';
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <ScrollToTop />
-      <Navbar />
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/insights" element={<Insights />} />
-          <Route path="/articles/:slug" element={<Article />} />
-          <Route path="/ai-companion" element={<AiCompanion />} />
-          <Route path="/chatbot" element={<Chatbot />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/fintech-hub" element={<FinTechHub />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/financial-news" element={<FinancialNews />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <HelmetProvider>
+      <div className="flex flex-col min-h-screen">
+        <ScrollToTop />
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/articles/:id" element={<Article />} />
+            <Route path="/ai-companion" element={<AiCompanion />} />
+            <Route path="/chatbot" element={<Chatbot />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/fintech-hub" element={<FinTechHub />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/financial-news" element={<FinancialNews />} />
+          </Routes>
+        </main>
+        {!isChatbot && <Footer />}
+      </div>
+    </HelmetProvider>
   );
 }
 

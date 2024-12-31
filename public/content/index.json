@@ -1,63 +1,63 @@
 {
   "articles": [
     {
-      "id": "blockchain-finance",
-      "title": "The Future of Blockchain in Financial Services",
-      "excerpt": "Exploring how blockchain technology is revolutionizing traditional banking and financial services.",
-      "date": "2024-12-30",
-      "readTime": "8 min",
+      "id": "ai-fintech-revolution",
+      "title": "The AI-Driven FinTech Revolution: From Chatbots to Predictive Banking",
+      "excerpt": "Explore how artificial intelligence is transforming financial technology, from personalized banking experiences to fraud prevention, and what the future holds for AI in finance.",
+      "date": "2025-01-01",
+      "readTime": "11 min",
       "category": "fintech",
       "author": {
-        "name": "Sarah Johnson",
-        "role": "Blockchain Analyst"
+        "name": "Basil Jilani",
+        "role": "FinTech Expert"
       }
     },
     {
-      "id": "ai-in-fintech",
-      "title": "AI Revolution in FinTech: Transforming Financial Services",
-      "excerpt": "Discover how Artificial Intelligence is reshaping the financial services industry, from automated trading to personalized banking experiences.",
-      "date": "2024-12-30",
-      "readTime": "6 min",
-      "category": "ai-ml",
-      "author": {
-        "name": "Michael Chen",
-        "role": "AI Research Lead"
-      }
-    },
-    {
-      "id": "open-banking",
-      "title": "Open Banking: Revolutionizing Financial Services",
-      "excerpt": "How open banking APIs are creating new opportunities for financial innovation and improved customer experiences.",
-      "date": "2024-12-18",
-      "readTime": "6 min",
+      "id": "embedded-finance",
+      "title": "Embedded Finance: The Future of Seamless Customer Experiences",
+      "excerpt": "Discover how embedded finance is revolutionizing industries by integrating financial services into non-financial platforms, creating seamless experiences and unlocking new opportunities.",
+      "date": "2025-01-01",
+      "readTime": "10 min",
       "category": "fintech",
       "author": {
-        "name": "Michael Ross",
-        "role": "Banking Innovation Lead"
+        "name": "Basil Jilani",
+        "role": "FinTech Expert"
       }
     },
     {
-      "id": "defi-lending",
-      "title": "DeFi Lending Platforms: A New Era of Credit",
-      "excerpt": "Exploring how decentralized finance is transforming traditional lending models with smart contracts and automated market makers.",
-      "date": "2024-12-15",
-      "readTime": "7 min",
+      "id": "fintech-inclusion",
+      "title": "FinTech and Financial Inclusion: Breaking Barriers in Emerging Markets",
+      "excerpt": "Exploring how FinTech is revolutionizing financial access in emerging markets, driving economic growth, and transforming lives through innovative solutions.",
+      "date": "2025-01-01",
+      "readTime": "11 min",
       "category": "fintech",
       "author": {
-        "name": "Alex Wong",
-        "role": "DeFi Researcher"
+        "name": "Basil Jilani",
+        "role": "FinTech Expert"
       }
     },
     {
-      "id": "regtech-solutions",
-      "title": "RegTech Solutions for Financial Compliance",
-      "excerpt": "How regulatory technology is helping financial institutions maintain compliance and reduce operational costs.",
-      "date": "2024-12-12",
-      "readTime": "5 min",
-      "category": "research",
+      "id": "digital-payments-analysis",
+      "title": "Decoding Digital Payments: A Global Analysis of Trends and Opportunities",
+      "excerpt": "From mobile wallets to blockchain-based solutions, explore how digital payments are reshaping the global financial landscape and creating new opportunities.",
+      "date": "2025-01-01",
+      "readTime": "12 min",
+      "category": "fintech",
       "author": {
-        "name": "Emma Thompson",
-        "role": "Compliance Expert"
+        "name": "Basil Jilani",
+        "role": "FinTech Expert"
+      }
+    },
+    {
+      "id": "fintech-renaissance",
+      "title": "The FinTech Renaissance: Bridging Tradition and Innovation",
+      "excerpt": "Exploring how FinTech is reshaping traditional banking, blending innovation with operational resilience, and navigating regulatory landscapes.",
+      "date": "2025-01-01",
+      "readTime": "10 min",
+      "category": "fintech",
+      "author": {
+        "name": "Basil Jilani",
+        "role": "FinTech Expert"
       }
     }
   ]

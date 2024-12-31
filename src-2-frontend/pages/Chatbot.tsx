@@ -16,6 +16,7 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [apiStatus, setApiStatus] = useState<{ isReady: boolean; error?: string }>({ isReady: true });
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Scroll to top on mount and route change
@@ -40,7 +41,7 @@ const Chatbot = () => {
   }, [messages]);
 
   const sendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
+    if (!inputValue.trim() || isLoading || isInputDisabled) return;
 
     // Add user message
     const userMessage: Message = { text: inputValue, isUser: true };
@@ -48,6 +49,19 @@ const Chatbot = () => {
     setInputValue('');
     setIsLoading(true);
 
+    // Temporary placeholder response
+    setTimeout(() => {
+      const placeholderResponse: Message = {
+        text: "Hello there! 🌟 \n\nWe're currently working hard behind the scenes to bring you an amazing experience with Pulse AI. We can't wait to get started on this journey together and empower your financial future! \n\nThank you for your patience and support!",
+        isUser: false
+      };
+      setMessages(prev => [...prev, placeholderResponse]);
+      setIsLoading(false);
+      setIsInputDisabled(true); // Disable input after response
+    }, 1000);
+
+    // Comment out the actual API call for now
+    /*
     try {
       const result = await sendChatMessage(inputValue);
       
@@ -77,6 +91,7 @@ const Chatbot = () => {
     } finally {
       setIsLoading(false);
     }
+    */
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -125,7 +140,7 @@ const Chatbot = () => {
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} mb-4`}
                 >
                   <div
-                    className={`max-w-[80%] px-4 py-2 rounded-xl ${
+                    className={`max-w-[80%] px-4 py-2 rounded-xl whitespace-pre-wrap ${
                       message.isUser
                         ? 'bg-[#6D28D9] text-white'
                         : 'bg-[#2D1B4D] text-gray-200'
@@ -154,13 +169,13 @@ const Chatbot = () => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder={isLoading ? "Please wait..." : "Type your message..."}
-                  disabled={isLoading}
+                  placeholder={isInputDisabled ? "We can't wait to Empower and Guide you to the Financial Future YOU Deserve." : isLoading ? "Please wait..." : "Type your message..."}
+                  disabled={isLoading || isInputDisabled}
                   className="flex-1 bg-[#1A1F2E] text-white border border-[#8B5CF6]/20 rounded-lg px-4 py-2 focus:outline-none focus:border-[#8B5CF6]/50 disabled:opacity-50"
                 />
                 <button
                   onClick={sendMessage}
-                  disabled={isLoading || !inputValue.trim()}
+                  disabled={isLoading || !inputValue.trim() || isInputDisabled}
                   className="bg-[#6D28D9] hover:bg-[#7C3AED] text-white px-6 py-2 rounded-lg transition-colors duration-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
