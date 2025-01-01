@@ -1,0 +1,53 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "FinTech Pulse Network",
+  "alternateName": "FPN",
+  "url": "https://fintechpulsenetwork.com",
+  "logo": "https://fintechpulsenetwork.com/pulse-logo.svg",
+  "description": "FinTech Pulse Network (FPN) is a leading platform providing AI-driven insights, analysis, and networking opportunities in the financial technology sector.",
+  "sameAs": [
+    "https://www.linkedin.com/company/fintechpulse-net/",
+    "https://twitter.com/fintechpulse",
+    "https://facebook.com/fintechpulsenetwork",
+    "https://instagram.com/fintechpulsenetwork"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "US"
+  },
+  "foundingDate": "2024",
+  "founder": {
+    "@type": "Person",
+    "name": "Basil Jilani",
+    "jobTitle": "CEO & Founder",
+    "sameAs": "https://www.linkedin.com/in/basiljilani/"
+  },
+  "knowsAbout": [
+    "Financial Technology",
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Digital Banking",
+    "Blockchain",
+    "Digital Payments",
+    "Financial Inclusion"
+  ],
+  "numberOfEmployees": {
+    "@type": "QuantitativeValue",
+    "minValue": "1",
+    "maxValue": "10"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://fintechpulsenetwork.com"
+  },
+  "subOrganization": [
+    {
+      "@type": "Organization",
+      "name": "FPN Insights",
+      "description": "Research and analysis division providing in-depth FinTech and AI/ML insights"
+    }
+  ],
+  "publishingPrinciples": "https://fintechpulsenetwork.com/about",
+  "slogan": "AI-Driven Financial Technology Insights"
+}

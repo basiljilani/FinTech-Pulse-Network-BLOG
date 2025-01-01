@@ -20,15 +20,32 @@ const Insights: React.FC = () => {
     ? `${window.location.origin}${location.pathname}`
     : `https://fintechpulsenetwork.com${location.pathname}`;
 
+  const prefetchArticleIndex = async () => {
+    try {
+      const response = await fetch('/content/index.json');
+      if (!response.ok) {
+        throw new Error('Failed to load article index');
+      }
+      const data = await response.json();
+      return data.articles || [];
+    } catch (error) {
+      console.error('Error prefetching articles:', error);
+      throw error;
+    }
+  };
+
+  const prefetchArticleContent = (id: string) => {
+    const link = document.createElement('link');
+    link.rel = 'prefetch';
+    link.href = `/content/${id}.md`;
+    document.head.appendChild(link);
+  };
+
   useEffect(() => {
     async function loadArticles() {
       try {
-        const response = await fetch('/content/index.json');
-        if (!response.ok) {
-          throw new Error('Failed to load article index');
-        }
-        const data = await response.json();
-        setArticles(data.articles || []);
+        const articles = await prefetchArticleIndex();
+        setArticles(articles);
         setError(null);
       } catch (error) {
         console.error('Error loading articles:', error);
@@ -38,7 +55,17 @@ const Insights: React.FC = () => {
         setLoading(false);
       }
     }
-    loadArticles();
+    
+    // Try to load immediately
+    prefetchArticleIndex()
+      .then(articles => {
+        setArticles(articles);
+        setLoading(false);
+      })
+      .catch(() => {
+        // If prefetch failed, try loading again
+        loadArticles();
+      });
   }, []);
 
   const handleSearch = (query: string) => {
@@ -233,6 +260,7 @@ const Insights: React.FC = () => {
                     scale: 1.02,
                     transition: { duration: 0.2 }
                   }}
+                  onMouseEnter={() => prefetchArticleContent(article.id)}
                   className="bg-[#1E293B] rounded-2xl overflow-hidden"
                 >
                   <Link to={`/articles/${article.id}`} className="block p-6">
