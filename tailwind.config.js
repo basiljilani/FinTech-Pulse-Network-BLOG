@@ -6,6 +6,16 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        'article-bg': '#282828',
+        'article-text': '#E0E0E0',
+        'article-heading': '#FFFFFF',
+        'article-accent': '#333333',
+        'article-highlight': '#404040',
+        'article-border': '#404040',
+        'article-link': '#E0E0E0',
+        'article-card': '#333333',
+      },
       animation: {
         blob: 'blob 10s infinite',
       },
@@ -31,9 +41,6 @@ export default {
         },
         '.animation-delay-4000': {
           'animation-delay': '4s',
-        },
-        '.animation-delay-6000': {
-          'animation-delay': '6s',
         },
       },
     },

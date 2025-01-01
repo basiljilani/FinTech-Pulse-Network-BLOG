@@ -3,7 +3,7 @@ id: fintech-inclusion
 title: "FinTech and Financial Inclusion: Breaking Barriers in Emerging Markets"
 excerpt: "Exploring how FinTech is revolutionizing financial access in emerging markets, driving economic growth, and transforming lives through innovative solutions."
 date: 2025-01-01
-readTime: 11 min
+readTime: "9 min"
 category: fintech
 author:
   name: Basil Jilani

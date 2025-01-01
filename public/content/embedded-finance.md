@@ -3,11 +3,11 @@ id: embedded-finance
 title: "Embedded Finance: The Future of Seamless Customer Experiences"
 excerpt: "Discover how embedded finance is revolutionizing industries by integrating financial services into non-financial platforms, creating seamless experiences and unlocking new opportunities."
 date: 2025-01-01
-readTime: 10 min
+readTime: "8 min"
 category: fintech
 author:
-  name: Basil Jilani
-  role: FinTech Expert
+  name: "Basil Jilani"
+  role: "FinTech Expert"
 ---
 
 Embedded finance is revolutionizing the financial landscape by integrating financial services directly into non-financial platforms, creating seamless customer experiences. Whether it's offering insurance at the point of sale, enabling ride-sharing app drivers to access instant payouts, or embedding lending options into e-commerce checkouts, embedded finance is transforming industries and unlocking significant revenue opportunities.

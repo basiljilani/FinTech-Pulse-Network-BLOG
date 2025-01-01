@@ -3,7 +3,7 @@ id: digital-payments-analysis
 title: "Decoding Digital Payments: A Global Analysis of Trends and Opportunities"
 excerpt: "From mobile wallets to blockchain-based solutions, explore how digital payments are reshaping the global financial landscape and creating new opportunities."
 date: 2025-01-01
-readTime: 12 min
+readTime: "9 min"
 category: fintech
 author:
   name: Basil Jilani

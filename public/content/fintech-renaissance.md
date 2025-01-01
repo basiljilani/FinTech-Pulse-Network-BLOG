@@ -3,11 +3,11 @@ id: fintech-renaissance
 title: "The FinTech Renaissance: Bridging Tradition and Innovation"
 excerpt: "Exploring how FinTech is reshaping traditional banking, blending innovation with operational resilience, and navigating regulatory landscapes."
 date: 2025-01-01
-readTime: 10 min
+readTime: "7 min"
 category: fintech
 author:
-  name: Basil Jilani
-  role: FinTech Expert
+  name: "Basil Jilani"
+  role: "Expert in FinTech and AI"
 ---
 
 The financial services industry is undergoing an extraordinary transformation, driven by the confluence of FinTech innovation and traditional banking's adaptability. What was once perceived as a battle between disruptors and incumbents has evolved into a symbiotic relationship where collaboration reigns supreme. This article explores how FinTech is reshaping traditional banking, blending innovation with operational resilience, and navigating regulatory landscapes.

@@ -1,15 +1,79 @@
 {
   "articles": [
     {
+      "id": "future-of-work-ai-workplace",
+      "title": "The Future of Work: Preparing for the AI-First Workplace",
+      "date": "2025-01-01",
+      "author": {
+        "name": "Basil Jilani",
+        "role": "AI and Workplace Innovation Expert"
+      },
+      "category": "ai-ml",
+      "tags": ["AI", "Future of Work", "Workplace Innovation", "Skills Development", "Digital Transformation"],
+      "excerpt": "Explore how AI is reshaping workplace dynamics, from automation to skill requirements, and learn how organizations can prepare for an AI-driven future.",
+      "readTime": "8 min"
+    },
+    {
+      "id": "ai-meets-creativity",
+      "title": "AI Meets Creativity: Redefining Innovation Across Industries",
+      "date": "2025-01-01",
+      "author": {
+        "name": "Basil Jilani",
+        "role": "AI and Innovation Expert"
+      },
+      "category": "ai-ml",
+      "tags": ["AI", "Creativity", "Innovation", "Design", "Digital Transformation"],
+      "excerpt": "Explore how AI is transforming creative processes, from product design to content creation, and learn how businesses can harness AI-driven creativity for competitive advantage.",
+      "readTime": "8 min"
+    },
+    {
+      "id": "data-to-decisions-ai-insights",
+      "title": "From Data to Decisions: Unlocking the Power of AI-Driven Insights",
+      "date": "2025-01-01",
+      "author": {
+        "name": "Basil Jilani",
+        "role": "AI and FinTech Expert"
+      },
+      "category": "ai-ml",
+      "tags": ["AI", "Data Analytics", "Decision Making", "Business Strategy", "Predictive Analytics"],
+      "excerpt": "Discover how AI is transforming raw data into strategic decisions, enabling businesses to gain competitive advantages through real-time insights and predictive analytics.",
+      "readTime": "8 min"
+    },
+    {
+      "id": "ethics-of-ai-balancing-innovation",
+      "title": "The Ethics of AI: Balancing Innovation with Accountability",
+      "date": "2025-01-01",
+      "author": {
+        "name": "Basil Jilani",
+        "role": "AI and FinTech Expert"
+      },
+      "category": "ai-ml",
+      "tags": ["AI Ethics", "Innovation", "Business Strategy", "Accountability", "Regulation"],
+      "excerpt": "Exploring the critical balance between AI innovation and ethical accountability in modern business, focusing on transparency, fairness, and responsible deployment strategies.",
+      "readTime": "8 min"
+    },
+    {
+      "id": "ai-business-strategy-2025",
+      "title": "Beyond the Hype: How AI is Shaping Business Strategy in 2025",
+      "excerpt": "An in-depth analysis of how artificial intelligence has evolved from an automation tool to a strategic imperative in business decision-making.",
+      "date": "2025-01-01",
+      "readTime": "9 min",
+      "category": "ai-ml",
+      "author": {
+        "name": "Basil Jilani",
+        "role": "FinTech and AI Expert"
+      }
+    },
+    {
       "id": "ai-fintech-revolution",
       "title": "The AI-Driven FinTech Revolution: From Chatbots to Predictive Banking",
       "excerpt": "Explore how artificial intelligence is transforming financial technology, from personalized banking experiences to fraud prevention, and what the future holds for AI in finance.",
       "date": "2025-01-01",
-      "readTime": "11 min",
+      "readTime": "8 min",
       "category": "fintech",
       "author": {
         "name": "Basil Jilani",
-        "role": "FinTech Expert"
+        "role": "FinTech and AI Expert"
       }
     },
     {
@@ -17,7 +81,7 @@
       "title": "Embedded Finance: The Future of Seamless Customer Experiences",
       "excerpt": "Discover how embedded finance is revolutionizing industries by integrating financial services into non-financial platforms, creating seamless experiences and unlocking new opportunities.",
       "date": "2025-01-01",
-      "readTime": "10 min",
+      "readTime": "8 min",
       "category": "fintech",
       "author": {
         "name": "Basil Jilani",
@@ -29,7 +93,7 @@
       "title": "FinTech and Financial Inclusion: Breaking Barriers in Emerging Markets",
       "excerpt": "Exploring how FinTech is revolutionizing financial access in emerging markets, driving economic growth, and transforming lives through innovative solutions.",
       "date": "2025-01-01",
-      "readTime": "11 min",
+      "readTime": "9 min",
       "category": "fintech",
       "author": {
         "name": "Basil Jilani",
@@ -41,7 +105,7 @@
       "title": "Decoding Digital Payments: A Global Analysis of Trends and Opportunities",
       "excerpt": "From mobile wallets to blockchain-based solutions, explore how digital payments are reshaping the global financial landscape and creating new opportunities.",
       "date": "2025-01-01",
-      "readTime": "12 min",
+      "readTime": "9 min",
       "category": "fintech",
       "author": {
         "name": "Basil Jilani",
@@ -53,11 +117,11 @@
       "title": "The FinTech Renaissance: Bridging Tradition and Innovation",
       "excerpt": "Exploring how FinTech is reshaping traditional banking, blending innovation with operational resilience, and navigating regulatory landscapes.",
       "date": "2025-01-01",
-      "readTime": "10 min",
+      "readTime": "7 min",
       "category": "fintech",
       "author": {
         "name": "Basil Jilani",
-        "role": "FinTech Expert"
+        "role": "Expert in FinTech and AI"
       }
     }
   ]
