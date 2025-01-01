@@ -250,7 +250,10 @@ const Home: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="inline-block"
             >
-              <button className="px-8 py-3 bg-indigo-600 text-white rounded-lg text-lg font-medium hover:bg-indigo-700 transition-colors">
+              <button 
+                onMouseEnter={() => navigate('/community')}
+                className="px-8 py-3 bg-indigo-600 text-white rounded-lg text-lg font-medium hover:bg-indigo-700 transition-colors"
+              >
                 Join Our Community
               </button>
             </motion.div>

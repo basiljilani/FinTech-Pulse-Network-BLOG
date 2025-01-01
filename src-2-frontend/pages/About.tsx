@@ -1,129 +1,129 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Target, 
-  BookOpen, 
-  Users, 
   Brain,
-  Globe,
-  Shield,
-  Zap,
-  BarChart,
-  Building2,
-  Newspaper,
-  GraduationCap,
-  Network,
-  DollarSign,
-  TrendingUp,
-  Lightbulb,
-  Code,
-  LineChart,
   Rocket,
-  Award
+  LineChart,
+  Users,
+  Zap,
+  Target,
+  Globe,
+  BookOpen,
+  MessageCircle,
+  BarChart,
+  Bot,
+  Network,
+  Lightbulb,
+  Award,
+  TrendingUp,
+  GraduationCap,
+  LucideIcon
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+interface Feature {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
+
 const About: React.FC = () => {
   const navigate = useNavigate();
-  const fadeInUp = {
+  const [percentage, setPercentage] = useState(0);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setPercentage(prev => {
+          if (prev >= 75) {
+            clearInterval(interval);
+            return 75;
+          }
+          return prev + 1;
+        });
+      }, 20);
+
+      return () => clearInterval(interval);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const fadeInUpVariant = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 }
   };
 
-  const marketOpportunities = [
+  const pulseAIFeatures: Feature[] = [
     {
-      icon: TrendingUp,
-      title: "Market Growth",
-      description: "The professional content and insights market demonstrates remarkable strength with annual revenue for premium business content reaching $38.4 billion globally.",
-      stats: "15% YoY Growth"
+      icon: Brain,
+      title: "Adaptive Learning",
+      description: "Personalized conversations that adapt to your expertise level and learning style"
     },
     {
-      icon: Lightbulb,
-      title: "Innovation Gap",
-      description: "Traditional publications lack community engagement and interactive learning features, while professional networks lack specialized focus and premium content quality.",
-      stats: "27% Higher Subscription Rates"
+      icon: BookOpen,
+      title: "Smart Summarization",
+      description: "Instant article summaries and deep dives tailored to your needs"
     },
     {
-      icon: Building2,
-      title: "Enterprise Demand",
-      description: "Financial services sector spends more on premium content than any other industry, with executives allocating significant budgets to staying current.",
-      stats: "$2,800 Annual Spend"
+      icon: MessageCircle,
+      title: "Interactive Discussions",
+      description: "Transform static content into dynamic, engaging conversations"
     }
   ];
 
-  const platformFeatures = [
+  const pulseAIV2Features: Feature[] = [
     {
-      icon: Newspaper,
-      title: "Premium Content Hub",
-      description: "Access cutting-edge insights and analysis from industry leaders",
-      details: [
-        "Banking Innovation Reports",
-        "Regulatory Technology Updates",
-        "AI Applications Case Studies",
-        "Emerging Fintech Trends",
-        "Digital Transformation Guides"
-      ]
+      icon: LineChart,
+      title: "Market Sentiment Analysis",
+      description: "Real-time analysis of market trends and sentiment"
     },
     {
-      icon: GraduationCap,
-      title: "Interactive Learning",
-      description: "Transform passive reading into active knowledge acquisition",
-      details: [
-        "Expert-led Discussions",
-        "Implementation Workshops",
-        "Case Study Breakdowns",
-        "Peer Learning Groups",
-        "Industry Roundtables"
-      ]
+      icon: Target,
+      title: "Predictive Insights",
+      description: "Industry-specific forecasting and trend prediction"
+    },
+    {
+      icon: Users,
+      title: "Collaborative Intelligence",
+      description: "Team-based learning and shared AI-driven insights"
+    }
+  ];
+
+  const uniqueFeatures: Feature[] = [
+    {
+      icon: Zap,
+      title: "Hyper-Personalization",
+      description: "A platform that evolves with your learning journey and professional growth"
+    },
+    {
+      icon: Award,
+      title: "Premium Content",
+      description: "Proprietary insights powered by real-time data and AI-driven analysis"
+    },
+    {
+      icon: Globe,
+      title: "Global Community",
+      description: "Connect with fintech professionals, students, and enterprises worldwide"
+    }
+  ];
+
+  const interactiveFeatures: Feature[] = [
+    {
+      icon: Bot,
+      title: "AI Discussions",
+      description: "Engage in real-time article discussions with Pulse AI"
+    },
+    {
+      icon: BarChart,
+      title: "Custom Reports",
+      description: "Generate personalized insights and analysis reports"
     },
     {
       icon: Network,
-      title: "Professional Community",
-      description: "Build meaningful connections within the fintech ecosystem",
-      details: [
-        "Industry-specific Networking",
-        "Expert Verification System",
-        "Knowledge Sharing Forums",
-        "Collaborative Problem-solving",
-        "Mentorship Opportunities"
-      ]
-    }
-  ];
-
-  const growthPhases = [
-    {
-      icon: Rocket,
-      phase: "Phase 1: Content Foundation",
-      items: [
-        "500+ Premium Articles",
-        "50 Industry Expert Partners",
-        "Editorial Standards Framework",
-        "Community Guidelines",
-        "Content Quality Metrics"
-      ]
-    },
-    {
-      icon: Code,
-      phase: "Phase 2: Community Growth",
-      items: [
-        "Interactive Feature Suite",
-        "Expert Verification System",
-        "Learning Program Launch",
-        "Content Category Expansion",
-        "Community Events Platform"
-      ]
-    },
-    {
-      icon: LineChart,
-      phase: "Phase 3: Enterprise Expansion",
-      items: [
-        "Team Collaboration Tools",
-        "Enterprise API Access",
-        "Custom Solution Development",
-        "Global Market Expansion",
-        "Advanced Analytics Suite"
-      ]
+      title: "Expert Network",
+      description: "Connect with industry leaders and participate in expert-led discussions"
     }
   ];
 
@@ -139,52 +139,46 @@ const About: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              The Bloomberg of
-              <span className="block mt-2 text-indigo-400">
-                Tomorrow
+              Redefining FinTech Knowledge
+              <span className="block mt-2 bg-gradient-to-r from-purple-600 to-indigo-500 bg-clip-text text-transparent">
+                for the Next Era
               </span>
             </h1>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-8">
-              Fintech Pulse Network is positioning itself to become the definitive source for fintech, banking, regulatory, and AI insights – combining premium content with an engaged professional community.
+              FinTech Pulse Network isn't just a platform—it's a revolution in how you explore, learn, and engage with fintech insights. Powered by advanced AI and tailored for every user, we're creating the future of financial intelligence.
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-400">
-              <div className="bg-gray-900 px-4 py-2 rounded-full">50,000+ Registered Users</div>
-              <div className="bg-gray-900 px-4 py-2 rounded-full">7,500+ Premium Subscribers</div>
-              <div className="bg-gray-900 px-4 py-2 rounded-full">100+ Enterprise Clients</div>
-            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Market Opportunity */}
+      {/* Pulse AI Section */}
       <section className="py-24 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUp}
+            {...fadeInUpVariant}
           >
-            <h2 className="text-3xl font-bold mb-4">Market Opportunity</h2>
+            <h2 className="text-3xl font-bold mb-4">Meet Pulse AI: Your Personalized Knowledge Companion</h2>
             <p className="text-gray-400">
-              The professional content and insights market demonstrates unprecedented potential for growth and innovation
+              Pulse AI is more than a chatbot; it's your fintech mentor. Designed to adapt to your unique learning style, it delivers tailored insights, challenges your thinking, and provides actionable intelligence in real time.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {marketOpportunities.map((item, index) => (
+            {pulseAIFeatures.map((feature, index) => (
               <motion.div
-                key={item.title}
+                key={feature.title}
                 className="bg-gray-900 rounded-lg p-8 relative overflow-hidden group"
-                {...fadeInUp}
+                {...fadeInUpVariant}
                 transition={{ delay: index * 0.1 }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">
                   <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-6">
-                    {React.createElement(item.icon, { className: "w-6 h-6 text-indigo-400" })}
+                    {React.createElement(feature.icon, { className: "w-6 h-6 text-indigo-400" })}
                   </div>
-                  <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
-                  <p className="text-gray-400 mb-4">{item.description}</p>
-                  <div className="text-indigo-400 font-semibold">{item.stats}</div>
+                  <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+                  <p className="text-gray-400">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -192,42 +186,105 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Platform Features */}
+      {/* Pulse AI V2 Section */}
+      <section className="py-24 border-b border-gray-800 bg-gray-900/50">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto mb-16"
+            {...fadeInUpVariant}
+          >
+            <h2 className="text-3xl font-bold mb-4">Pulse AI V2: The Evolution of Intelligent Engagement</h2>
+            <p className="text-gray-400">
+              Pulse AI V2 takes innovation a step further with advanced analytics, predictive insights, and collaborative tools. Imagine an AI that doesn't just inform but empowers decision-making through foresight and strategy.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {pulseAIV2Features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                className="bg-black rounded-lg p-8 relative overflow-hidden group"
+                {...fadeInUpVariant}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center mb-6">
+                    {React.createElement(feature.icon, { className: "w-6 h-6 text-indigo-400" })}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+                  <p className="text-gray-400">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div 
+            className="max-w-md mx-auto text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <div className="mb-4">
+              <span className="text-indigo-400 font-medium text-xl">Coming Soon!</span>
+            </div>
+            <div className="relative h-1 w-full bg-gray-800/50 rounded-full overflow-hidden mb-2">
+              <div 
+                className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 relative"
+                style={{
+                  width: `${percentage}%`,
+                  animation: 'loading 2s linear infinite'
+                } as React.CSSProperties}
+              />
+            </div>
+            <div className="text-sm text-indigo-400/80 font-medium mb-1">
+              Development: {percentage}% Complete
+            </div>
+            <div className="text-xs text-gray-500">
+              March 2025
+            </div>
+            <style global jsx>{`
+              @keyframes loading {
+                0% {
+                  transform: translateX(-100%);
+                }
+                100% {
+                  transform: translateX(100%);
+                }
+              }
+            `}</style>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Our Unique Approach */}
       <section className="py-24 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUp}
+            {...fadeInUpVariant}
           >
-            <h2 className="text-3xl font-bold mb-4">The Premium Knowledge Network</h2>
+            <h2 className="text-3xl font-bold mb-4">What Makes Us Different</h2>
             <p className="text-gray-400">
-              A comprehensive ecosystem that combines premium content, interactive learning, and professional networking
+              We don't just curate content. We create an ecosystem where learning, collaboration, and innovation converge.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {platformFeatures.map((feature, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {uniqueFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                className="bg-gray-900 rounded-lg p-8 relative group"
-                {...fadeInUp}
+                className="bg-gray-900 rounded-lg p-8 relative overflow-hidden group"
+                {...fadeInUpVariant}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">
                   <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-6">
                     {React.createElement(feature.icon, { className: "w-6 h-6 text-indigo-400" })}
                   </div>
                   <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-                  <p className="text-gray-400 mb-6">{feature.description}</p>
-                  <ul className="space-y-3">
-                    {feature.details.map((detail, idx) => (
-                      <li key={idx} className="flex items-center text-gray-400">
-                        <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                        {detail}
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-gray-400">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -235,161 +292,114 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Growth Strategy */}
+      {/* Vision Section */}
+      <section className="py-24 border-b border-gray-800 bg-gray-900/50">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto mb-16"
+            {...fadeInUpVariant}
+          >
+            <h2 className="text-3xl font-bold mb-4">Building the Future of Financial Knowledge</h2>
+            <p className="text-gray-400">
+              At FinTech Pulse, we envision a world where every professional has the tools to stay ahead, every student learns interactively, and every enterprise drives innovation effortlessly.
+            </p>
+          </motion.div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="relative pl-8 border-l-2 border-indigo-500">
+              <motion.div 
+                className="mb-12"
+                {...fadeInUpVariant}
+              >
+                <div className="absolute -left-2 w-4 h-4 bg-indigo-500 rounded-full" />
+                <h3 className="text-xl font-semibold mb-2">RegTech & InsurTech Expansion</h3>
+                <p className="text-gray-400">Broadening our coverage to include regulatory technology and insurance innovation</p>
+              </motion.div>
+
+              <motion.div 
+                className="mb-12"
+                {...fadeInUpVariant}
+                transition={{ delay: 0.1 }}
+              >
+                <div className="absolute -left-2 w-4 h-4 bg-indigo-500 rounded-full" />
+                <h3 className="text-xl font-semibold mb-2">Global Knowledge Network</h3>
+                <p className="text-gray-400">Multilingual support and region-specific insights for global audiences</p>
+              </motion.div>
+
+              <motion.div 
+                {...fadeInUpVariant}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="absolute -left-2 w-4 h-4 bg-indigo-500 rounded-full" />
+                <h3 className="text-xl font-semibold mb-2">AI-Driven Certification</h3>
+                <p className="text-gray-400">Revolutionary certification programs powered by adaptive AI learning</p>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive Features */}
       <section className="py-24 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUp}
+            {...fadeInUpVariant}
           >
-            <h2 className="text-3xl font-bold mb-4">Growth Strategy</h2>
+            <h2 className="text-3xl font-bold mb-4">Beyond Reading: Experience Knowledge</h2>
             <p className="text-gray-400">
-              Our comprehensive roadmap to revolutionize fintech knowledge sharing
+              Turn passive consumption into active learning with features that redefine engagement.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {growthPhases.map((phase, index) => (
+            {interactiveFeatures.map((feature, index) => (
               <motion.div
-                key={phase.phase}
-                className="bg-gray-900 rounded-lg p-8"
-                {...fadeInUp}
+                key={feature.title}
+                className="bg-gray-900 rounded-lg p-8 relative overflow-hidden group"
+                {...fadeInUpVariant}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-6">
-                  {React.createElement(phase.icon, { className: "w-6 h-6 text-indigo-400" })}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
+                <div className="relative">
+                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-6">
+                    {React.createElement(feature.icon, { className: "w-6 h-6 text-indigo-400" })}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+                  <p className="text-gray-400">{feature.description}</p>
                 </div>
-                <h3 className="text-xl font-semibold mb-6">{phase.phase}</h3>
-                <ul className="space-y-4">
-                  {phase.items.map((item, idx) => (
-                    <li key={idx} className="flex items-center text-gray-400">
-                      <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Subscription Plans */}
+      {/* CTA Section */}
       <section className="py-24">
         <div className="container mx-auto px-4">
           <motion.div 
-            className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUp}
+            className="text-center max-w-3xl mx-auto"
+            {...fadeInUpVariant}
           >
-            <h2 className="text-3xl font-bold mb-4">Subscription Plans</h2>
-            <p className="text-gray-400">
-              Choose the plan that best fits your professional development needs
+            <h2 className="text-3xl font-bold mb-4">Your Journey to FinTech Mastery Starts Here</h2>
+            <p className="text-gray-400 mb-8">
+              Join the FinTech Pulse Network to experience the evolution of financial knowledge. Whether you're a professional, a student, or a visionary enterprise, this is your gateway to innovation.
             </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <button 
+                onClick={() => navigate('/chatbot')}
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-full font-medium transition-colors duration-200"
+              >
+                Get Started
+              </button>
+              <button 
+                onClick={() => navigate('/ai-companion')}
+                className="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 rounded-full font-medium transition-colors duration-200"
+              >
+                Learn More About Pulse AI
+              </button>
+            </div>
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div 
-              className="bg-gray-900 rounded-lg p-8 relative group"
-              {...fadeInUp}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-gray-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <div className="text-xl font-semibold mb-2">Basic</div>
-                <div className="text-indigo-400 mb-6">Free</div>
-                <ul className="space-y-4 text-gray-400">
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Limited access to articles
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Basic community features
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Industry news updates
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Public discussion access
-                  </li>
-                </ul>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              className="bg-gray-900 rounded-lg p-8 relative group"
-              {...fadeInUp}
-              transition={{ delay: 0.1 }}
-            >
-              <div className="absolute -top-4 right-4 bg-indigo-500 text-white px-3 py-1 rounded-full text-sm">Popular</div>
-              <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <div className="text-xl font-semibold mb-2">Professional</div>
-                <div className="text-indigo-400 mb-6">$29/month</div>
-                <ul className="space-y-4 text-gray-400">
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Full content access
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Community participation
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Interactive learning features
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Expert-led workshops
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Networking events access
-                  </li>
-                </ul>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              className="bg-gray-900 rounded-lg p-8 relative group"
-              {...fadeInUp}
-              transition={{ delay: 0.2 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-b from-gray-800/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative">
-                <div className="text-xl font-semibold mb-2">Enterprise</div>
-                <div className="text-indigo-400 mb-6">$499/month</div>
-                <ul className="space-y-4 text-gray-400">
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Team licenses (up to 20 users)
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Custom content curation
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Private discussion groups
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Advanced analytics dashboard
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    API integration access
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-3" />
-                    Priority support
-                  </li>
-                </ul>
-              </div>
-            </motion.div>
-          </div>
         </div>
       </section>
     </div>

@@ -2,363 +2,291 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   Users, 
-  MessageCircle, 
+  BookOpen, 
   Rocket, 
-  Award, 
-  TrendingUp, 
-  Globe,
-  Zap,
-  UserPlus,
-  Share2,
-  Lightbulb,
-  Network,
   Brain,
-  Quote,
-  Star
+  Calendar,
+  MessageCircle,
+  Award,
+  TrendingUp,
+  Globe,
+  Code,
+  ArrowRight
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const Community = () => {
+interface Testimonial {
+  quote: string;
+  author: string;
+  role?: string;
+}
+
+interface Event {
+  title: string;
+  type: 'global' | 'networking' | 'learning';
+  date: string;
+  icon: React.ElementType;
+}
+
+const Community: React.FC = () => {
   const navigate = useNavigate();
 
-  const testimonials = [
+  const testimonials: Testimonial[] = [
     {
-      name: "Sarah Chen",
-      role: "Fintech Innovation Lead",
-      company: "Digital Banking Solutions",
-      quote: "Being part of this community has transformed my understanding of fintech. The insights and connections I've made here are invaluable.",
-      rating: 5
+      quote: "Being part of this community has completely changed how I approach fintech trends and challenges. The connections I've made are invaluable.",
+      author: "Sarah Chen",
+      role: "FinTech Innovator"
     },
     {
-      name: "Michael Rodriguez",
-      role: "Blockchain Developer",
-      company: "Crypto Innovations Inc",
-      quote: "The level of expertise and willingness to share knowledge in this community is unprecedented. It's become my go-to resource for staying ahead in fintech.",
-      rating: 5
+      quote: "The opportunities to collaborate and learn are endless here. It's a one-stop solution for all things fintech.",
+      author: "Michael Rodriguez",
+      role: "Blockchain Developer"
     },
     {
-      name: "Aisha Patel",
-      role: "RegTech Specialist",
-      company: "Global Compliance Solutions",
-      quote: "From mentorship opportunities to collaborative projects, this platform has accelerated my professional growth in ways I never expected.",
-      rating: 5
+      quote: "This platform gave me the mentorship and tools I needed to advance my career.",
+      author: "Aisha Patel",
+      role: "RegTech Specialist"
     }
   ];
 
-  const communityStats = [
+  const upcomingEvents: Event[] = [
     {
-      icon: Users,
-      title: "Global Network",
-      description: "Join a thriving community of fintech professionals, developers, and industry experts from around the world.",
-      stats: "Growing Community"
+      title: "FinTech Innovation Summit",
+      type: "global",
+      date: "March 15, 2025",
+      icon: Globe
     },
     {
-      icon: MessageCircle,
-      title: "Active Discussions",
-      description: "Engage in meaningful conversations about the latest trends, challenges, and innovations in financial technology.",
-      stats: "Daily Discussions"
+      title: "Blockchain Workshop Series",
+      type: "learning",
+      date: "March 20, 2025",
+      icon: Code
     },
     {
-      icon: Award,
-      title: "Expert Contributors",
-      description: "Learn from and connect with verified industry experts who share their knowledge and experiences regularly.",
-      stats: "Industry Experts"
+      title: "RegTech Roundtable",
+      type: "networking",
+      date: "March 25, 2025",
+      icon: Users
     }
   ];
 
-  const communityFeatures = [
-    {
-      icon: Network,
-      title: "Professional Networking",
-      description: "Build meaningful connections in the fintech space",
-      details: [
-        "Industry-specific Groups",
-        "Mentor Matching",
-        "Peer Learning Circles",
-        "Expert Directory",
-        "Virtual Networking Events"
-      ]
-    },
-    {
-      icon: Brain,
-      title: "Knowledge Sharing",
-      description: "Collaborate and learn from the community",
-      details: [
-        "Discussion Forums",
-        "Resource Library",
-        "Code Repositories",
-        "Case Study Sharing",
-        "Best Practice Guides"
-      ]
-    },
-    {
-      icon: Rocket,
-      title: "Growth Opportunities",
-      description: "Accelerate your professional development",
-      details: [
-        "Job Board Access",
-        "Skill Development",
-        "Certification Programs",
-        "Project Collaboration",
-        "Leadership Opportunities"
-      ]
-    }
-  ];
-
-  const upcomingEvents = [
-    {
-      icon: Globe,
-      title: "Global Events",
-      items: [
-        "FinTech Innovation Summit",
-        "Blockchain Workshop Series",
-        "AI in Finance Meetup",
-        "RegTech Roundtable",
-        "Startup Pitch Day"
-      ]
-    },
-    {
-      icon: UserPlus,
-      title: "Networking Activities",
-      items: [
-        "Speed Networking Sessions",
-        "Industry Expert AMAs",
-        "Regional Meetups",
-        "Career Fair",
-        "Mentorship Program"
-      ]
-    },
-    {
-      icon: Share2,
-      title: "Learning Sessions",
-      items: [
-        "Technical Workshops",
-        "Industry Trends Webinars",
-        "Code Review Sessions",
-        "Product Demo Days",
-        "Hackathons"
-      ]
-    }
-  ];
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  };
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E]">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <div className="container mx-auto px-4 pt-32 pb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-            Join Our Global
-            <span className="block mt-2 text-[#8B5CF6]">
-              FinTech Community
-            </span>
-          </h1>
-
-          {/* Inspiring Quote */}
-          <div className="my-8 relative">
-            <Quote className="w-8 h-8 text-[#8B5CF6] absolute -left-4 -top-4 opacity-50" />
-            <p className="text-2xl text-gray-300 italic">
-              "Innovation in financial technology is not just about building solutions; it's about building connections that drive the future of finance."
-            </p>
-          </div>
-
-          <p className="text-xl text-gray-300 mb-12">
-            Connect, collaborate, and grow with fellow fintech enthusiasts and professionals
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Community Stats */}
-      <div className="bg-[#0D1321] py-24">
+      <section className="min-h-screen flex items-center justify-center bg-black border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
+            className="max-w-4xl mx-auto text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl font-bold mb-4 text-white">Community Impact</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Join a thriving ecosystem of fintech professionals making an impact in the industry
+            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
+              Where Innovation
+              <span className="block mt-2 bg-gradient-to-r from-purple-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                Meets Connection
+              </span>
+            </h1>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
+              Join the global fintech community redefining collaboration, growth, and innovation. 
+              Discover insights, connect with industry leaders, and access opportunities that fuel your professional journey.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 rounded-lg text-lg font-medium hover:bg-indigo-500 transition-colors"
+              onClick={() => window.open('https://discord.gg/NHuzsq9fqe', '_blank')}
+            >
+              <span>Become a Member</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Why Join Section */}
+      <section className="py-32 bg-gray-950 border-b border-gray-800">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto mb-20"
+            {...fadeInUp}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Empowering FinTech Minds to Thrive
+            </h2>
+            <p className="text-xl text-gray-300">
+              Our community is more than a network—it's a movement where knowledge, collaboration, and innovation come together.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {communityStats.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-[#1A1F2E] rounded-2xl p-8 hover:bg-[#1E2435] transition-all duration-300"
-              >
-                <div className="w-14 h-14 bg-[#8B5CF6]/20 rounded-xl flex items-center justify-center mb-6">
-                  {React.createElement(item.icon, { className: 'w-7 h-7 text-[#8B5CF6]' })}
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-white">{item.title}</h3>
-                <p className="text-gray-300 mb-4">{item.description}</p>
-                <div className="text-[#8B5CF6] font-semibold">{item.stats}</div>
-              </motion.div>
-            ))}
+            <motion.div
+              className="bg-black/40 rounded-xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <BookOpen className="w-12 h-12 text-indigo-400 mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Exclusive Knowledge</h3>
+              <p className="text-gray-300">
+                Access cutting-edge resources, industry reports, and actionable insights tailored to your goals.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-black/40 rounded-xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Users className="w-12 h-12 text-indigo-400 mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Collaborative Opportunities</h3>
+              <p className="text-gray-300">
+                Connect with fintech leaders, developers, and visionaries through mentorship programs and peer learning circles.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-black/40 rounded-xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Rocket className="w-12 h-12 text-indigo-400 mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Career Advancement</h3>
+              <p className="text-gray-300">
+                Unlock skill-building sessions, certification opportunities, and job boards to accelerate your growth.
+              </p>
+            </motion.div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Community Features */}
-      <div className="py-24">
+      {/* Pulse AI Section */}
+      <section className="py-32 bg-gray-950 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center max-w-3xl mx-auto mb-20"
+            {...fadeInUp}
           >
-            <h2 className="text-3xl font-bold mb-4 text-white">Community Features</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Everything you need to connect, learn, and grow in the fintech industry
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Transforming Conversations with Pulse AI
+            </h2>
+            <p className="text-xl text-gray-300">
+              Get personalized recommendations, stay updated, and engage in meaningful discussions—all powered by Pulse AI.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {communityFeatures.map((feature, index) => (
+            <motion.div
+              className="bg-gray-900/40 rounded-3xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px] relative z-10 before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-gray-900/20 before:rounded-3xl before:z-[-1]"
+              {...fadeInUp}
+              transition={{ delay: 0.2 }}
+            >
+              <Brain className="w-12 h-12 text-indigo-400 mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Personalized Learning</h3>
+              <p className="text-gray-300">
+                Discover content tailored to your expertise level and interests.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-gray-900/40 rounded-3xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px] relative z-10 before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-gray-900/20 before:rounded-3xl before:z-[-1]"
+              {...fadeInUp}
+              transition={{ delay: 0.3 }}
+            >
+              <MessageCircle className="w-12 h-12 text-indigo-400 mb-6" />
+              <h3 className="text-xl font-semibold mb-4">AI-Moderated Discussions</h3>
+              <p className="text-gray-300">
+                Engage in meaningful conversations enhanced by AI-driven insights.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-gray-900/40 rounded-3xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px] relative z-10 before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-gray-900/20 before:rounded-3xl before:z-[-1]"
+              {...fadeInUp}
+              transition={{ delay: 0.4 }}
+            >
+              <TrendingUp className="w-12 h-12 text-indigo-400 mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Trend Analysis</h3>
+              <p className="text-gray-300">
+                Stay ahead with AI-powered industry trend analysis and predictions.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-32 bg-gray-950 border-b border-gray-800">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center max-w-3xl mx-auto mb-20"
+            {...fadeInUp}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">What Members Are Saying</h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
               <motion.div
-                key={feature.title}
+                key={testimonial.author}
+                className="bg-black/40 rounded-xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-[#1A1F2E] rounded-2xl p-8 hover:bg-[#1E2435] transition-all duration-300"
+                transition={{ delay: index * 0.1 }}
               >
-                <div className="w-14 h-14 bg-[#8B5CF6]/20 rounded-xl flex items-center justify-center mb-6">
-                  {React.createElement(feature.icon, { className: 'w-7 h-7 text-[#8B5CF6]' })}
+                <p className="text-gray-300 mb-6 italic">"{testimonial.quote}"</p>
+                <div>
+                  <p className="font-semibold text-white">{testimonial.author}</p>
+                  {testimonial.role && (
+                    <p className="text-indigo-400 text-sm">{testimonial.role}</p>
+                  )}
                 </div>
-                <h3 className="text-xl font-semibold mb-4 text-white">{feature.title}</h3>
-                <p className="text-gray-300 mb-6">{feature.description}</p>
-                <ul className="space-y-3">
-                  {feature.details.map((detail, i) => (
-                    <li key={i} className="flex items-center text-gray-300">
-                      <Zap className="w-4 h-4 text-[#8B5CF6] mr-2" />
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Upcoming Events */}
-      <div className="bg-[#0D1321] py-24">
+      {/* Upcoming Events Section */}
+      <section className="py-32 bg-black border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center max-w-3xl mx-auto mb-20"
+            {...fadeInUp}
           >
-            <h2 className="text-3xl font-bold mb-4 text-white">Upcoming Events</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Join our upcoming events and activities to connect with the community
-            </p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Stay Ahead with Exclusive Events</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {upcomingEvents.map((event, index) => (
               <motion.div
                 key={event.title}
+                className="bg-gray-900/40 rounded-xl p-8 border border-gray-800 hover:border-indigo-500/50 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(79,70,229,0.1)] hover:translate-y-[-2px]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-[#1A1F2E] rounded-2xl p-8 hover:bg-[#1E2435] transition-all duration-300"
+                transition={{ delay: index * 0.1 }}
               >
-                <div className="w-14 h-14 bg-[#8B5CF6]/20 rounded-xl flex items-center justify-center mb-6">
-                  {React.createElement(event.icon, { className: 'w-7 h-7 text-[#8B5CF6]' })}
-                </div>
-                <h3 className="text-xl font-semibold mb-6 text-white">{event.title}</h3>
-                <ul className="space-y-3">
-                  {event.items.map((item, i) => (
-                    <li key={i} className="flex items-center text-gray-300">
-                      <Lightbulb className="w-4 h-4 text-[#8B5CF6] mr-2" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                {React.createElement(event.icon, { 
+                  className: "w-12 h-12 text-indigo-400 mb-6"
+                })}
+                <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
+                <p className="text-indigo-400 text-sm mb-4">{event.date}</p>
+                <span className="inline-block px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">
+                  {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                </span>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="py-24">
-        <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-2xl mx-auto"
-          >
-            <h2 className="text-3xl font-bold mb-6 text-white">Ready to Join?</h2>
-            <p className="text-gray-300 mb-10 text-lg">
-              Become part of our growing community and help shape the future of financial technology.
-            </p>
-            <a 
-              href="https://discord.gg/NHuzsq9fqe"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-10 py-4 bg-[#8B5CF6] rounded-xl hover:bg-[#7C3AED] transition-colors text-lg font-semibold text-white cursor-pointer"
-            >
-              Join the Community
-            </a>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Testimonials Section */}
-      <div className="py-24 bg-[#0D1321]">
-        <div className="container mx-auto px-4">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl font-bold mb-4 text-white">Community Voices</h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Hear from our members about their experiences in our community
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-[#1A1F2E] rounded-2xl p-8 hover:bg-[#1E2435] transition-all duration-300"
-              >
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-[#8B5CF6] fill-current" />
-                  ))}
-                </div>
-                <Quote className="w-8 h-8 text-[#8B5CF6] mb-4 opacity-50" />
-                <p className="text-gray-300 mb-6 italic">{testimonial.quote}</p>
-                <div className="border-t border-gray-700 pt-4">
-                  <p className="text-white font-semibold">{testimonial.name}</p>
-                  <p className="text-gray-400">{testimonial.role}</p>
-                  <p className="text-[#8B5CF6]">{testimonial.company}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
   );
 };

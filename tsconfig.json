@@ -10,12 +10,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src-2-frontend/*"], // Corrected path
+      "@/*": ["src-2-frontend/*"],
       "@lib/*": ["src-2-frontend/lib/*"]
     },
     "allowJs": true,
