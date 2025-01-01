@@ -3,51 +3,22 @@
   "@type": "Organization",
   "name": "FinTech Pulse Network",
   "alternateName": "FPN",
-  "url": "https://fintechpulsenetwork.com",
-  "logo": "https://fintechpulsenetwork.com/pulse-logo.svg",
-  "description": "FinTech Pulse Network (FPN) is a leading platform providing AI-driven insights, analysis, and networking opportunities in the financial technology sector.",
-  "sameAs": [
-    "https://www.linkedin.com/company/fintechpulse-net/",
-    "https://twitter.com/fintechpulse",
-    "https://facebook.com/fintechpulsenetwork",
-    "https://instagram.com/fintechpulsenetwork"
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "US"
-  },
-  "foundingDate": "2024",
+  "url": "https://fintechpulse.net",
+  "logo": "https://fintechpulse.net/pulse-logo.svg",
+  "description": "Transform your financial content creation with our advanced AI automation platform. Save time, ensure accuracy, and scale your content production.",
   "founder": {
     "@type": "Person",
     "name": "Basil Jilani",
-    "jobTitle": "CEO & Founder",
-    "sameAs": "https://www.linkedin.com/in/basiljilani/"
+    "jobTitle": "Founder & CEO",
+    "url": "https://www.linkedin.com/in/basiljilani/"
   },
-  "knowsAbout": [
-    "Financial Technology",
-    "Artificial Intelligence",
-    "Machine Learning",
-    "Digital Banking",
-    "Blockchain",
-    "Digital Payments",
-    "Financial Inclusion"
-  ],
-  "numberOfEmployees": {
-    "@type": "QuantitativeValue",
-    "minValue": "1",
-    "maxValue": "10"
+  "foundingDate": "2024",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "United States"
   },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://fintechpulsenetwork.com"
-  },
-  "subOrganization": [
-    {
-      "@type": "Organization",
-      "name": "FPN Insights",
-      "description": "Research and analysis division providing in-depth FinTech and AI/ML insights"
-    }
-  ],
-  "publishingPrinciples": "https://fintechpulsenetwork.com/about",
-  "slogan": "AI-Driven Financial Technology Insights"
+  "sameAs": [
+    "https://www.linkedin.com/company/fintech-pulse-network",
+    "https://github.com/basiljilani/FinTech-Pulse-Network-BLOG"
+  ]
 }
