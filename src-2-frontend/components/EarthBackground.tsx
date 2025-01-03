@@ -5,7 +5,7 @@ const EarthBackground: React.FC = () => {
     <div className="absolute inset-0 overflow-hidden bg-black">
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=100&w=3840"
+          src="/images/earth-background.jpg"
           alt="Earth at night from space"
           className="w-full h-full object-cover"
         />

@@ -5,6 +5,7 @@ import { Clock, Calendar, Search, Landmark, Brain, FileText } from 'lucide-react
 import { Helmet } from 'react-helmet-async';
 import { categories } from '../data/articles';
 import type { ArticleContent } from '../lib/content';
+import MagicalLibraryBackground from '../components/MagicalLibraryBackground';
 
 const Insights: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -169,29 +170,26 @@ const Insights: React.FC = () => {
       </Helmet>
       <div className="min-h-screen bg-[#0A0F1E] text-gray-100 pb-20">      
         {/* Hero Section */}
-        <div className="container mx-auto px-4 pt-32 pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] via-[#6366F1] to-[#3B82F6] px-2 py-4 leading-normal">
-              Insights & Analysis
-            </h1>
-            <div className="space-y-6">
-              <p className="text-xl md:text-2xl px-4 leading-relaxed">
-                <span className="bg-gradient-to-r from-gray-100 to-gray-300 text-transparent bg-clip-text inline-block py-1">
-                  Unlock the power of informed decision-making with our comprehensive insights. Dive into expert analyses, uncover emerging trends, and access strategic recommendations tailored to elevate your strategy.
-                </span>
-              </p>
-              <p className="text-xl md:text-2xl px-4 leading-relaxed">
-                <span className="bg-gradient-to-r from-gray-200 to-gray-400 text-transparent bg-clip-text inline-block py-1">
-                  Stay ahead of the curve and make confident choices for a successful future.
-                </span>
-              </p>
-            </div>
-          </motion.div>
+        <div className="relative min-h-[60vh] flex items-center justify-center mb-8">
+          <MagicalLibraryBackground />
+          <div className="relative z-10 text-center px-4 py-16 max-w-4xl mx-auto">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
+            >
+              FinTech Insights & Analysis
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-lg md:text-xl text-gray-200 mb-8 leading-relaxed"
+            >
+              Explore the latest trends, innovations, and expert analysis in the world of Financial Technology
+            </motion.p>
+          </div>
         </div>
 
         {/* Search Bar */}

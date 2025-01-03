@@ -17,6 +17,8 @@ import About from './pages/About';
 import FinTechHub from './pages/FinTechHub';
 import Chatbot from './pages/Chatbot';
 import Docs from './pages/Docs';
+import PulseAI from './pages/docs/PulseAI';
+import PulseAIV2 from './pages/docs/PulseAIV2';
 import Directory from './pages/Directory';
 import NotFound from './pages/NotFound';
 
@@ -77,6 +79,8 @@ function App() {
             <Route path="/fintech-hub" element={<FinTechHub />} />
             <Route path="/directory" element={<Directory />} />
             <Route path="/docs" element={<Docs />} />
+            <Route path="/docs/pulse-ai" element={<PulseAI />} />
+            <Route path="/docs/pulse-ai-v2" element={<PulseAIV2 />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard />} />
