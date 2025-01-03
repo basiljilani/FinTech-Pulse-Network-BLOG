@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Activity, UserCircle, Users, Lightbulb, Cpu } from 'lucide-react';
+import { Menu, X, Activity, UserCircle, Users, Lightbulb, Cpu, Database } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -55,10 +55,23 @@ const Navbar: React.FC = () => {
               <Cpu className="h-4 w-4 mr-1" />
               Pulse AI
             </Link>
-            <Link to="/insights" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium flex items-center">
-              <Lightbulb className="h-4 w-4 mr-1" />
-              Insights
+            <Link to="/directory" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">
+              Directory
             </Link>
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+              <Link
+                to="/insights"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                Insights
+              </Link>
+              <Link
+                to="/docs"
+                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+              >
+                Docs
+              </Link>
+            </div>
             <Link to="/community" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium flex items-center">
               <Users className="h-4 w-4 mr-1" />
               Community
@@ -104,7 +117,23 @@ const Navbar: React.FC = () => {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link to="/ai-companion" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Pulse AI</Link>
-            <Link to="/insights" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Insights</Link>
+            <Link to="/directory" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Directory</Link>
+            <div className="sm:hidden">
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <Link
+                  to="/insights"
+                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Insights
+                </Link>
+                <Link
+                  to="/docs"
+                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >
+                  Docs
+                </Link>
+              </div>
+            </div>
             <Link to="/community" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Community</Link>
           </div>
         </motion.div>

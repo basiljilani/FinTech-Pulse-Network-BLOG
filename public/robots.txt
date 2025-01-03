@@ -1,5 +1,19 @@
+# Allow all crawlers
 User-agent: *
 Allow: /
 
-# Sitemaps
+# Sitemap location
 Sitemap: https://fintechpulsenetwork.com/sitemap.xml
+
+# Primary navigation paths
+Allow: /about
+Allow: /insights
+Allow: /fintech-hub
+Allow: /pulse-ai
+
+# Prevent crawling of non-public areas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /.git/
+Disallow: /node_modules/

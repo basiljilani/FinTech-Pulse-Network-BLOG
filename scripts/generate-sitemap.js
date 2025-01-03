@@ -1,51 +1,55 @@
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 
-const DOMAIN = 'https://fintechpulsenetwork.com'; // Replace with your actual domain
+const baseUrl = 'https://fintechpulsenetwork.com';
 
-function generateSitemap() {
-  // Get all pages and blog posts
-  const pages = glob.sync('src-2-frontend/pages/**/*.tsx')
-    .filter(file => !file.includes('[') && !file.includes('_')) // Exclude dynamic and special pages
-    .map(file => file.replace('src-2-frontend/pages/', '').replace('.tsx', ''));
+// Define main routes with high priority for sitelinks
+const routes = [
+  {
+    url: '/',
+    priority: 1.0,
+    changefreq: 'daily'
+  },
+  {
+    url: '/about',
+    priority: 0.9,
+    changefreq: 'weekly'
+  },
+  {
+    url: '/insights',
+    priority: 0.9,
+    changefreq: 'daily'
+  },
+  {
+    url: '/fintech-hub',
+    priority: 0.9,
+    changefreq: 'daily'
+  },
+  {
+    url: '/pulse-ai',
+    priority: 0.9,
+    changefreq: 'weekly'
+  }
+];
 
-  const blogPosts = glob.sync('public/content/**/*.md')
-    .map(file => file.replace('public/content/', '').replace('.md', ''));
+// Generate sitemap XML
+const generateSitemap = (routes) => {
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
-  // Create sitemap entries
-  const sitemapEntries = [
-    // Static pages
-    ...pages.map(page => ({
-      url: `${DOMAIN}/${page === 'index' ? '' : page}`,
-      lastmod: new Date().toISOString(),
-      changefreq: 'weekly',
-      priority: page === 'index' ? '1.0' : '0.8'
-    })),
+  routes.forEach(route => {
+    xml += '  <url>\n';
+    xml += `    <loc>${baseUrl}${route.url}</loc>\n`;
+    xml += `    <changefreq>${route.changefreq}</changefreq>\n`;
+    xml += `    <priority>${route.priority}</priority>\n`;
+    xml += '  </url>\n';
+  });
 
-    // Blog posts
-    ...blogPosts.map(post => ({
-      url: `${DOMAIN}/blog/${post}`,
-      lastmod: new Date().toISOString(),
-      changefreq: 'monthly',
-      priority: '0.6'
-    }))
-  ];
+  xml += '</urlset>';
+  return xml;
+};
 
-  // Generate sitemap XML
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapEntries.map(entry => `  <url>
-    <loc>${entry.url}</loc>
-    <lastmod>${entry.lastmod}</lastmod>
-    <changefreq>${entry.changefreq}</changefreq>
-    <priority>${entry.priority}</priority>
-  </url>`).join('\n')}
-</urlset>`;
-
-  // Write sitemap to public directory
-  fs.writeFileSync('public/sitemap.xml', sitemap);
-  console.log('Sitemap generated successfully!');
-}
-
-generateSitemap();
+// Write sitemap to public directory
+const sitemap = generateSitemap(routes);
+fs.writeFileSync(path.join(__dirname, '../public/sitemap.xml'), sitemap);
+console.log('Sitemap generated successfully!');

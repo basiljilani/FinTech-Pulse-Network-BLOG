@@ -8,6 +8,7 @@ import {
   Check
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const AiCompanion: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -156,6 +157,37 @@ const AiCompanion: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#0D1321] flex flex-col relative">
+      <Helmet>
+        <title>Pulse AI | FinTech Pulse Network</title>
+        <meta name="description" content="Experience the power of AI-driven financial analysis and insights with Pulse AI. Get real-time market intelligence and automated financial research." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://fintechpulsenetwork.com/pulse-ai" />
+        
+        {/* OpenGraph tags */}
+        <meta property="og:title" content="Pulse AI | FinTech Pulse Network" />
+        <meta property="og:description" content="Experience the power of AI-driven financial analysis and insights with Pulse AI. Get real-time market intelligence and automated financial research." />
+        <meta property="og:url" content="https://fintechpulsenetwork.com/pulse-ai" />
+        
+        {/* Schema.org markup */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Pulse AI",
+            "applicationCategory": "FinancialSoftware",
+            "description": "Experience the power of AI-driven financial analysis and insights with Pulse AI. Get real-time market intelligence and automated financial research.",
+            "url": "https://fintechpulsenetwork.com/pulse-ai",
+            "provider": {
+              "@type": "Organization",
+              "name": "FinTech Pulse Network"
+            },
+            "offers": {
+              "@type": "Offer",
+              "category": "Financial Technology"
+            }
+          })}
+        </script>
+      </Helmet>
       <div className="absolute inset-0 bg-gradient-to-br from-[#1A1F2E] via-[#2D1B4D] to-[#0D1321] opacity-70 h-full" 
         style={{
           backgroundSize: '100px 100px',

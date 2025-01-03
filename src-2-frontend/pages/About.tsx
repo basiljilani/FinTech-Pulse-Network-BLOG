@@ -20,6 +20,7 @@ import {
   LucideIcon
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 interface Feature {
   icon: LucideIcon;
@@ -129,6 +130,34 @@ const About: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <Helmet>
+        <title>About | FinTech Pulse Network</title>
+        <meta name="description" content="FinTech Pulse Network provides industry-leading AI-powered financial analysis, insights, and automation tools to financial institutions worldwide." />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://fintechpulsenetwork.com/about" />
+        
+        {/* OpenGraph tags */}
+        <meta property="og:title" content="About | FinTech Pulse Network" />
+        <meta property="og:description" content="FinTech Pulse Network provides industry-leading AI-powered financial analysis, insights, and automation tools to financial institutions worldwide." />
+        <meta property="og:url" content="https://fintechpulsenetwork.com/about" />
+        
+        {/* Schema.org markup */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "About FinTech Pulse Network",
+            "description": "FinTech Pulse Network provides industry-leading AI-powered financial analysis, insights, and automation tools to financial institutions worldwide.",
+            "url": "https://fintechpulsenetwork.com/about",
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "FinTech Pulse Network",
+              "description": "Leading AI-Powered Financial Technology Platform",
+              "url": "https://fintechpulsenetwork.com"
+            }
+          })}
+        </script>
+      </Helmet>
       {/* Hero Section */}
       <section className="pt-40 pb-24 border-b border-gray-800">
         <div className="container mx-auto px-4">

@@ -7,7 +7,6 @@ import { categories } from '../data/articles';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { ArticleContent, getArticleContent, prefetchArticleIndex, calculateSimilarityScore } from '../lib/content';
-import { generateArticleSchema } from '../lib/articleSchema';
 
 const MarkdownContent = ({ content = '' }: { content: string }) => (
   <ReactMarkdown
@@ -238,43 +237,58 @@ const Article = () => {
 
   return (
     <>
-      {article && (
-        <Helmet>
-          <title>{article.title} | FinTech Pulse Network</title>
-          <meta name="description" content={article.excerpt} />
-          <meta name="author" content={article.author.name} />
-          <meta name="keywords" content={`fintech, financial technology, ${article.category.toLowerCase()}, ${article.title.toLowerCase()}`} />
-          <link rel="canonical" href={articleUrl} />
-          
-          {/* Open Graph / Facebook */}
-          <meta property="og:type" content="article" />
-          <meta property="og:title" content={article.title} />
-          <meta property="og:description" content={article.excerpt} />
-          <meta property="og:url" content={articleUrl} />
-          <meta property="og:site_name" content="FinTech Pulse Network" />
-          <meta property="article:published_time" content={article.date} />
-          <meta property="article:author" content={article.author.name} />
-          <meta property="article:section" content={article.category} />
-          
-          {/* Social Media */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={article.title} />
-          <meta name="twitter:description" content={article.excerpt} />
-          <meta property="og:see_also" content="https://www.linkedin.com/company/fintechpulse-net/" />
-          
-          {/* Article Schema */}
-          <script type="application/ld+json">
-            {JSON.stringify(generateArticleSchema({
-              title: article.title,
-              excerpt: article.excerpt,
-              author: article.author.name,
-              date: article.date,
-              category: article.category,
-              slug: article.id
-            }))}
-          </script>
-        </Helmet>
-      )}
+      <Helmet>
+        <title>{`${article.title} | FinTech Pulse Network`}</title>
+        <meta name="description" content={article.excerpt} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://fintechpulsenetwork.com/article/${article.slug}`} />
+        <meta property="og:title" content={article.title} />
+        <meta property="og:description" content={article.excerpt} />
+        <meta property="og:image" content={`/article-images/${article.slug}.jpg`} />
+        <meta property="article:published_time" content={article.date} />
+        <meta property="article:author" content={article.author.name} />
+        <meta property="article:section" content={article.category} />
+        <meta property="article:tag" content={article.category} />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`https://fintechpulsenetwork.com/article/${article.slug}`} />
+        <meta property="twitter:title" content={article.title} />
+        <meta property="twitter:description" content={article.excerpt} />
+        <meta property="twitter:image" content={`/article-images/${article.slug}.jpg`} />
+
+        {/* Schema.org Article markup */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": article.title,
+            "description": article.excerpt,
+            "image": `/article-images/${article.slug}.jpg`,
+            "author": {
+              "@type": "Person",
+              "name": article.author.name
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "FinTech Pulse Network",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "/pulse-logo.svg"
+              }
+            },
+            "datePublished": article.date,
+            "dateModified": article.date,
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `https://fintechpulsenetwork.com/article/${article.slug}`
+            },
+            "keywords": article.category
+          })}
+        </script>
+      </Helmet>
       <div className="min-h-screen bg-article-bg">
         {/* Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32">

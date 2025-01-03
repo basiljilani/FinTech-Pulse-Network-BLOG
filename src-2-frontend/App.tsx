@@ -16,6 +16,8 @@ import FinancialNews from './pages/FinancialNews';
 import About from './pages/About';
 import FinTechHub from './pages/FinTechHub';
 import Chatbot from './pages/Chatbot';
+import Docs from './pages/Docs';
+import Directory from './pages/Directory';
 import NotFound from './pages/NotFound';
 
 function App() {
@@ -27,46 +29,36 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Helmet>
           {/* Primary Meta Tags */}
-          <title>FinTech Pulse Network | AI-Driven Financial Technology Insights</title>
-          <meta name="title" content="FinTech Pulse Network | AI-Driven Financial Technology Insights" />
-          <meta name="description" content="FinTech Pulse Network (FPN) is a leading platform providing AI-driven insights, analysis, and networking opportunities in the financial technology sector. Founded by Basil Jilani." />
-          <meta name="keywords" content="FinTech Pulse Network, FPN, fintech, financial technology, Basil Jilani, AI insights, financial analysis, digital banking, blockchain, machine learning" />
-          <meta name="author" content="Basil Jilani" />
-          <link rel="canonical" href="https://fintechpulsenetwork.com" />
-
+          <title>FinTech Pulse Network</title>
+          <meta name="title" content="FinTech Pulse Network" />
+          <meta name="description" content="FinTech Pulse Network (FPN) emerges as the ultimate solution for financial empowerment." />
+          
           {/* Open Graph / Facebook */}
           <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://fintechpulsenetwork.com" />
-          <meta property="og:title" content="FinTech Pulse Network | AI-Driven Financial Technology Insights" />
-          <meta property="og:description" content="FinTech Pulse Network (FPN) is a leading platform providing AI-driven insights, analysis, and networking opportunities in the financial technology sector. Founded by Basil Jilani." />
-          <meta property="og:image" content="https://fintechpulsenetwork.com/social-preview.png" />
-          <meta property="og:site_name" content="FinTech Pulse Network" />
+          <meta property="og:url" content="https://fintechpulsenetwork.com/" />
+          <meta property="og:title" content="FinTech Pulse Network" />
+          <meta property="og:description" content="FinTech Pulse Network (FPN) emerges as the ultimate solution for financial empowerment." />
+          <meta property="og:image" content="/social-preview.png" />
 
-          {/* Social Media */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="FinTech Pulse Network | AI-Driven Financial Technology Insights" />
-          <meta name="twitter:description" content="FinTech Pulse Network (FPN) is a leading platform providing AI-driven insights, analysis, and networking opportunities in the financial technology sector." />
-          <meta name="twitter:image" content="https://fintechpulsenetwork.com/social-preview.png" />
-          <meta property="og:see_also" content="https://www.linkedin.com/company/fintechpulse-net/" />
+          {/* Twitter */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:url" content="https://fintechpulsenetwork.com/" />
+          <meta property="twitter:title" content="FinTech Pulse Network" />
+          <meta property="twitter:description" content="FinTech Pulse Network (FPN) emerges as the ultimate solution for financial empowerment." />
+          <meta property="twitter:image" content="/social-preview.png" />
 
-          {/* Site-wide Schema */}
+          {/* Schema.org markup */}
           <script type="application/ld+json">
             {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "FinTech Pulse Network",
-              "alternateName": "FPN",
+              "description": "FinTech Pulse Network (FPN) emerges as the ultimate solution for financial empowerment.",
               "url": "https://fintechpulsenetwork.com",
-              "logo": "https://fintechpulsenetwork.com/pulse-logo.svg",
-              "description": "FinTech Pulse Network (FPN) is a leading platform providing AI-driven insights, analysis, and networking opportunities in the financial technology sector.",
-              "founder": {
-                "@type": "Person",
-                "name": "Basil Jilani",
-                "jobTitle": "CEO & Founder",
-                "sameAs": "https://www.linkedin.com/in/basiljilani/"
-              },
+              "logo": "/pulse-logo.svg",
               "sameAs": [
-                "https://www.linkedin.com/company/fintechpulse-net/"
+                "https://twitter.com/fintechpulse",
+                "https://linkedin.com/company/fintech-pulse-network"
               ]
             })}
           </script>
@@ -83,6 +75,8 @@ function App() {
             <Route path="/chatbot" element={<Chatbot />} />
             <Route path="/community" element={<Community />} />
             <Route path="/fintech-hub" element={<FinTechHub />} />
+            <Route path="/directory" element={<Directory />} />
+            <Route path="/docs" element={<Docs />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard />} />
