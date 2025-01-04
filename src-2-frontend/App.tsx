@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Insights from './pages/Insights';
 import Article from './pages/Article';
 import AiCompanion from './pages/AiCompanion';
-import Community from './pages/Community';
+import NewCommunity from './pages/NewCommunity';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
@@ -75,7 +75,7 @@ function App() {
             <Route path="/articles/:id" element={<Article />} />
             <Route path="/ai-companion" element={<AiCompanion />} />
             <Route path="/chatbot" element={<Chatbot />} />
-            <Route path="/community" element={<Community />} />
+            <Route path="/community" element={<NewCommunity />} />
             <Route path="/fintech-hub" element={<FinTechHub />} />
             <Route path="/directory" element={<Directory />} />
             <Route path="/docs" element={<Docs />} />

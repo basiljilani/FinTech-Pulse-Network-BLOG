@@ -62,7 +62,7 @@ const Home: React.FC = () => {
   
   // Smooth spring animation for content reveal
   const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
-  const y = useSpring(useTransform(scrollY, [0, 500], [1000, 0]), springConfig);
+  const y = useSpring(useTransform(scrollY, [0, 300], [100, 0]), springConfig);
 
   const marketOpportunity = {
     icon: Globe,
@@ -121,14 +121,14 @@ const Home: React.FC = () => {
             }}
           >
             {/* The FPN Ecosystem Section */}
-            <section className="py-24 relative overflow-hidden">
+            <section className="py-12 relative overflow-hidden">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div 
                   initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  className="max-w-3xl mx-auto text-center mb-20"
+                  viewport={{ once: true, margin: "-50px" }}
+                  className="max-w-3xl mx-auto text-center mb-12"
                 >
                   <div className="inline-block">
                     <motion.h2 
@@ -247,28 +247,6 @@ const Home: React.FC = () => {
                     </div>
                   </motion.div>
                 </div>
-
-                {/* The Vision Section */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                  className="relative max-w-4xl mx-auto"
-                >
-                  <div className="absolute inset-0 bg-black rounded-2xl blur-3xl" />
-                  <div className="relative bg-black rounded-2xl p-12 border border-gray-800 backdrop-blur-xl">
-                    <h2 className="text-4xl sm:text-5xl font-bold text-center bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent mb-8">
-                      The Vision
-                    </h2>
-                    <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                      With Pulse AI and Pulse AI V2, FPN isn't just a platform—it's a lifelong partner for financial growth. By empowering individuals to fix bad habits and enabling businesses to thrive with advanced insights, we're creating a financial revolution that leaves no one behind.
-                    </p>
-                    <p className="text-lg font-medium text-center bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 bg-clip-text text-transparent">
-                      Transform your financial future—because confidence, clarity, and control over your finances aren't just aspirations; they're your right.
-                    </p>
-                  </div>
-                </motion.div>
               </div>
             </section>
           </motion.div>

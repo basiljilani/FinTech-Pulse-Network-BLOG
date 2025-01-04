@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Activity, UserCircle, Users, Lightbulb, Cpu, Database } from 'lucide-react';
+import { Menu, X, Activity, Users, Lightbulb, Cpu } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
 
@@ -16,10 +15,6 @@ const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleProfileClick = () => {
-    setShowProfileMenu(!showProfileMenu);
-  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
@@ -51,58 +46,44 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <Link to="/ai-companion" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+            <Link to="/ai-companion" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
               <Cpu className="h-4 w-4 mr-1" />
               Pulse AI
             </Link>
-            <Link to="/directory" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">
+            <Link to="/directory" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
               Directory
             </Link>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link
                 to="/insights"
-                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-100 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
               >
                 Insights
               </Link>
               <Link
                 to="/docs"
-                className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                className="text-gray-100 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
               >
                 Docs
               </Link>
             </div>
-            <Link to="/community" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+            <Link to="/community" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
               <Users className="h-4 w-4 mr-1" />
               Community
             </Link>
-            <div className="relative">
-              <button
-                onClick={handleProfileClick}
-                className="flex items-center text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                <UserCircle className="h-6 w-6" />
-              </button>
-              {showProfileMenu && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5"
-                >
-                  <div className="py-1">
-                    <span className="block px-4 py-2 text-sm text-gray-400">Coming Soon</span>
-                  </div>
-                </motion.div>
-              )}
-            </div>
           </div>
 
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-indigo-400 focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <span className="sr-only">Open main menu</span>
+              {isMenuOpen ? (
+                <X className="block h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="block h-6 w-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
@@ -110,33 +91,40 @@ const Navbar: React.FC = () => {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="md:hidden bg-gray-900"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link to="/ai-companion" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Pulse AI</Link>
-            <Link to="/directory" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Directory</Link>
-            <div className="sm:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                <Link
-                  to="/insights"
-                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Insights
-                </Link>
-                <Link
-                  to="/docs"
-                  className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Docs
-                </Link>
-              </div>
-            </div>
-            <Link to="/community" className="text-white hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium">Community</Link>
+        <div className="md:hidden bg-gray-900/95 backdrop-blur-sm">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <Link
+              to="/ai-companion"
+              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+            >
+              Pulse AI
+            </Link>
+            <Link
+              to="/directory"
+              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+            >
+              Directory
+            </Link>
+            <Link
+              to="/insights"
+              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+            >
+              Insights
+            </Link>
+            <Link
+              to="/docs"
+              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+            >
+              Docs
+            </Link>
+            <Link
+              to="/community"
+              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+            >
+              Community
+            </Link>
           </div>
-        </motion.div>
+        </div>
       )}
     </nav>
   );

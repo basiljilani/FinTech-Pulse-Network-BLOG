@@ -14,6 +14,9 @@
     "generate-sitemap": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
+    "@react-three/drei": "^9.120.5",
+    "@react-three/fiber": "^8.17.10",
+    "@studio-freight/lenis": "^1.0.42",
     "@types/react-helmet": "^6.1.11",
     "axios": "^1.7.9",
     "cors": "^2.8.5",
@@ -21,6 +24,7 @@
     "framer-motion": "^10.16.4",
     "glob": "^10.3.10",
     "gray-matter": "^4.0.3",
+    "gsap": "^3.12.5",
     "http-proxy-middleware": "^3.0.3",
     "lucide-react": "^0.344.0",
     "react": "^18.2.0",
@@ -30,6 +34,7 @@
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.28.1",
     "remark-gfm": "^4.0.0",
+    "three": "^0.172.0",
     "yahoo-finance2": "^2.13.3",
     "zustand": "^4.5.1"
   },
