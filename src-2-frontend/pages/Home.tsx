@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useInView, useSpring } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useInView, useSpring, useAnimation } from 'framer-motion';
 import HeroSection from '../components/HeroSection';
 import { 
   Check, 
@@ -59,10 +59,47 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
   const mainContentRef = useRef(null);
-  
-  // Smooth spring animation for content reveal
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const updateScrollDirection = () => {
+      const currentScrollY = window.scrollY;
+      setScrollDirection(currentScrollY > lastScrollY.current ? 'down' : 'up');
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', updateScrollDirection);
+    return () => window.removeEventListener('scroll', updateScrollDirection);
+  }, []);
+
   const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
   const y = useSpring(useTransform(scrollY, [0, 300], [100, 0]), springConfig);
+
+  const CardWrapper: React.FC<{
+    children: React.ReactNode;
+    direction: 'left' | 'right';
+    delay?: number;
+  }> = ({ children, direction, delay = 0 }) => {
+    const ref = useRef(null);
+
+    return (
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 20, x: direction === 'left' ? -50 : 50 }}
+        whileInView={{ opacity: 1, y: 0, x: 0 }}
+        viewport={{ once: false, amount: 0.3 }}
+        transition={{ 
+          duration: 0.6,
+          delay,
+          ease: "easeOut"
+        }}
+        className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-indigo-500/50 transition-all duration-300"
+      >
+        {children}
+      </motion.div>
+    );
+  };
 
   const marketOpportunity = {
     icon: Globe,
@@ -144,14 +181,7 @@ const Home: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-24">
                   {/* Pulse AI */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                    viewport={{ once: true }}
-                    className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-indigo-500/50 transition-all duration-300"
-                  >
+                  <div className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-indigo-500/50 transition-all duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-purple-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent to-indigo-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
@@ -162,17 +192,10 @@ const Home: React.FC = () => {
                         <p className="text-gray-300"><span className="text-white font-medium">Value:</span> A financial mentor in your pocket, helping you overcome obstacles and build better habits without judgment.</p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* Pulse AI V2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                    viewport={{ once: true }}
-                    className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-300"
-                  >
+                  <div className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
@@ -183,69 +206,35 @@ const Home: React.FC = () => {
                         <p className="text-gray-300"><span className="text-white font-medium">Value:</span> A financial powerhouse that saves time, reduces costs, and delivers actionable expertise.</p>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* The Knowledge Hub */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                    viewport={{ once: true }}
-                    className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-sky-500/50 transition-all duration-300"
-                  >
+                  <div className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-sky-500/50 transition-all duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-sky-600/10 to-indigo-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent to-sky-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
                       <h3 className="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-sky-400 to-indigo-400 bg-clip-text text-transparent">3. The Knowledge Hub</h3>
-                      <p className="text-sky-300 font-medium mb-4">A premium content library offering:</p>
-                      <ul className="space-y-3 text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <span className="text-sky-400 mt-1">•</span>
-                          <span><span className="text-white font-medium">Bite-sized Insights:</span> Simplified breakdowns of complex financial topics.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-sky-400 mt-1">•</span>
-                          <span><span className="text-white font-medium">Templates and Playbooks:</span> Ready-to-use tools for businesses and individuals.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-sky-400 mt-1">•</span>
-                          <span><span className="text-white font-medium">Case Studies:</span> Learn from real-world success stories.</span>
-                        </li>
-                      </ul>
+                      <p className="text-sky-300 font-medium mb-4">Your gateway to comprehensive fintech education:</p>
+                      <div className="space-y-4">
+                        <p className="text-gray-300"><span className="text-white font-medium">Features:</span> Curated learning paths, expert-led courses, and real-world case studies.</p>
+                        <p className="text-gray-300"><span className="text-white font-medium">Value:</span> Transform complex fintech concepts into practical knowledge and skills.</p>
+                      </div>
                     </div>
-                  </motion.div>
+                  </div>
 
                   {/* The Community */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={{ scale: 1.02, y: -5 }}
-                    transition={{ duration: 0.3 }}
-                    viewport={{ once: true }}
-                    className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-pink-500/50 transition-all duration-300"
-                  >
+                  <div className="group relative bg-gradient-to-br from-gray-900/50 to-gray-800/50 rounded-2xl p-8 border border-gray-800 backdrop-blur-xl hover:border-pink-500/50 transition-all duration-300">
                     <div className="absolute inset-0 bg-gradient-to-br from-pink-600/10 to-purple-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="relative z-10">
                       <h3 className="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">4. The Community</h3>
-                      <p className="text-pink-300 font-medium mb-4">An active Discord hub for:</p>
-                      <ul className="space-y-3 text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400 mt-1">•</span>
-                          <span>Peer collaboration and shared learning.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400 mt-1">•</span>
-                          <span>Expert-led workshops and challenges.</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400 mt-1">•</span>
-                          <span>Real-time support and networking opportunities.</span>
-                        </li>
-                      </ul>
+                      <p className="text-pink-300 font-medium mb-4">Connect, collaborate, and grow together:</p>
+                      <div className="space-y-4">
+                        <p className="text-gray-300"><span className="text-white font-medium">Features:</span> Discussion forums, networking events, and collaborative projects.</p>
+                        <p className="text-gray-300"><span className="text-white font-medium">Value:</span> Build meaningful connections and stay at the forefront of fintech innovation.</p>
+                      </div>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </section>
