@@ -1,23 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { 
-  Brain,
-  Rocket,
-  LineChart,
-  Users,
-  Zap,
-  Target,
-  Globe,
-  BookOpen,
-  MessageCircle,
-  BarChart,
-  Bot,
-  Network,
-  Lightbulb,
-  Award,
-  TrendingUp,
-  GraduationCap,
-  LucideIcon
+  Brain, Rocket, LineChart, Users, Zap, Target, Globe,
+  BookOpen, MessageCircle, BarChart, Bot, Network,
+  Lightbulb, Award, TrendingUp, GraduationCap, LucideIcon,
+  ArrowRight, Check
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -31,6 +18,19 @@ interface Feature {
 const About: React.FC = () => {
   const navigate = useNavigate();
   const [percentage, setPercentage] = useState(0);
+  const { scrollYProgress, scrollY } = useScroll();
+  const scaleProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // Parallax effects
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const scale = useTransform(scrollY, [0, 400], [1.1, 1.2]);
+  const translateY = useTransform(scrollY, [0, 400], [-50, 0]);
+  const translateX = useTransform(scrollY, [0, 400], [50, 0]);
+  const blur = useTransform(scrollY, [0, 400], [0, 4]);
   
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,12 +49,6 @@ const About: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
-
-  const fadeInUpVariant = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-  };
 
   const pulseAIFeatures: Feature[] = [
     {
@@ -129,7 +123,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white relative">
       <Helmet>
         <title>About | FinTech Pulse Network</title>
         <meta name="description" content="FinTech Pulse Network provides industry-leading AI-powered financial analysis, insights, and automation tools to financial institutions worldwide." />
@@ -158,8 +152,15 @@ const About: React.FC = () => {
           })}
         </script>
       </Helmet>
+
+      {/* Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-indigo-500 transform origin-left z-50"
+        style={{ scaleX: scaleProgress }}
+      />
+
       {/* Hero Section */}
-      <section className="pt-40 pb-24 border-b border-gray-800">
+      <section className="h-screen flex items-center border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
             className="max-w-4xl mx-auto text-center"
@@ -181,11 +182,13 @@ const About: React.FC = () => {
       </section>
 
       {/* Pulse AI Section */}
-      <section className="py-24 border-b border-gray-800">
+      <div className="py-24 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUpVariant}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl font-bold mb-4">Meet Pulse AI: Your Personalized Knowledge Companion</h2>
             <p className="text-gray-400">
@@ -198,8 +201,9 @@ const About: React.FC = () => {
               <motion.div
                 key={feature.title}
                 className="bg-gray-900 rounded-lg p-8 relative overflow-hidden group"
-                {...fadeInUpVariant}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">
@@ -213,14 +217,16 @@ const About: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Pulse AI V2 Section */}
-      <section className="py-24 border-b border-gray-800 bg-gray-900/50">
+      <div className="py-24 border-b border-gray-800 bg-gray-900/50">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUpVariant}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl font-bold mb-4">Pulse AI V2: The Evolution of Intelligent Engagement</h2>
             <p className="text-gray-400">
@@ -233,8 +239,9 @@ const About: React.FC = () => {
               <motion.div
                 key={feature.title}
                 className="bg-black rounded-lg p-8 relative overflow-hidden group"
-                {...fadeInUpVariant}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">
@@ -284,14 +291,16 @@ const About: React.FC = () => {
             `}</style>
           </motion.div>
         </div>
-      </section>
+      </div>
 
       {/* Our Unique Approach */}
-      <section className="py-24 border-b border-gray-800">
+      <div className="py-24 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUpVariant}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl font-bold mb-4">What Makes Us Different</h2>
             <p className="text-gray-400">
@@ -304,8 +313,9 @@ const About: React.FC = () => {
               <motion.div
                 key={feature.title}
                 className="bg-gray-900 rounded-lg p-8 relative overflow-hidden group"
-                {...fadeInUpVariant}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">
@@ -319,14 +329,16 @@ const About: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Vision Section */}
-      <section className="py-24 border-b border-gray-800 bg-gray-900/50">
+      <div className="py-24 border-b border-gray-800 bg-gray-900/50">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUpVariant}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl font-bold mb-4">Building the Future of Financial Knowledge</h2>
             <p className="text-gray-400">
@@ -335,45 +347,73 @@ const About: React.FC = () => {
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="relative pl-8 border-l-2 border-indigo-500">
-              <motion.div 
-                className="mb-12"
-                {...fadeInUpVariant}
-              >
-                <div className="absolute -left-2 w-4 h-4 bg-indigo-500 rounded-full" />
-                <h3 className="text-xl font-semibold mb-2">RegTech & InsurTech Expansion</h3>
-                <p className="text-gray-400">Broadening our coverage to include regulatory technology and insurance innovation</p>
-              </motion.div>
+            <div className="relative">
+              {/* Timeline Line */}
+              <div className="absolute left-[7px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-indigo-500/20 via-indigo-500 to-indigo-500/20" />
+              
+              {/* Timeline Items */}
+              <div className="space-y-16">
+                <motion.div 
+                  className="relative pl-12"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="absolute left-0 top-3 flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/50" />
+                    <div className="absolute w-4 h-4 rounded-full bg-indigo-400 animate-ping opacity-20" />
+                  </div>
+                  <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 hover:border-indigo-500/50 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold mb-3 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">RegTech & InsurTech Expansion</h3>
+                    <p className="text-gray-400">Broadening our coverage to include regulatory technology and insurance innovation</p>
+                  </div>
+                </motion.div>
 
-              <motion.div 
-                className="mb-12"
-                {...fadeInUpVariant}
-                transition={{ delay: 0.1 }}
-              >
-                <div className="absolute -left-2 w-4 h-4 bg-indigo-500 rounded-full" />
-                <h3 className="text-xl font-semibold mb-2">Global Knowledge Network</h3>
-                <p className="text-gray-400">Multilingual support and region-specific insights for global audiences</p>
-              </motion.div>
+                <motion.div 
+                  className="relative pl-12"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <div className="absolute left-0 top-3 flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/50" />
+                    <div className="absolute w-4 h-4 rounded-full bg-indigo-400 animate-ping opacity-20" />
+                  </div>
+                  <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 hover:border-indigo-500/50 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold mb-3 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Global Knowledge Network</h3>
+                    <p className="text-gray-400">Multilingual support and region-specific insights for global audiences</p>
+                  </div>
+                </motion.div>
 
-              <motion.div 
-                {...fadeInUpVariant}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="absolute -left-2 w-4 h-4 bg-indigo-500 rounded-full" />
-                <h3 className="text-xl font-semibold mb-2">AI-Driven Certification</h3>
-                <p className="text-gray-400">Revolutionary certification programs powered by adaptive AI learning</p>
-              </motion.div>
+                <motion.div 
+                  className="relative pl-12"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                >
+                  <div className="absolute left-0 top-3 flex items-center justify-center">
+                    <div className="w-4 h-4 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg shadow-indigo-500/50" />
+                    <div className="absolute w-4 h-4 rounded-full bg-indigo-400 animate-ping opacity-20" />
+                  </div>
+                  <div className="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 hover:border-indigo-500/50 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold mb-3 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">AI-Driven Certification</h3>
+                    <p className="text-gray-400">Revolutionary certification programs powered by adaptive AI learning</p>
+                  </div>
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Interactive Features */}
-      <section className="py-24 border-b border-gray-800">
+      <div className="py-24 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto mb-16"
-            {...fadeInUpVariant}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl font-bold mb-4">Beyond Reading: Experience Knowledge</h2>
             <p className="text-gray-400">
@@ -386,8 +426,9 @@ const About: React.FC = () => {
               <motion.div
                 key={feature.title}
                 className="bg-gray-900 rounded-lg p-8 relative overflow-hidden group"
-                {...fadeInUpVariant}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">
@@ -401,14 +442,16 @@ const About: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* CTA Section */}
-      <section className="py-24">
+      <div className="py-24">
         <div className="container mx-auto px-4">
           <motion.div 
             className="text-center max-w-3xl mx-auto"
-            {...fadeInUpVariant}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl font-bold mb-4">Your Journey to FinTech Mastery Starts Here</h2>
             <p className="text-gray-400 mb-8">
@@ -430,7 +473,7 @@ const About: React.FC = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

@@ -18,6 +18,8 @@ export default {
       },
       animation: {
         blob: 'blob 10s infinite',
+        float: 'float 6s ease-in-out infinite',
+        'float-delayed': 'float-delayed 6s ease-in-out infinite',
       },
       keyframes: {
         blob: {
@@ -34,6 +36,14 @@ export default {
             transform: 'translate(0px, 0px) scale(1)',
           },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
+        'float-delayed': {
+          '0%, 100%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(0)' },
+        },
       },
       utilities: {
         '.animation-delay-2000': {
@@ -42,6 +52,13 @@ export default {
         '.animation-delay-4000': {
           'animation-delay': '4s',
         },
+      },
+      transformOrigin: {
+        'right': 'right',
+        'left': 'left',
+      },
+      rotate: {
+        '90': '90deg',
       },
     },
   },
