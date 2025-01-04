@@ -62,7 +62,7 @@ export const SEO = ({
               name: 'FinTech Pulse Network',
               logo: {
                 '@type': 'ImageObject',
-                url: `${siteUrl}/pulse-logo.svg`
+                url: `${siteUrl}/pulse-logo.png`
               }
             }
           })

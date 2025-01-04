@@ -20,7 +20,7 @@ export function generateArticleSchema(article: {
       "name": "FinTech Pulse Network",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://fintechpulsenetwork.com/pulse-logo.svg"
+        "url": "https://fintechpulsenetwork.com/pulse-logo.png"
       }
     },
     "datePublished": article.date,

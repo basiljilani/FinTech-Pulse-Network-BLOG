@@ -276,7 +276,7 @@ const Article = () => {
               "name": "FinTech Pulse Network",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/pulse-logo.svg"
+                "url": "/pulse-logo.png"
               }
             },
             "datePublished": article.date,

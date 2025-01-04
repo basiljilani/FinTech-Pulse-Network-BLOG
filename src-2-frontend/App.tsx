@@ -57,7 +57,7 @@ function App() {
               "name": "FinTech Pulse Network",
               "description": "FinTech Pulse Network (FPN) emerges as the ultimate solution for financial empowerment.",
               "url": "https://fintechpulsenetwork.com",
-              "logo": "/pulse-logo.svg",
+              "logo": "/pulse-logo.png",
               "sameAs": [
                 "https://twitter.com/fintechpulse",
                 "https://linkedin.com/company/fintech-pulse-network"
