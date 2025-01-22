@@ -54,12 +54,14 @@ const Navbar: React.FC = () => {
               Directory
             </Link>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link
-                to="/insights"
+              <a
+                href="https://fpn1.substack.com/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-100 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
               >
-                Insights
-              </Link>
+                Learn
+              </a>
               <Link
                 to="/docs"
                 className="text-gray-100 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
@@ -105,12 +107,14 @@ const Navbar: React.FC = () => {
             >
               Directory
             </Link>
-            <Link
-              to="/insights"
+            <a
+              href="https://fpn1.substack.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
             >
-              Insights
-            </Link>
+              Learn
+            </a>
             <Link
               to="/docs"
               className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
