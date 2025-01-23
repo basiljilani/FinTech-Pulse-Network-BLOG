@@ -133,7 +133,7 @@ const Chatbot = () => {
     try {
       const result = await sendChatMessage(
         inputValue,
-        currentFile
+        currentFile || undefined
       );
       
       if (result.success) {
