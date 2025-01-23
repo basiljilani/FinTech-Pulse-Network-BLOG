@@ -1,6 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
+@import './styles/base.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'Remachine Script';
+  src: url('/fonts/RemachineScript.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-hammersmith {
+  font-family: 'Hammersmith One', sans-serif;
+}
+
+.font-remachine {
+  font-family: 'Remachine Script', cursive;
+}
 
 /* Global responsive adjustments */
 @layer base {
@@ -14,15 +33,6 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
 }
 
 .bg-radial-gradient {

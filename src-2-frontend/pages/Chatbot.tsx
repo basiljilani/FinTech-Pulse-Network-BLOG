@@ -1,13 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MessageSquare, Send, Loader2 } from 'lucide-react';
-import { sendChatMessage } from '../utils/vextApi';
+import { MessageSquare, Send, Loader2, Paperclip } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { sendChatMessage, getTokenBalance } from '../lib/deepseek';
+import { processFile, formatFileSize, validateFile } from '../lib/fileHandler';
 
 interface Message {
   text: string;
   isUser: boolean;
   citation?: any;
+  isFile?: boolean;
+  fileName?: string;
+  fileSize?: string;
+}
+
+interface TokenInfo {
+  available?: number;
+  currentUsage: {
+    prompt: number;
+    completion: number;
+    total: number;
+  };
 }
 
 const Chatbot = () => {
@@ -16,8 +29,30 @@ const Chatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [apiStatus, setApiStatus] = useState<{ isReady: boolean; error?: string }>({ isReady: true });
-  const [isInputDisabled, setIsInputDisabled] = useState(false);
+  const [tokenInfo, setTokenInfo] = useState<TokenInfo>({
+    currentUsage: { prompt: 0, completion: 0, total: 0 }
+  });
+  const [currentFile, setCurrentFile] = useState<{ name: string; content: string } | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Fetch token balance periodically
+  useEffect(() => {
+    const fetchBalance = async () => {
+      const balance = await getTokenBalance();
+      if (balance.success) {
+        setTokenInfo(prev => ({
+          ...prev,
+          available: balance.available_tokens
+        }));
+      }
+    };
+
+    fetchBalance(); // Initial fetch
+    const interval = setInterval(fetchBalance, 60000); // Refresh every minute
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Scroll to top on mount and route change
   useEffect(() => {
@@ -40,41 +75,88 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const sendMessage = async () => {
-    if (!inputValue.trim() || isLoading || isInputDisabled) return;
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-    // Add user message
-    const userMessage: Message = { text: inputValue, isUser: true };
-    setMessages(prev => [...prev, userMessage]);
+    const validation = validateFile(file);
+    if (!validation.valid) {
+      const errorMessage: Message = {
+        text: validation.error || 'Invalid file',
+        isUser: false
+      };
+      setMessages(prev => [...prev, errorMessage]);
+      return;
+    }
+
+    try {
+      const fileInfo = await processFile(file);
+      setCurrentFile({ name: fileInfo.name, content: fileInfo.content });
+      event.target.value = ''; // Reset file input
+    } catch (error: any) {
+      const errorMessage: Message = {
+        text: error.message || 'Failed to process file',
+        isUser: false
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    }
+  };
+
+  const sendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
+
+    // Prepare messages to be sent
+    const messages: Message[] = [];
+    
+    // If there's a file waiting to be sent, add it first
+    if (currentFile) {
+      messages.push({
+        text: `Attached file: ${currentFile.name}`,
+        isUser: true,
+        isFile: true,
+        fileName: currentFile.name,
+        fileSize: formatFileSize(new Blob([currentFile.content]).size)
+      });
+    }
+
+    // Add the user's message
+    messages.push({
+      text: inputValue,
+      isUser: true
+    });
+
+    // Update chat with all messages
+    setMessages(prev => [...prev, ...messages]);
     setInputValue('');
     setIsLoading(true);
 
-    // Temporary placeholder response
-    setTimeout(() => {
-      const placeholderResponse: Message = {
-        text: "Hello there! 🌟 \n\nWe're currently working hard behind the scenes to bring you an amazing experience with Pulse AI. We can't wait to get started on this journey together and empower your financial future! \n\nThank you for your patience and support!",
-        isUser: false
-      };
-      setMessages(prev => [...prev, placeholderResponse]);
-      setIsLoading(false);
-      setIsInputDisabled(true); // Disable input after response
-    }, 1000);
-
-    // Comment out the actual API call for now
-    /*
     try {
-      const result = await sendChatMessage(inputValue);
+      const result = await sendChatMessage(
+        inputValue,
+        currentFile
+      );
       
       if (result.success) {
-        // Add bot message
         const botMessage: Message = {
-          text: result.message,
+          text: result.message || '',
           isUser: false,
-          citation: result.citation
         };
         setMessages(prev => [...prev, botMessage]);
+        
+        // Clear the current file after it's been processed
+        setCurrentFile(null);
+        
+        if (result.usage) {
+          setTokenInfo(prev => ({
+            ...prev,
+            currentUsage: {
+              prompt: prev.currentUsage.prompt + result.usage!.prompt_tokens,
+              completion: prev.currentUsage.completion + result.usage!.completion_tokens,
+              total: prev.currentUsage.total + result.usage!.total_tokens
+            }
+          }));
+        }
       } else {
-        // Add error message
         const errorMessage: Message = {
           text: result.error?.message || 'Failed to get response',
           isUser: false
@@ -82,7 +164,6 @@ const Chatbot = () => {
         setMessages(prev => [...prev, errorMessage]);
       }
     } catch (error: any) {
-      // Add error message
       const errorMessage: Message = {
         text: error.message || 'Failed to send message',
         isUser: false
@@ -91,7 +172,6 @@ const Chatbot = () => {
     } finally {
       setIsLoading(false);
     }
-    */
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -124,6 +204,17 @@ const Chatbot = () => {
                 <MessageSquare className="h-6 w-6 text-[#8B5CF6] mr-3" />
                 <h2 className="text-xl font-semibold text-white">Chat with <span className="text-[#8B5CF6]">Pulse AI</span></h2>
               </div>
+              <div className="flex items-center space-x-4 text-sm text-gray-200">
+                <div className="flex flex-col items-end">
+                  <span>Available Tokens: {tokenInfo.available?.toLocaleString() || 'Loading...'}</span>
+                  <span>Session Usage: {tokenInfo.currentUsage.total.toLocaleString()} tokens</span>
+                </div>
+                <div className="h-8 w-px bg-gray-300" />
+                <div className="flex flex-col items-end text-xs">
+                  <span>Prompt: {tokenInfo.currentUsage.prompt.toLocaleString()}</span>
+                  <span>Completion: {tokenInfo.currentUsage.completion.toLocaleString()}</span>
+                </div>
+              </div>
               {!apiStatus.isReady && apiStatus.error && (
                 <div className="text-red-400 text-sm flex items-center">
                   <span className="mr-2">⚠️</span>
@@ -146,7 +237,14 @@ const Chatbot = () => {
                         : 'bg-[#2D1B4D] text-gray-200'
                     }`}
                   >
-                    {message.text}
+                    {message.isFile ? (
+                      <div>
+                        <span>File: {message.fileName}</span>
+                        <span> ({message.fileSize})</span>
+                      </div>
+                    ) : (
+                      message.text
+                    )}
                   </div>
                 </div>
               ))}
@@ -163,19 +261,46 @@ const Chatbot = () => {
 
             {/* Input Area */}
             <div className="p-4 border-t border-[#8B5CF6]/20">
-              <div className="flex space-x-4">
+              <div className="flex items-center space-x-4">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  accept=".txt,.csv,.pdf,.json,.xlsx,.xls"
+                />
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`text-[#8B5CF6] hover:text-[#7C3AED] p-2 rounded-lg transition-colors duration-200 flex items-center ${
+                    currentFile ? 'bg-[#2D1B4D]' : ''
+                  }`}
+                  title={currentFile ? 'Replace attached file' : 'Attach file'}
+                >
+                  <Paperclip className="h-5 w-5" />
+                  {currentFile && (
+                    <span className="ml-2 text-xs text-gray-400 max-w-[150px] truncate">
+                      {currentFile.name}
+                    </span>
+                  )}
+                </button>
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder={isInputDisabled ? "We can't wait to Empower and Guide you to the Financial Future YOU Deserve." : isLoading ? "Please wait..." : "Type your message..."}
-                  disabled={isLoading || isInputDisabled}
+                  placeholder={
+                    isLoading 
+                      ? "Please wait..." 
+                      : currentFile 
+                        ? `Ask a question about ${currentFile.name}...` 
+                        : "Type your message..."
+                  }
+                  disabled={isLoading}
                   className="flex-1 bg-[#1A1F2E] text-white border border-[#8B5CF6]/20 rounded-lg px-4 py-2 focus:outline-none focus:border-[#8B5CF6]/50 disabled:opacity-50"
                 />
                 <button
                   onClick={sendMessage}
-                  disabled={isLoading || !inputValue.trim() || isInputDisabled}
+                  disabled={isLoading || !inputValue.trim()}
                   className="bg-[#6D28D9] hover:bg-[#7C3AED] text-white px-6 py-2 rounded-lg transition-colors duration-200 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (

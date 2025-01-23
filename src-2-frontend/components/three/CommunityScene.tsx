@@ -1,50 +1,18 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Points } from '@react-three/drei';
 import * as THREE from 'three';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ParticleField = () => {
   const points = useRef<THREE.Points>(null);
   const { camera } = useThree();
 
-  useEffect(() => {
-    if (!points.current) return;
-
-    // Initial camera position
-    camera.position.z = 20;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#community-container",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-        onUpdate: (self) => {
-          if (points.current) {
-            points.current.rotation.y = self.progress * Math.PI;
-          }
-        },
-      },
-    });
-
-    tl.to(camera.position, {
-      z: 15,
-      duration: 1,
-      ease: "none",
-    });
-
-    return () => {
-      tl.kill();
-    };
-  }, [camera]);
+  // Set fixed camera position
+  camera.position.z = 20;
 
   useFrame(() => {
     if (points.current) {
-      points.current.rotation.y += 0.001;
+      points.current.rotation.y += 0.0005;
     }
   });
 
@@ -54,20 +22,13 @@ const ParticleField = () => {
 
   for (let i = 0; i < count; i++) {
     const i3 = i * 3;
-    const radius = Math.random() * 10;
-    const spinAngle = Math.random() * Math.PI * 2;
-    const branchAngle = ((i % 3) * 2 * Math.PI) / 3;
+    positions[i3] = (Math.random() - 0.5) * 50;
+    positions[i3 + 1] = (Math.random() - 0.5) * 50;
+    positions[i3 + 2] = (Math.random() - 0.5) * 50;
 
-    positions[i3] = Math.cos(branchAngle + spinAngle) * radius;
-    positions[i3 + 1] = (Math.random() - 0.5) * 5;
-    positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius;
-
-    const mixedColor = new THREE.Color();
-    mixedColor.setHSL(Math.random() * 0.2 + 0.5, 0.7, 0.4);
-
-    colors[i3] = mixedColor.r;
-    colors[i3 + 1] = mixedColor.g;
-    colors[i3 + 2] = mixedColor.b;
+    colors[i3] = 0.5 + Math.random() * 0.5;
+    colors[i3 + 1] = 0.5 + Math.random() * 0.5;
+    colors[i3 + 2] = 0.5 + Math.random() * 0.5;
   }
 
   return (
@@ -87,31 +48,19 @@ const ParticleField = () => {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.1}
         vertexColors
         transparent
-        opacity={0.8}
+        opacity={0.6}
         sizeAttenuation
       />
     </Points>
   );
 };
 
-const CommunityScene: React.FC = () => {
+const CommunityScene = () => {
   return (
-    <Canvas
-      camera={{ position: [0, 0, 20], fov: 75 }}
-      style={{
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        pointerEvents: 'none',
-      }}
-    >
-      <color attach="background" args={['#000000']} />
-      <ambientLight intensity={0.5} />
+    <Canvas style={{ background: 'transparent' }}>
       <ParticleField />
     </Canvas>
   );

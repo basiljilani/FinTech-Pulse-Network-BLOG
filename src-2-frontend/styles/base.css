@@ -1,0 +1,18 @@
+/* Essential styles without animations */
+.gradient-bg {
+  background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+}
+
+.hover-effect {
+  transition: none;
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

@@ -1,5 +1,5 @@
 const VEXT_API_KEY = import.meta.env.VITE_VEXT_API_KEY;
-const ENDPOINT_ID = import.meta.env.VITE_VEXT_ENDPOINT_ID || '8NZKOT0BIO';
+const ENDPOINT_ID = import.meta.env.VITE_VEXT_ENDPOINT_ID || '6XK07K2JYF';
 const BASE_URL = `https://payload.vextapp.com/hook/${ENDPOINT_ID}/catch`;
 
 if (!VEXT_API_KEY) {

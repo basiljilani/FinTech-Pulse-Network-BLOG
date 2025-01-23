@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Activity, Users, Lightbulb, Cpu } from 'lucide-react';
+import { Menu, X, Activity, Users, Lightbulb, Cpu, FolderSearch, FileText } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -15,6 +15,15 @@ const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Add event listener for route changes
+  useEffect(() => {
+    closeMenu();
+  }, [navigate]);
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
@@ -45,32 +54,46 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          <div className="hidden md:flex md:items-center md:space-x-6">
-            <Link to="/ai-companion" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-              <Cpu className="h-4 w-4 mr-1" />
+          <div className="hidden md:flex md:items-center md:space-x-8">
+            <Link 
+              to="/ai-companion" 
+              className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
+            >
+              <Cpu className="h-4 w-4 mr-2" />
               Pulse AI
             </Link>
-            <Link to="/directory" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
+
+            <Link 
+              to="/directory" 
+              className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
+            >
+              <FolderSearch className="h-4 w-4 mr-2" />
               Directory
             </Link>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <a
-                href="https://fpn1.substack.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-100 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
-              >
-                Learn
-              </a>
-              <Link
-                to="/docs"
-                className="text-gray-100 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
-              >
-                Docs
-              </Link>
-            </div>
-            <Link to="/community" className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]">
-              <Users className="h-4 w-4 mr-1" />
+
+            <a
+              href="https://fpn1.substack.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
+            >
+              <Lightbulb className="h-4 w-4 mr-2" />
+              Learn
+            </a>
+
+            <Link
+              to="/docs"
+              className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
+            >
+              <FileText className="h-4 w-4 mr-2" />
+              Docs
+            </Link>
+
+            <Link 
+              to="/community" 
+              className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
+            >
+              <Users className="h-4 w-4 mr-2" />
               Community
             </Link>
           </div>
@@ -92,44 +115,113 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-gray-900/95 backdrop-blur-sm">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+      <motion.div
+        initial={{ opacity: 0, x: "100%" }}
+        animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : "100%" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={`md:hidden fixed top-16 right-0 w-full h-screen bg-gradient-to-b from-gray-900/95 to-black/95 backdrop-blur-sm ${isMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
+      >
+        <motion.div 
+          className="px-2 pt-2 pb-3 space-y-1"
+          initial="closed"
+          animate="open"
+          variants={{
+            open: {
+              transition: {
+                staggerChildren: 0.1
+              }
+            },
+            closed: {
+              transition: {
+                staggerChildren: 0.05,
+                staggerDirection: -1
+              }
+            }
+          }}
+        >
+          <motion.div
+            variants={{
+              open: { x: 0, opacity: 1 },
+              closed: { x: 50, opacity: 0 }
+            }}
+          >
             <Link
               to="/ai-companion"
-              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+              onClick={closeMenu}
+              className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
             >
+              <Cpu className="h-4 w-4 mr-2" />
               Pulse AI
             </Link>
+          </motion.div>
+
+          <motion.div
+            variants={{
+              open: { x: 0, opacity: 1 },
+              closed: { x: 50, opacity: 0 }
+            }}
+          >
             <Link
               to="/directory"
-              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+              onClick={closeMenu}
+              className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
             >
+              <FolderSearch className="h-4 w-4 mr-2" />
               Directory
             </Link>
+          </motion.div>
+
+          <motion.div
+            variants={{
+              open: { x: 0, opacity: 1 },
+              closed: { x: 50, opacity: 0 }
+            }}
+          >
             <a
               href="https://fpn1.substack.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+              onClick={closeMenu}
+              className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
             >
+              <Lightbulb className="h-4 w-4 mr-2" />
               Learn
             </a>
+          </motion.div>
+
+          <motion.div
+            variants={{
+              open: { x: 0, opacity: 1 },
+              closed: { x: 50, opacity: 0 }
+            }}
+          >
             <Link
               to="/docs"
-              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+              onClick={closeMenu}
+              className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
             >
+              <FileText className="h-4 w-4 mr-2" />
               Docs
             </Link>
+          </motion.div>
+
+          <motion.div
+            variants={{
+              open: { x: 0, opacity: 1 },
+              closed: { x: 50, opacity: 0 }
+            }}
+          >
             <Link
               to="/community"
-              className="text-gray-100 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1 drop-shadow-[0_1px_1px_rgba(0,0,0,0.5)]"
+              onClick={closeMenu}
+              className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
             >
+              <Users className="h-4 w-4 mr-2" />
               Community
             </Link>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </nav>
   );
 };
