@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Activity, Users, Lightbulb, Cpu, FolderSearch, FileText } from 'lucide-react';
+import { Menu, X, Activity, Users, Lightbulb, Cpu, FolderSearch, FileText, Home } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -55,6 +55,14 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="hidden md:flex md:items-center md:space-x-8">
+            <Link 
+              to="/home" 
+              className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              Home
+            </Link>
+
             <Link 
               to="/ai-companion" 
               className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
@@ -139,6 +147,22 @@ const Navbar: React.FC = () => {
             }
           }}
         >
+          <motion.div
+            variants={{
+              open: { x: 0, opacity: 1 },
+              closed: { x: 50, opacity: 0 }
+            }}
+          >
+            <Link
+              to="/home"
+              onClick={closeMenu}
+              className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
+            >
+              <Home className="h-4 w-4 mr-2" />
+              Home
+            </Link>
+          </motion.div>
+
           <motion.div
             variants={{
               open: { x: 0, opacity: 1 },

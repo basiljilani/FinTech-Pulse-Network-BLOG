@@ -153,109 +153,100 @@ const Chatbot = () => {
       />
 
       {/* Main Container */}
-      <div className="flex-1 flex flex-col relative z-10 h-screen">
-        {/* Content wrapper with specific grid positioning */}
-        <div className="flex-1 flex items-center justify-center" style={{ margin: '100px auto 100px auto' }}>
-          <div style={{ 
-            width: '1100px', // 11 grid boxes * 100px
-            maxWidth: 'calc(100vw - 48px)', // Responsive safety margin
-            margin: '0 auto' // Center horizontally
-          }}>
-            <div className="h-[600px] bg-gray-900/50 backdrop-blur-sm rounded-xl shadow-xl border border-gray-800 hover:border-indigo-500/30 transition-all duration-300 flex flex-col">
-              {/* Chat Header */}
-              <div className="p-3 sm:p-4 border-b border-gray-800 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <MessageSquare className="h-5 w-5 text-indigo-400" />
-                  <h2 className="text-lg font-medium text-white">Chat with <span className="text-indigo-400">Pulse AI</span></h2>
+      <div className="flex-1 flex flex-col relative z-10 h-screen overflow-hidden">
+        {/* Content wrapper with fixed positioning */}
+        <div className="flex-1 flex items-stretch sm:items-center justify-center">
+          <div className="h-screen grid grid-rows-7 sm:block sm:h-auto sm:py-8">
+            <div className="row-start-2 row-span-5 sm:block" style={{ 
+              width: '1100px',
+              maxWidth: 'calc(100vw - 24px)',
+              height: '100%',
+              margin: '0 auto'
+            }}>
+              <div className="h-full sm:h-[600px] bg-gray-900/50 backdrop-blur-sm rounded-xl shadow-xl border border-gray-800 hover:border-indigo-500/30 transition-all duration-300 flex flex-col">
+                {/* Chat Header */}
+                <div className="p-2.5 sm:p-4 border-b border-gray-800 flex items-center justify-between bg-black/40">
+                  <div className="flex items-center space-x-2.5 sm:space-x-3">
+                    <MessageSquare className="h-[18px] w-[18px] sm:h-5 sm:w-5 text-indigo-400" />
+                    <h2 className="text-[15px] sm:text-lg font-bold">
+                      <span className="text-white">Pulse</span>
+                      <span className="text-indigo-400">AI</span>
+                    </h2>
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-400">
+                    Session Usage: {sessionTokens.total.toLocaleString()} tokens
+                  </div>
                 </div>
-                <div className="text-xs sm:text-sm text-gray-400">
-                  Session Usage: {sessionTokens.total.toLocaleString()} tokens
-                </div>
-              </div>
-              
-              {/* Chat Messages */}
-              <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600/50 scrollbar-track-transparent p-4 sm:p-6">
-                <div className="flex flex-col space-y-4">
-                  {showWelcome ? (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="flex justify-start"
-                    >
-                      <div className="max-w-[85%] px-4 py-3 rounded-xl bg-gray-800/50 text-gray-200">
-                        <div className="whitespace-pre-wrap break-words leading-relaxed text-sm sm:text-base">
-                          Hello there! I'm so excited to connect with you on your financial journey. Whether you're just starting out or looking to level up your money management skills, you've already taken a powerful first step by reaching out. That shows real courage and commitment to your financial well-being!
-
-                          Tell me, what's on your mind today? Are you looking to create a budget, pay off debt, save for a big goal, or maybe just feel more confident about your financial decisions? Whatever it is, I'm here to cheer you on and help you discover your financial strength. Remember, every step forward - no matter how small - is a victory worth celebrating.
-
-                          You've got this! Let's work together to create a plan that feels empowering and achievable. What's one financial goal or challenge you'd like to tackle first?
-                        </div>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    messages.map((message, index) => (
+                
+                {/* Chat Messages */}
+                <div className="flex-1 overflow-hidden p-2.5 sm:p-6">
+                  <div className="flex flex-col space-y-2.5 sm:space-y-4">
+                    {showWelcome ? (
                       <motion.div
-                        key={index}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.2 }}
-                        className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                        className="flex justify-start"
                       >
-                        <div
-                          className={`max-w-[85%] px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl ${
-                            message.isUser
-                              ? 'bg-indigo-500/80 text-white'
-                              : 'bg-gray-800/50 text-gray-200'
-                          }`}
-                        >
-                          {message.isFile ? (
-                            <div className="flex items-center space-x-2">
-                              <Paperclip className="w-4 h-4 opacity-75" />
-                              <span className="truncate">{message.fileName}</span>
-                              <span className="text-sm opacity-75 whitespace-nowrap">({message.fileSize})</span>
-                            </div>
-                          ) : (
-                            <div className="whitespace-pre-wrap break-words leading-relaxed text-sm sm:text-base">
-                              {message.text}
-                            </div>
-                          )}
+                        <div className="max-w-[85%] px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl bg-[#1a1f2e] text-gray-200">
+                          <div className="whitespace-pre-wrap break-words leading-relaxed text-[13px] sm:text-base">
+                            Hello there! I'm so excited to connect with you on your financial journey. Whether you're just starting out or looking to level up your money management skills, you've already taken a powerful first step by reaching out. That shows real courage and commitment to your financial well-being! Tell me, what's on your mind today?
+                          </div>
                         </div>
                       </motion.div>
-                    ))
-                  )}
-                  {isLoading && (
-                    <div className="flex justify-start">
-                      <div className="bg-gray-800/50 text-gray-200 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl flex items-center space-x-2">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span className="text-sm sm:text-base">Thinking...</span>
+                    ) : (
+                      messages.map((message, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+                        >
+                          <div
+                            className={`max-w-[85%] px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl ${
+                              message.isUser
+                                ? 'bg-indigo-500/80 text-white'
+                                : 'bg-gray-800/50 text-gray-200'
+                            }`}
+                          >
+                            {message.isFile ? (
+                              <div className="flex items-center space-x-2">
+                                <Paperclip className="w-4 h-4 opacity-75" />
+                                <span className="truncate">{message.fileName}</span>
+                                <span className="text-sm opacity-75 whitespace-nowrap">({message.fileSize})</span>
+                              </div>
+                            ) : (
+                              <div className="whitespace-pre-wrap break-words leading-relaxed text-[13px] sm:text-base">
+                                {message.text}
+                              </div>
+                            )}
+                          </div>
+                        </motion.div>
+                      ))
+                    )}
+                    {isLoading && (
+                      <div className="flex justify-start">
+                        <div className="bg-gray-800/50 text-gray-200 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-xl flex items-center space-x-2">
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <span className="text-sm">Thinking...</span>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  <div ref={messagesEndRef} />
+                    )}
+                    <div ref={messagesEndRef} />
+                  </div>
                 </div>
-              </div>
 
-              {/* Input Area */}
-              <div className="p-3 sm:p-4 border-t border-gray-800">
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    accept=".txt,.csv,.pdf,.json,.xlsx,.xls"
-                  />
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className={`p-2 sm:p-2.5 text-indigo-400 hover:bg-indigo-500/10 rounded-xl transition-colors ${
-                      currentFile ? 'bg-indigo-500/10' : ''
-                    }`}
-                    title={currentFile ? 'Replace attached file' : 'Attach file'}
-                  >
-                    <Paperclip className="h-5 w-5" />
-                  </button>
-                  <div className="flex-1 relative">
+                {/* Input Area */}
+                <div className="p-2.5 sm:p-4 bg-black/40 border-t border-gray-800">
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="p-2 sm:p-2 text-gray-400 hover:text-indigo-400 transition-colors"
+                    >
+                      <Paperclip className="h-[18px] w-[18px] sm:h-5 sm:w-5" />
+                    </button>
+
                     <input
                       type="text"
                       value={inputValue}
@@ -269,25 +260,28 @@ const Chatbot = () => {
                             : "Type your message..."
                       }
                       disabled={isLoading}
-                      className="w-full bg-gray-800/50 text-white rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 disabled:opacity-50 text-sm sm:text-base"
+                      className="flex-1 bg-gray-800/50 text-white placeholder-gray-400 rounded-full px-3.5 py-2 sm:px-4 sm:py-2 focus:outline-none focus:ring-1 focus:ring-indigo-400 text-[13px] sm:text-base"
                     />
-                    {currentFile && (
-                      <div className="absolute -top-6 left-4 text-xs text-gray-400 truncate max-w-[200px]">
-                        {currentFile.name}
-                      </div>
-                    )}
+
+                    <button
+                      onClick={sendMessage}
+                      disabled={isLoading || (!inputValue.trim() && !currentFile)}
+                      className="p-2 sm:p-2 text-indigo-400 hover:text-indigo-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isLoading ? (
+                        <Loader2 className="h-[18px] w-[18px] sm:h-5 sm:w-5 animate-spin" />
+                      ) : (
+                        <Send className="h-[18px] w-[18px] sm:h-5 sm:w-5" />
+                      )}
+                    </button>
                   </div>
-                  <button
-                    onClick={sendMessage}
-                    disabled={isLoading || !inputValue.trim() && !currentFile}
-                    className="p-2 sm:p-2.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isLoading ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
-                    ) : (
-                      <Send className="h-5 w-5" />
-                    )}
-                  </button>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    accept=".txt,.pdf,.doc,.docx"
+                  />
                 </div>
               </div>
             </div>

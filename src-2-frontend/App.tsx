@@ -24,7 +24,7 @@ import NotFound from './pages/NotFound';
 
 function App() {
   const location = useLocation();
-  const isChatbot = location.pathname === '/chatbot';
+  const hideFooter = location.pathname === '/chatbot' || location.pathname === '/';
 
   return (
     <HelmetProvider>
@@ -69,7 +69,8 @@ function App() {
         <Navbar />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Chatbot />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/insights" element={<Insights />} />
             <Route path="/articles/:id" element={<Article />} />
@@ -88,7 +89,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        {!isChatbot && <Footer />}
+        {!hideFooter && <Footer />}
       </div>
     </HelmetProvider>
   );
