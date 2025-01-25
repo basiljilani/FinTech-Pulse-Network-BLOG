@@ -96,7 +96,7 @@ const Chatbot = () => {
         content: await currentFile.text()
       } : undefined);
       
-      if (result.success) {
+      if (result.success && result.message) {
         const botMessage: Message = {
           text: result.message,
           isUser: false
@@ -115,14 +115,14 @@ const Chatbot = () => {
         }
       } else {
         const errorMessage: Message = {
-          text: result.error?.message || 'Failed to get response',
+          text: result.error?.message || 'No response received',
           isUser: false
         };
         setMessages(prev => [...prev, errorMessage]);
       }
     } catch (error: any) {
       const errorMessage: Message = {
-        text: error.message || 'An error occurred',
+        text: typeof error.message === 'string' ? error.message : 'An error occurred',
         isUser: false
       };
       setMessages(prev => [...prev, errorMessage]);
