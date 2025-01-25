@@ -1,16 +1,15 @@
 import axios from 'axios';
 
-const DEEPSEEK_API_URL = import.meta.env.VITE_DEEPSEEK_API_URL || 'https://api.deepseek.ai';
+const DEEPSEEK_API_URL = '/api';  // Use proxy path
 const DEEPSEEK_MODEL = 'deepseek-chat';
 
 // Fixed configuration for financial consulting
 const CHAT_CONFIG = {
   model: DEEPSEEK_MODEL,
-  temperature: 0.7, // Increased for more dynamic and inspiring responses
-  max_tokens: 2000, // Allow longer responses for detailed financial advice
-  presence_penalty: 0.1, // Slight penalty to avoid repetition
-  frequency_penalty: 0.1, // Slight penalty to encourage diverse vocabulary
-  // Add a system message to guide the model's behavior
+  temperature: 0.5,
+  max_tokens: 2000,
+  presence_penalty: 0.1,
+  frequency_penalty: 0.1,
   system_message: `You are an empowering financial coach and mentor who believes in every person's ability to achieve financial success and wellness. Your mission is to:
 
 [Important: Never use markdown characters like # or * in your responses]
@@ -31,7 +30,7 @@ Empowering phrases to use:
 - "Every financial decision is an opportunity to grow stronger..."
 - "You have the power to reshape your financial future..."
 
-Format your responses in clear, readable paragraphs without any special characters or markdown formatting. Always maintain an energetic, can-do attitude while providing actionable guidance. Focus on possibilities rather than limitations, and help users tap into their inner financial wisdom. Every interaction should leave users feeling more confident, capable, and excited about their financial journey.`
+Format your responses in clear, readable paragraphs without any special characters or markdown formatting. Always maintain an energetic, can-do attitude while providing actionable guidance. Focus on possibilities rather than limitations, and help users tap into their inner financial wisdom. Every interaction should leave users feeling more confident, capable, and excited about their financial journey.`,
 };
 
 interface TokenUsage {
@@ -62,6 +61,29 @@ interface Message {
   content: string;
 }
 
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY = 1000; // 1 second
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+const makeRequestWithRetry = async (
+  url: string,
+  options: any,
+  retries = MAX_RETRIES,
+  delay = INITIAL_RETRY_DELAY
+): Promise<any> => {
+  try {
+    return await axios(url, options);
+  } catch (error: any) {
+    if (retries > 0 && error.response?.status === 500) {
+      console.log(`Retrying request... (${MAX_RETRIES - retries + 1}/${MAX_RETRIES})`);
+      await sleep(delay);
+      return makeRequestWithRetry(url, options, retries - 1, delay * 2);
+    }
+    throw error;
+  }
+};
+
 export const sendChatMessage = async (
   message: string,
   fileContent?: { name: string; content: string }
@@ -74,7 +96,6 @@ export const sendChatMessage = async (
       }
     ];
 
-    // If file content is provided, add it to the context
     if (fileContent) {
       messages.push({
         role: 'user',
@@ -86,26 +107,27 @@ export const sendChatMessage = async (
       });
     }
 
-    // Add the user's message
     messages.push({
       role: 'user',
       content: message,
     });
 
-    const response = await axios.post(
-      `${DEEPSEEK_API_URL}/v1/chat/completions`,
+    const response = await makeRequestWithRetry(
+      `${DEEPSEEK_API_URL}/api/v1/chat/completions`,
       {
-        messages,
-        model: CHAT_CONFIG.model,
-        temperature: CHAT_CONFIG.temperature,
-        max_tokens: CHAT_CONFIG.max_tokens,
-        presence_penalty: CHAT_CONFIG.presence_penalty,
-        frequency_penalty: CHAT_CONFIG.frequency_penalty,
-      },
-      {
+        method: 'POST',
+        data: {
+          messages,
+          model: CHAT_CONFIG.model,
+          temperature: CHAT_CONFIG.temperature,
+          max_tokens: CHAT_CONFIG.max_tokens,
+          presence_penalty: CHAT_CONFIG.presence_penalty,
+          frequency_penalty: CHAT_CONFIG.frequency_penalty,
+        },
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_DEEPSEEK_API_KEY}`,
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
       }
     );
@@ -116,16 +138,7 @@ export const sendChatMessage = async (
       usage: response.data.usage,
     };
   } catch (error: any) {
-    console.error('DeepSeek API Error:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
-      url: error.config?.url,
-      headers: {
-        ...error.config?.headers,
-        'Authorization': 'Bearer [HIDDEN]'
-      }
-    });
+    console.error('DeepSeek API Error:', error);
     return {
       success: false,
       error: {
@@ -137,12 +150,14 @@ export const sendChatMessage = async (
 
 export const getTokenBalance = async (): Promise<BalanceResponse> => {
   try {
-    const response = await axios.get(
-      `${DEEPSEEK_API_URL}/account/balance`,
+    const response = await makeRequestWithRetry(
+      `${DEEPSEEK_API_URL}/api/v1/account/balance`,
       {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_DEEPSEEK_API_KEY}`,
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
       }
     );
@@ -152,16 +167,7 @@ export const getTokenBalance = async (): Promise<BalanceResponse> => {
       available_tokens: response.data.available_tokens,
     };
   } catch (error: any) {
-    console.error('DeepSeek Balance Error:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
-      url: error.config?.url,
-      headers: {
-        ...error.config?.headers,
-        'Authorization': 'Bearer [HIDDEN]'
-      }
-    });
+    console.error('DeepSeek Balance Error:', error);
     return {
       success: false,
       error: {

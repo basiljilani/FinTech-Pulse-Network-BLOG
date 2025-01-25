@@ -19,6 +19,34 @@ export default defineConfig({
       '@lib': path.resolve(__dirname, './src-2-frontend/lib'),
     },
   },
+  server: {
+    port: 3000,
+    strictPort: true,
+    host: true,
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'https://api.deepseek.ai',
+        changeOrigin: true,
+        secure: true,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        configure: (proxy, options) => {
+          proxy.on('error', (err, req, res) => {
+            console.log('proxy error', err);
+          });
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            console.log('Sending Request:', req.method, req.url);
+          });
+          proxy.on('proxyRes', (proxyRes, req, res) => {
+            console.log('Received Response:', proxyRes.statusCode);
+          });
+        }
+      }
+    }
+  },
   build: {
     outDir: 'dist',
     sourcemap: true,
@@ -37,12 +65,6 @@ export default defineConfig({
         drop_debugger: true
       }
     }
-  },
-  server: {
-    port: 3000,
-    strictPort: true,
-    host: true,
-    open: true
   },
   root: '.',
   base: '/'
