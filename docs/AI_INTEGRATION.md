@@ -1,11 +1,11 @@
 # AI Integration Documentation
 
 ## Overview
-This document outlines the integration of the AI chatbot functionality in the FinTech Pulse Network application. The integration uses the Vext API for handling chat interactions and implements a real-time chat interface.
+This document outlines the integration of the AI chatbot functionality in the FinTech Pulse Network application. The integration uses the DeepSeek API to provide an empowering financial coaching experience, combining practical financial advice with motivational support.
 
 ## Technical Stack
 - Frontend: React with TypeScript
-- API Integration: Vext API
+- AI Integration: DeepSeek Chat API
 - UI Components: Framer Motion for animations, Lucide React for icons
 - State Management: React useState hooks
 
@@ -14,34 +14,64 @@ This document outlines the integration of the AI chatbot functionality in the Fi
 ### Environment Variables
 The following environment variables are required:
 ```env
-VITE_VEXT_API_KEY=your_api_key_here
-VITE_VEXT_ENDPOINT_ID=your_endpoint_id_here  # Default: 8NZKOT0BIO
+VITE_DEEPSEEK_API_KEY=your_api_key_here
+VITE_DEEPSEEK_API_URL=https://api.deepseek.ai  # Optional, defaults to https://api.deepseek.ai
 ```
 
-### API Endpoints
-Base URL: `https://payload.vextapp.com/hook/${ENDPOINT_ID}/catch`
+### AI Configuration
+The chatbot is configured with specific parameters to optimize its role as an empowering financial coach:
+
+```typescript
+const CHAT_CONFIG = {
+  model: 'deepseek-chat',
+  temperature: 0.5,      // Optimized for dynamic and inspiring responses
+  max_tokens: 2000,      // Allows for detailed financial guidance
+  presence_penalty: 0.1,  // Maintains response consistency
+  frequency_penalty: 0.1  // Ensures diverse vocabulary
+}
+```
 
 ## Implementation Details
 
 ### Core Components
 
 1. **Chatbot Component** (`src-2-frontend/pages/Chatbot.tsx`)
-   - Handles chat UI and user interactions
+   - Implements interactive chat interface
    - Manages message history and loading states
-   - Implements auto-scrolling for new messages
-   - Handles error states and API status
+   - Handles file uploads for document analysis
+   - Provides real-time feedback and loading indicators
 
-2. **API Integration** (`src-2-frontend/utils/vextApi.ts`)
-   - Manages API communication
-   - Implements long-polling for real-time responses
-   - Handles authentication and error handling
+2. **DeepSeek Integration** (`src-2-frontend/lib/deepseek.ts`)
+   - Manages API communication with DeepSeek
+   - Implements chat completion endpoints
+   - Handles token balance checking
+   - Provides error handling and response processing
+
+### Chatbot Capabilities
+
+1. **Empowering Financial Coaching**
+   - Celebrates financial wins and progress
+   - Transforms money mindsets from scarcity to abundance
+   - Provides confidence-building feedback
+   - Frames challenges as growth opportunities
+
+2. **Financial Guidance**
+   - Offers practical financial advice
+   - Helps develop personalized financial strategies
+   - Provides market insights and analysis
+   - Assists with investment decision-making
+
+3. **Document Analysis**
+   - Analyzes financial documents and statements
+   - Provides insights and recommendations
+   - Helps interpret complex financial information
 
 ### Message Flow
-1. User sends message
-2. Frontend adds message to chat history
-3. Message is sent to Vext API
-4. Response is received through long-polling
-5. Bot response is added to chat history
+1. User sends message or uploads document
+2. Frontend processes and validates input
+3. Message is sent to DeepSeek API with system context
+4. Response is processed and formatted
+5. Empowering feedback is displayed to user
 
 ### Data Structures
 
@@ -50,24 +80,46 @@ interface Message {
   text: string;
   isUser: boolean;
   citation?: any;
+  isFile?: boolean;
+  fileName?: string;
+  fileSize?: string;
 }
-```
 
-### API Communication
-
-#### Sending Messages
-```typescript
-const result = await sendChatMessage(message);
-// Returns
-{
+interface ChatResponse {
   success: boolean;
-  message?: string;
-  citation?: any;
+  message: string;
+  usage?: TokenUsage;
   error?: {
     message: string;
   }
 }
 ```
+
+## Best Practices
+
+1. **Response Optimization**
+   - System message is carefully crafted for empowering responses
+   - Temperature setting balances creativity and reliability
+   - Token limits allow for comprehensive yet focused responses
+
+2. **User Experience**
+   - Immediate feedback for user actions
+   - Clear loading states and error handling
+   - Smooth transitions and animations
+   - Mobile-responsive design
+
+3. **Error Handling**
+   - Graceful degradation on API failures
+   - Clear error messages for users
+   - Automatic retry mechanisms
+   - Token balance monitoring
+
+## Future Enhancements
+- Real-time market data integration
+- Personalized financial goal tracking
+- Enhanced document analysis capabilities
+- Multi-language support
+- Voice interaction capabilities
 
 ## Current Status and Known Issues
 
@@ -106,13 +158,6 @@ This placeholder response:
 2. Update API endpoint configuration in environment variables
 3. Implement proper SSL certificate handling
 
-## Future Improvements
-1. Implement message persistence
-2. Add typing indicators
-3. Enhance error handling with retry mechanisms
-4. Add message delivery status indicators
-5. Implement rate limiting and throttling
-
 ## Testing
 Currently, the integration can be tested locally by:
 1. Setting up proper environment variables
@@ -148,6 +193,6 @@ Currently, the integration can be tested locally by:
    - Check rate limiting status
 
 ## Support and Resources
-- [Vext API Documentation](https://docs.vextapp.com)
-- [SSL/HTTPS Configuration Guide](https://docs.vextapp.com/ssl-setup)
-- [API Error Codes Reference](https://docs.vextapp.com/errors)
+- [DeepSeek API Documentation](https://docs.deepseek.ai)
+- [SSL/HTTPS Configuration Guide](https://docs.deepseek.ai/ssl-setup)
+- [API Error Codes Reference](https://docs.deepseek.ai/errors)
