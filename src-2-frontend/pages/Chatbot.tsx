@@ -17,6 +17,13 @@ interface TokenUsage {
   total: number;
 }
 
+interface ChatResponse {
+  success: boolean;
+  message: string;
+  error?: { message: string };
+  usage?: { total_tokens: number };
+}
+
 const Chatbot = () => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
@@ -84,13 +91,18 @@ const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const result = await sendChatMessage(inputValue, currentFile);
+      const result = await sendChatMessage(inputValue, currentFile ? {
+        name: currentFile.name,
+        content: await currentFile.text()
+      } : undefined);
       
       if (result.success) {
-        setMessages(prev => [...prev, {
+        const botMessage: Message = {
           text: result.message,
           isUser: false
-        }]);
+        };
+        
+        setMessages(prev => [...prev, botMessage]);
         
         // Clear the current file after it's been processed
         setCurrentFile(null);
@@ -110,7 +122,7 @@ const Chatbot = () => {
       }
     } catch (error: any) {
       const errorMessage: Message = {
-        text: error.message || 'Failed to send message',
+        text: error.message || 'An error occurred',
         isUser: false
       };
       setMessages(prev => [...prev, errorMessage]);
