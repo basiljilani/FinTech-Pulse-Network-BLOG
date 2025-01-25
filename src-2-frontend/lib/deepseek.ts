@@ -6,7 +6,7 @@ const DEEPSEEK_MODEL = 'deepseek-chat';
 // Fixed configuration for financial consulting
 const CHAT_CONFIG = {
   model: DEEPSEEK_MODEL,
-  temperature: 0.5, // Increased for more dynamic and inspiring responses
+  temperature: 0.7, // Increased for more dynamic and inspiring responses
   max_tokens: 2000, // Allow longer responses for detailed financial advice
   presence_penalty: 0.1, // Slight penalty to avoid repetition
   frequency_penalty: 0.1, // Slight penalty to encourage diverse vocabulary
@@ -116,7 +116,16 @@ export const sendChatMessage = async (
       usage: response.data.usage,
     };
   } catch (error: any) {
-    console.error('DeepSeek API Error:', error);
+    console.error('DeepSeek API Error:', {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+      url: error.config?.url,
+      headers: {
+        ...error.config?.headers,
+        'Authorization': 'Bearer [HIDDEN]'
+      }
+    });
     return {
       success: false,
       error: {
@@ -129,7 +138,7 @@ export const sendChatMessage = async (
 export const getTokenBalance = async (): Promise<BalanceResponse> => {
   try {
     const response = await axios.get(
-      `${DEEPSEEK_API_URL}/v1/account/balance`,
+      `${DEEPSEEK_API_URL}/account/balance`,
       {
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_DEEPSEEK_API_KEY}`,
@@ -143,7 +152,16 @@ export const getTokenBalance = async (): Promise<BalanceResponse> => {
       available_tokens: response.data.available_tokens,
     };
   } catch (error: any) {
-    console.error('DeepSeek Balance Error:', error);
+    console.error('DeepSeek Balance Error:', {
+      message: error.message,
+      response: error.response?.data,
+      status: error.response?.status,
+      url: error.config?.url,
+      headers: {
+        ...error.config?.headers,
+        'Authorization': 'Bearer [HIDDEN]'
+      }
+    });
     return {
       success: false,
       error: {
