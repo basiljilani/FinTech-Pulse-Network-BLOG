@@ -217,9 +217,10 @@ const Chatbot = () => {
                                 <span className="text-sm opacity-75 whitespace-nowrap">({message.fileSize})</span>
                               </div>
                             ) : (
-                              <div className="whitespace-pre-wrap break-words leading-relaxed text-[13px] sm:text-base">
-                                {message.text}
-                              </div>
+                              <div 
+                                className="whitespace-pre-wrap break-words leading-relaxed text-[13px] sm:text-base"
+                                dangerouslySetInnerHTML={{ __html: message.text }}
+                              />
                             )}
                           </div>
                         </motion.div>
