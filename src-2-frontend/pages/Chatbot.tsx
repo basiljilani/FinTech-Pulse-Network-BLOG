@@ -179,7 +179,7 @@ const Chatbot = () => {
                 </div>
                 
                 {/* Chat Messages */}
-                <div className="flex-1 overflow-hidden p-2.5 sm:p-6">
+                <div className="flex-1 overflow-y-auto p-2.5 sm:p-6">
                   <div className="flex flex-col space-y-2.5 sm:space-y-4">
                     {showWelcome ? (
                       <motion.div
