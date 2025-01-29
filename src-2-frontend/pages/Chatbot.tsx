@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Send, Loader2, Paperclip } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { sendChatMessage } from '../lib/deepseek';
+import { openaiProvider } from '../lib/openai';
+import { deepseekProvider } from '../lib/deepseek';
+import { LLMProvider, LLMProviderType } from '../lib/llmTypes';
 import { processFile, formatFileSize, validateFile } from '../lib/fileHandler';
 
 interface Message {
@@ -32,8 +34,14 @@ const Chatbot = () => {
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [sessionTokens, setSessionTokens] = useState<TokenUsage>({ total: 0 });
   const [showWelcome, setShowWelcome] = useState(true);
+  const [selectedProvider, setSelectedProvider] = useState<LLMProviderType>('openai');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const providers: Record<LLMProviderType, LLMProvider> = {
+    openai: openaiProvider,
+    deepseek: deepseekProvider
+  };
 
   useEffect(() => {
     scrollToBottom();
@@ -71,70 +79,67 @@ const Chatbot = () => {
     }
   };
 
-  const sendMessage = async () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim() && !currentFile) return;
-    
-    setShowWelcome(false);
-    const userMessage: Message = {
+
+    const newMessage: Message = {
       text: inputValue,
-      isUser: true
+      isUser: true,
+      ...(currentFile && {
+        isFile: true,
+        fileName: currentFile.name,
+        fileSize: formatFileSize(currentFile.size)
+      })
     };
 
-    if (currentFile) {
-      userMessage.isFile = true;
-      userMessage.fileName = currentFile.name;
-      userMessage.fileSize = formatFileSize(currentFile.size);
-    }
-
-    setMessages(prev => [...prev, userMessage]);
+    setMessages(prev => [...prev, newMessage]);
     setInputValue('');
     setIsLoading(true);
+    setShowWelcome(false);
 
     try {
-      const result = await sendChatMessage(inputValue, currentFile ? {
-        name: currentFile.name,
-        content: await currentFile.text()
-      } : undefined);
-      
-      if (result.success && result.message) {
+      let fileInfo = currentFile ? await processFile(currentFile) : undefined;
+
+      const response = await providers[selectedProvider].sendChatMessage(
+        inputValue,
+        fileInfo ? { name: fileInfo.name, content: fileInfo.content } : undefined
+      );
+
+      if (response.success && response.message) {
         const botMessage: Message = {
-          text: result.message,
+          text: response.message,
           isUser: false
         };
-        
         setMessages(prev => [...prev, botMessage]);
         
-        // Clear the current file after it's been processed
-        setCurrentFile(null);
-
-        // Update token usage if available
-        if (result.usage) {
+        if (response.usage) {
           setSessionTokens(prev => ({
-            total: prev.total + result.usage!.total_tokens
+            total: prev.total + response.usage!.total_tokens
           }));
         }
       } else {
-        const errorMessage: Message = {
-          text: result.error?.message || 'No response received',
-          isUser: false
-        };
-        setMessages(prev => [...prev, errorMessage]);
+        throw new Error(response.error?.message || 'Failed to get response');
       }
     } catch (error: any) {
+      console.error('Error:', error);
       const errorMessage: Message = {
-        text: typeof error.message === 'string' ? error.message : 'An error occurred',
+        text: `Error: ${error.message}`,
         isUser: false
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      setCurrentFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      sendMessage();
+      handleSendMessage();
     }
   };
 
@@ -173,8 +178,18 @@ const Chatbot = () => {
                       <span className="text-indigo-400">AI</span>
                     </h2>
                   </div>
-                  <div className="text-xs sm:text-sm text-gray-400">
-                    Session Usage: {sessionTokens.total.toLocaleString()} tokens
+                  <div className="flex items-center space-x-4">
+                    <select
+                      value={selectedProvider}
+                      onChange={(e) => setSelectedProvider(e.target.value as LLMProviderType)}
+                      className="px-3 py-1.5 border border-indigo-500 rounded-md text-sm bg-indigo-600 text-white focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 hover:bg-indigo-700 transition-colors cursor-pointer"
+                    >
+                      <option value="openai">{providers.openai.name} ({providers.openai.model})</option>
+                      <option value="deepseek">{providers.deepseek.name} ({providers.deepseek.model})</option>
+                    </select>
+                    <div className="text-sm text-white">
+                      Session Tokens: {sessionTokens.total}
+                    </div>
                   </div>
                 </div>
                 
@@ -265,7 +280,7 @@ const Chatbot = () => {
                     />
 
                     <button
-                      onClick={sendMessage}
+                      onClick={handleSendMessage}
                       disabled={isLoading || (!inputValue.trim() && !currentFile)}
                       className="p-2 sm:p-2 text-indigo-400 hover:text-indigo-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >

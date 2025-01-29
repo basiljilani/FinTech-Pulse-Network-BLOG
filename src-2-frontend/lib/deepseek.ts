@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ChatResponse, LLMProvider } from './llmTypes';
 
 // Configuration - Update these in your .env file
 const DEEPSEEK_API_URL = import.meta.env.VITE_DEEPSEEK_BASE_URL || 'https://api.deepseek.com';
@@ -34,15 +35,6 @@ interface TokenUsage {
   prompt_tokens: number;
   completion_tokens: number;
   total_tokens: number;
-}
-
-interface ChatResponse {
-  success: boolean;
-  message?: string;
-  error?: {
-    message: string;
-  };
-  usage?: TokenUsage;
 }
 
 interface BalanceResponse {
@@ -113,10 +105,8 @@ export const sendChatMessage = async (
         data: {
           model: DEEPSEEK_MODEL,
           messages,
-          temperature: 0.5,
+          temperature: 0.7,
           max_tokens: 2000,
-          presence_penalty: 0.1,
-          frequency_penalty: 0.1,
         },
         headers: {
           'Authorization': `Bearer ${import.meta.env.VITE_DEEPSEEK_API_KEY}`,
@@ -172,4 +162,10 @@ export const getTokenBalance = async (): Promise<BalanceResponse> => {
       },
     };
   }
+};
+
+export const deepseekProvider: LLMProvider = {
+  name: 'DeepSeek',
+  model: DEEPSEEK_MODEL,
+  sendChatMessage
 };
