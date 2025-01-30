@@ -22,7 +22,7 @@ export default function Hero() {
           </p>
           <div className="flex justify-center space-x-6">
             <button 
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate('/auth')}
               className="bg-white text-blue-600 px-8 py-4 rounded-lg font-medium hover:bg-blue-50 transition-colors inline-flex items-center text-lg"
             >
               <Bot className="h-6 w-6 mr-2" />

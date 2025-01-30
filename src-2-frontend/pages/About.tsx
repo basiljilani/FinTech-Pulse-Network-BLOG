@@ -459,7 +459,7 @@ const About: React.FC = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <button 
-                onClick={() => navigate('/chatbot')}
+                onClick={() => navigate('/auth')}
                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-full font-medium transition-colors duration-200"
               >
                 Get Started

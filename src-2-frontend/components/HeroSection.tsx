@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up delay-200">
           <Link
-            to="/fintech-hub"
+            to="/auth"
             className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-slate-800 to-slate-900 text-white rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] border border-slate-700/50"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
