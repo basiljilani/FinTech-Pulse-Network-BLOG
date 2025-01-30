@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Activity } from 'lucide-react';
+import { Activity, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { signUpWithEmail, signInWithEmail } from '@/lib/supabase';
 
@@ -13,6 +13,59 @@ const Auth: React.FC = () => {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState({
+    score: 0,
+    message: '',
+    color: 'bg-gray-700'
+  });
+
+  const checkPasswordStrength = (password: string) => {
+    let score = 0;
+    let message = '';
+    let color = 'bg-gray-700';
+
+    if (password.length === 0) {
+      setPasswordStrength({ score: 0, message: '', color: 'bg-gray-700' });
+      return;
+    }
+
+    // Length check
+    if (password.length >= 8) score += 1;
+    if (password.length >= 12) score += 1;
+
+    // Character variety checks
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[a-z]/.test(password)) score += 1;
+    if (/[0-9]/.test(password)) score += 1;
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+    // Set message and color based on score
+    switch (true) {
+      case (score <= 2):
+        message = 'Weak';
+        color = 'bg-red-500';
+        break;
+      case (score <= 4):
+        message = 'Moderate';
+        color = 'bg-yellow-500';
+        break;
+      case (score <= 6):
+        message = 'Strong';
+        color = 'bg-green-500';
+        break;
+      default:
+        message = '';
+        color = 'bg-gray-700';
+    }
+
+    setPasswordStrength({ score, message, color });
+  };
+
+  // Update password strength whenever password changes
+  useEffect(() => {
+    checkPasswordStrength(password);
+  }, [password]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,17 +193,56 @@ const Auth: React.FC = () => {
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white rounded-lg bg-gray-900/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm"
-                placeholder="Password"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white rounded-lg bg-gray-900/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm pr-10"
+                  placeholder="Password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300 focus:outline-none"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" aria-hidden="true" />
+                  ) : (
+                    <Eye className="h-5 w-5" aria-hidden="true" />
+                  )}
+                </button>
+              </div>
+              {!isSignIn && (
+                <div className="mt-2">
+                  <div className="flex items-center justify-between mb-1">
+                    <div className="text-xs text-gray-400">Password Strength:</div>
+                    <div className="text-xs" style={{ color: passwordStrength.color }}>
+                      {passwordStrength.message}
+                    </div>
+                  </div>
+                  <div className="h-1 w-full bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full ${passwordStrength.color} transition-all duration-300`}
+                      style={{ width: `${(passwordStrength.score / 6) * 100}%` }}
+                    ></div>
+                  </div>
+                  <div className="mt-1 text-xs text-gray-400">
+                    Password should contain at least:
+                    <ul className="list-disc list-inside mt-1 space-y-1">
+                      <li className={password.length >= 8 ? "text-green-400" : ""}>8 characters</li>
+                      <li className={/[A-Z]/.test(password) ? "text-green-400" : ""}>One uppercase letter</li>
+                      <li className={/[a-z]/.test(password) ? "text-green-400" : ""}>One lowercase letter</li>
+                      <li className={/[0-9]/.test(password) ? "text-green-400" : ""}>One number</li>
+                      <li className={/[^A-Za-z0-9]/.test(password) ? "text-green-400" : ""}>One special character</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

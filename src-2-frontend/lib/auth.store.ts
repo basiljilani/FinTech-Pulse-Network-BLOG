@@ -1,92 +1,67 @@
 import { create } from 'zustand';
+import { signInWithEmail, signUpWithEmail, signOut as supabaseSignOut, getCurrentUser } from './supabase';
 
 interface AuthState {
   isAuthenticated: boolean;
   user: any | null;
   loading: boolean;
-  signIn: (username: string, password: string) => Promise<any>;
-  signUp: (username: string, password: string, email: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<any>;
+  signUp: (username: string, password: string, email: string, fullName: string) => Promise<void>;
   signOut: () => Promise<void>;
   checkAuth: () => Promise<void>;
 }
 
-// Placeholder functions for authentication logic
-const placeholderSignIn = async ({ username, password }: { username: string; password: string }) => {
-  console.log('signIn placeholder called', { username, password });
-  return { isSignedIn: true }; // Simulate a successful sign-in
-};
-
-const placeholderSignUp = async ({ username, password, options }: { username: string; password: string; options?: any }) => {
-  console.log('signUp placeholder called', { username, password, options });
-  return { isSignUpComplete: true }; // Simulate a successful sign-up
-};
-
-const placeholderSignOut = async () => {
-  console.log('signOut placeholder called');
-};
-
-const placeholderGetCurrentUser = async () => {
-  console.log('getCurrentUser placeholder called');
-  return { username: 'testUser' }; // Simulate a logged-in user
-};
-
-// Zustand store
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
   user: null,
   loading: true,
 
-  signIn: async (username: string, password: string) => {
+  signIn: async (email: string, password: string) => {
     try {
-      const output = await placeholderSignIn({ username, password });
-      if (output.isSignedIn) {
-        const user = await placeholderGetCurrentUser();
-        set({ isAuthenticated: true, user });
+      const { data, error } = await signInWithEmail(email, password);
+      if (error) throw error;
+      if (data) {
+        set({ isAuthenticated: true, user: data.user });
+        return { isSignedIn: true };
       }
-      return output;
-    } catch (error) {
+      return { isSignedIn: false };
+    } catch (error: any) {
       console.error('Error signing in:', error);
-      throw error;
+      throw new Error(error.message || 'Failed to sign in');
     }
   },
 
-  signUp: async (username: string, password: string, email: string) => {
+  signUp: async (username: string, password: string, email: string, fullName: string) => {
     try {
-      const { isSignUpComplete } = await placeholderSignUp({
+      const { error } = await signUpWithEmail(email, password, {
         username,
-        password,
-        options: {
-          userAttributes: {
-            email
-          }
-        }
+        full_name: fullName
       });
-
-      if (isSignUpComplete) {
-        console.log('Sign up completed successfully');
-      }
-    } catch (error) {
+      if (error) throw error;
+    } catch (error: any) {
       console.error('Error signing up:', error);
-      throw error;
+      throw new Error(error.message || 'Failed to sign up');
     }
   },
 
   signOut: async () => {
     try {
-      await placeholderSignOut();
+      const { error } = await supabaseSignOut();
+      if (error) throw error;
       set({ isAuthenticated: false, user: null });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error signing out:', error);
-      throw error;
+      throw new Error(error.message || 'Failed to sign out');
     }
   },
 
   checkAuth: async () => {
     try {
-      const user = await placeholderGetCurrentUser();
-      set({ isAuthenticated: true, user, loading: false });
+      const { user, error } = await getCurrentUser();
+      if (error) throw error;
+      set({ isAuthenticated: !!user, user, loading: false });
     } catch (error) {
       set({ isAuthenticated: false, user: null, loading: false });
     }
-  }
+  },
 }));

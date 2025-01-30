@@ -23,11 +23,19 @@ export default {
         'article-border': '#404040',
         'article-link': '#E0E0E0',
         'article-card': '#333333',
+        'password-strength': {
+          'weak': '#EF4444',    // red-500
+          'fair': '#F97316',    // orange-500
+          'good': '#EAB308',    // yellow-500
+          'strong': '#84CC16',  // lime-500
+          'very-strong': '#22C55E', // green-500
+        },
       },
       animation: {
         blob: 'blob 10s infinite',
         float: 'float 6s ease-in-out infinite',
         'float-delayed': 'float-delayed 6s ease-in-out infinite',
+        shake: 'shake 0.6s ease-in-out',
       },
       keyframes: {
         blob: {
@@ -52,6 +60,11 @@ export default {
           '0%, 100%': { transform: 'translateY(-20px)' },
           '50%': { transform: 'translateY(0)' },
         },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-4px)' },
+          '20%, 40%, 60%, 80%': { transform: 'translateX(4px)' },
+        }
       },
       utilities: {
         '.animation-delay-2000': {
