@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Activity, Users, Lightbulb, Cpu, FolderSearch, FileText, LogOut, UserCircle } from 'lucide-react';
+import { Menu, X, Activity, Users, Cpu, FolderSearch, FileText, LogOut, UserCircle } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
@@ -72,16 +72,6 @@ const Navbar: React.FC = () => {
               <FolderSearch className="h-4 w-4 mr-2" />
               Directory
             </Link>
-
-            <a
-              href="https://fpn1.substack.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
-            >
-              <Lightbulb className="h-4 w-4 mr-2" />
-              Learn
-            </a>
 
             <Link
               to="/docs"
@@ -188,24 +178,6 @@ const Navbar: React.FC = () => {
               <FolderSearch className="h-4 w-4 mr-2" />
               Directory
             </Link>
-          </motion.div>
-
-          <motion.div
-            variants={{
-              open: { x: 0, opacity: 1 },
-              closed: { x: 50, opacity: 0 }
-            }}
-          >
-            <a
-              href="https://fpn1.substack.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={closeMenu}
-              className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
-            >
-              <Lightbulb className="h-4 w-4 mr-2" />
-              Learn
-            </a>
           </motion.div>
 
           <motion.div
