@@ -7,10 +7,13 @@ import {
   Award,
   ArrowRight,
   BookOpen,
-  Layers
+  Layers,
+  Loader2
 } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../lib/supabaseClient';
+import toast from 'react-hot-toast';
 
 const FeatureCard: React.FC<{
   icon: LucideIcon;
@@ -61,6 +64,45 @@ const Home: React.FC = () => {
   const mainContentRef = useRef(null);
   const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
   const lastScrollY = useRef(0);
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error('Please enter your email address');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([
+          {
+            email,
+            source: 'website',
+            metadata: {
+              page: 'home'
+            }
+          }
+        ]);
+
+      if (error) throw error;
+
+      setIsSuccess(true);
+    } catch (error: any) {
+      if (error.message.includes('duplicate')) {
+        toast.error('This email is already on our waitlist');
+      } else {
+        toast.error('Something went wrong. Please try again.');
+      }
+      console.error('Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     const updateScrollDirection = () => {
@@ -226,6 +268,97 @@ const Home: React.FC = () => {
     <div className="relative min-h-screen bg-black">
       <HeroSection />
 
+      {/* Waitlist Section */}
+      <section className="relative py-32 overflow-hidden mb-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-indigo-950/20 to-black"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 text-transparent bg-clip-text">
+              Join the Waitlist
+            </h2>
+            <p className="text-gray-400 text-lg mb-8">
+              Be among the first to experience the future of financial technology. Early access members receive exclusive benefits and features.
+            </p>
+            {!isSuccess ? (
+              <form onSubmit={handleWaitlistSubmit}>
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="px-6 py-3 rounded-lg bg-gray-900/50 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 backdrop-blur-sm flex-grow"
+                    disabled={isSubmitting}
+                  />
+                  <button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-8 py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium hover:from-indigo-500 hover:to-purple-500 transform hover:scale-105 transition-all duration-300 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
+                  >
+                    {isSubmitting ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : (
+                      'Join Now'
+                    )}
+                  </button>
+                </motion.div>
+              </form>
+            ) : (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="max-w-md mx-auto bg-gradient-to-r from-indigo-900/50 to-purple-900/50 rounded-xl p-8 border border-indigo-500/30"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                  className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center"
+                >
+                  <Check className="w-8 h-8 text-white" />
+                </motion.div>
+                <h3 className="text-2xl font-bold text-white mb-4">Welcome Aboard! 🚀</h3>
+                <p className="text-gray-300">
+                  Thank you for joining our waitlist! We're thrilled to have you as part of our early access community. 
+                  We'll keep you updated on our progress and notify you when we're ready to launch.
+                </p>
+              </motion.div>
+            )}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex items-center justify-center gap-8 mt-12 text-sm text-gray-400"
+            >
+              <div className="flex items-center">
+                <Check className="w-5 h-5 text-indigo-400 mr-2" />
+                <span>Early Access</span>
+              </div>
+              <div className="flex items-center">
+                <Check className="w-5 h-5 text-indigo-400 mr-2" />
+                <span>Priority Support</span>
+              </div>
+              <div className="flex items-center">
+                <Check className="w-5 h-5 text-indigo-400 mr-2" />
+                <span>Exclusive Features</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Main Content Container */}
       <div className="relative">
         {/* Background fade for smooth transition */}
@@ -234,7 +367,7 @@ const Home: React.FC = () => {
         <div className="relative bg-black">
           <motion.div
             ref={mainContentRef}
-            className="relative z-20 bg-black"
+            className="relative z-20 bg-black pt-16"
             style={{
               y,
               position: 'relative',
@@ -494,7 +627,7 @@ const Home: React.FC = () => {
           }}
         />
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-b from-gray-900/50 via-indigo-900/20 to-gray-900/50 backdrop-blur-xl rounded-xl shadow-xl border border-indigo-500/20 hover:border-indigo-400/40 transition-all duration-500">
               <div className="p-3 sm:p-4 border-b border-indigo-500/20 bg-black/40">

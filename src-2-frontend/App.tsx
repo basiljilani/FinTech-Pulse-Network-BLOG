@@ -25,15 +25,16 @@ import Auth from './pages/Auth';
 import ProfileDashboard from './pages/ProfileDashboard';
 import Checkout from './pages/Checkout';
 import { AuthProvider, ProtectedRoute } from './contexts/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
-function App() {
+const App: React.FC = () => {
   const location = useLocation();
   const hideFooter = location.pathname === '/chatbot' || location.pathname === '/';
 
   return (
     <AuthProvider>
       <HelmetProvider>
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-black text-white">
           <Helmet>
             {/* Primary Meta Tags */}
             <title>FinTech Pulse Network</title>
@@ -70,9 +71,26 @@ function App() {
               })}
             </script>
           </Helmet>
+          <Toaster 
+            position="top-center"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#1a1a1a',
+                color: '#fff',
+                border: '1px solid #333',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#4f46e5',
+                  secondary: '#fff',
+                },
+              },
+            }}
+          />
           <ScrollToTop />
           <Navbar />
-          <main className="flex-grow bg-black">
+          <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Navigate to="/home" replace />} />
               <Route path="/home" element={<Home />} />
