@@ -374,166 +374,155 @@ const directoryData: DirectoryItem[] = [
 
 const Directory: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState<'all' | 'business' | 'startup' | 'agent'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'business' | 'startup' | 'agent'>('all');
 
   const filteredData = directoryData.filter(item => {
     const matchesSearch = (
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.description.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    const matchesFilter = activeFilter === 'all' || item.category === activeFilter;
-    return matchesSearch && matchesFilter;
+    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+    return matchesSearch && matchesCategory;
   });
 
-  const getCategoryIcon = (categoryId: string) => {
-    switch (categoryId) {
-      case 'business':
-        return <Building2 className="w-5 h-5" />;
-      case 'startup':
-        return <Rocket className="w-5 h-5" />;
-      case 'agent':
-        return <Bot className="w-5 h-5" />;
-      default:
-        return null;
-    }
+  const categoryIcons = {
+    business: <Building2 className="w-5 h-5" />,
+    startup: <Rocket className="w-5 h-5" />,
+    agent: <Bot className="w-5 h-5" />
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-black text-white">
       <Helmet>
-        <title>FinTech & AI Directory | FinTech Pulse Network</title>
-        <meta name="description" content="Explore our curated directory of leading FinTech and AI companies, startups, and technology providers." />
+        <title>FinTech Directory - FinTech Pulse Network</title>
       </Helmet>
 
-      <div className="min-h-screen bg-[#0A0F1E] text-white">
-        {/* Hero Section */}
-        <div className="pt-40 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#151B30] to-[#0A0F1E]">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[#8B5CF6] to-[#4F46E5] bg-clip-text text-transparent"
-            >
-              FinTech & AI Directory
-            </motion.h1>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-xl text-gray-400"
-            >
-              Discover leading companies shaping the future of finance and artificial intelligence
-            </motion.p>
-          </div>
+      <div className="pt-40 pb-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-black">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent"
+          >
+            FinTech & AI Directory
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-xl text-gray-400"
+          >
+            Discover leading companies shaping the future of finance and artificial intelligence
+          </motion.p>
         </div>
+      </div>
 
-        {/* Search and Filters Section */}
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            {/* Search Bar */}
-            <div className="relative mb-8">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search directory..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-[#151B30] border border-[#2A3655] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#8B5CF6] transition-colors"
-                />
-              </div>
+      <div className="px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Search Bar */}
+          <div className="relative mb-8">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search directory..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 bg-[#161B22] border border-gray-800 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+              />
             </div>
+          </div>
 
-            {/* Category Filters */}
-            <div className="flex flex-wrap gap-3 mb-8">
-              <button
-                onClick={() => setActiveFilter('all')}
-                className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-                  activeFilter === 'all'
-                    ? 'bg-[#8B5CF6] text-white'
-                    : 'bg-[#151B30] text-gray-400 hover:bg-[#1D2644]'
-                }`}
-              >
-                All
-              </button>
-              <button
-                onClick={() => setActiveFilter('business')}
-                className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-                  activeFilter === 'business'
-                    ? 'bg-[#8B5CF6] text-white'
-                    : 'bg-[#151B30] text-gray-400 hover:bg-[#1D2644]'
-                }`}
-              >
-                <Building2 className="w-5 h-5" />
-                Businesses
-              </button>
-              <button
-                onClick={() => setActiveFilter('startup')}
-                className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-                  activeFilter === 'startup'
-                    ? 'bg-[#8B5CF6] text-white'
-                    : 'bg-[#151B30] text-gray-400 hover:bg-[#1D2644]'
-                }`}
-              >
-                <Rocket className="w-5 h-5" />
-                Startups
-              </button>
-              <button
-                onClick={() => setActiveFilter('agent')}
-                className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-                  activeFilter === 'agent'
-                    ? 'bg-[#8B5CF6] text-white'
-                    : 'bg-[#151B30] text-gray-400 hover:bg-[#1D2644]'
-                }`}
-              >
-                <Bot className="w-5 h-5" />
-                Agents
-              </button>
-            </div>
+          {/* Category Filters */}
+          <div className="flex flex-wrap gap-3 mb-8">
+            <button
+              onClick={() => setSelectedCategory('all')}
+              className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                selectedCategory === 'all'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-[#161B22] text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              All
+            </button>
 
-            {/* Directory Listings */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-8">
-              {filteredData.map((item, index) => (
-                <motion.a
-                  key={index}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative flex flex-col min-h-[200px] p-6 rounded-lg bg-[#151B30] hover:bg-[#1D2644] transition-all duration-300 ease-in-out border border-[#2A3655] hover:border-[#8B5CF6]"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-xl font-semibold group-hover:text-[#8B5CF6] transition-colors duration-300">
-                      {item.name}
-                    </h2>
-                    <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-[#8B5CF6] transition-colors duration-300" />
-                  </div>
-                  <p className="text-gray-400 mb-12">
-                    {item.description}
-                  </p>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center text-sm text-gray-500">
-                      {item.category === 'business' && <Building2 className="w-4 h-4 mr-2" />}
-                      {item.category === 'startup' && <Rocket className="w-4 h-4 mr-2" />}
-                      {item.category === 'agent' && <Bot className="w-4 h-4 mr-2" />}
-                      {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
-                    </div>
-                  </div>
-                </motion.a>
-              ))}
-              {filteredData.length === 0 && (
-                <div className="col-span-full text-center py-12">
-                  <p className="text-gray-400">No entries found matching your search criteria.</p>
+            <button
+              onClick={() => setSelectedCategory('business')}
+              className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                selectedCategory === 'business'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-[#161B22] text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <Building2 className="w-5 h-5" />
+              Businesses
+            </button>
+            <button
+              onClick={() => setSelectedCategory('startup')}
+              className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                selectedCategory === 'startup'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-[#161B22] text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <Rocket className="w-5 h-5" />
+              Startups
+            </button>
+            <button
+              onClick={() => setSelectedCategory('agent')}
+              className={`px-6 py-2 rounded-lg flex items-center gap-2 transition-colors ${
+                selectedCategory === 'agent'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-[#161B22] text-gray-400 hover:bg-gray-800'
+              }`}
+            >
+              <Bot className="w-5 h-5" />
+              Agents
+            </button>
+          </div>
+
+          {/* Directory Listings */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-8">
+            {filteredData.map((item, index) => (
+              <motion.a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative flex flex-col min-h-[200px] p-6 rounded-lg bg-[#161B22] hover:bg-gray-800 transition-all duration-300 ease-in-out border border-gray-800 hover:border-blue-500"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-xl font-semibold group-hover:text-blue-500 transition-colors duration-300">
+                    {item.name}
+                  </h2>
+                  <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
                 </div>
-              )}
-            </div>
+                <p className="text-gray-400 mb-12">
+                  {item.description}
+                </p>
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <div className="flex items-center text-sm text-gray-500">
+                    {item.category === 'business' && <Building2 className="w-4 h-4 mr-2" />}
+                    {item.category === 'startup' && <Rocket className="w-4 h-4 mr-2" />}
+                    {item.category === 'agent' && <Bot className="w-4 h-4 mr-2" />}
+                    {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+                  </div>
+                </div>
+              </motion.a>
+            ))}
+            {filteredData.length === 0 && (
+              <div className="col-span-full text-center py-12">
+                <p className="text-gray-400">No entries found matching your search criteria.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

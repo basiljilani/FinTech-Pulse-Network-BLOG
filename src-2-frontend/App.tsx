@@ -7,7 +7,6 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Insights from './pages/Insights';
 import Article from './pages/Article';
-import AiCompanion from './pages/AiCompanion';
 import NewCommunity from './pages/NewCommunity';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
@@ -29,7 +28,11 @@ import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
   const location = useLocation();
-  const hideFooter = location.pathname === '/chatbot' || location.pathname === '/';
+  const hideFooter = location.pathname === '/chatbot' || 
+                    location.pathname === '/' || 
+                    location.pathname === '/docs' ||
+                    location.pathname === '/docs/pulse-ai' ||
+                    location.pathname === '/docs/pulse-ai-v2';
 
   return (
     <AuthProvider>
@@ -97,7 +100,7 @@ const App: React.FC = () => {
               <Route path="/about" element={<About />} />
               <Route path="/insights" element={<Insights />} />
               <Route path="/articles/:id" element={<Article />} />
-              <Route path="/ai-companion" element={<AiCompanion />} />
+              <Route path="/ai-companion" element={<Navigate to="/chatbot" replace />} />
               <Route path="/chatbot" element={<Chatbot />} />
               <Route path="/community" element={<NewCommunity />} />
               <Route path="/fintech-hub" element={<FinTechHub />} />

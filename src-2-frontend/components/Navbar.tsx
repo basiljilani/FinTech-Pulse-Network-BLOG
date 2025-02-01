@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
 
           <div className="hidden md:flex md:items-center md:space-x-8">
             <Link 
-              to="/ai-companion" 
+              to="/chatbot" 
               className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-bold flex items-center transition-all duration-300 hover:scale-105"
             >
               <Cpu className="h-4 w-4 mr-2" />
@@ -155,7 +155,7 @@ const Navbar: React.FC = () => {
             }}
           >
             <Link
-              to="/ai-companion"
+              to="/chatbot"
               onClick={closeMenu}
               className="text-gray-100 hover:text-indigo-400 flex items-center px-3 py-2 rounded-md text-base font-bold transition-all duration-300 hover:translate-x-1"
             >
