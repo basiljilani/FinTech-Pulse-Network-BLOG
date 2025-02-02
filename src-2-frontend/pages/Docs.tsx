@@ -16,33 +16,170 @@ interface Section {
 }
 
 const contentSections: Record<string, string | (() => JSX.Element)> = {
-  'overview': `# Pulse AI Documentation
-## The Non-Judgmental Financial Assistant
+  'overview': `# **Pulse AI Documentation**
+## **The Non-Judgmental Financial Assistant**
 
-### Overview
-PulseAI is a supportive financial guide tailored for individuals and small businesses. Its focus is on promoting positive financial habits, building user confidence, and simplifying financial management without judgment or complexity.`,
+### **Overview**
+**PulseAI: Transforming Financial Management with AI**
+In today’s fast-paced financial environment, individuals and small businesses often face challenges in managing their finances efficiently. The high costs of traditional accounting services, coupled with the complexity of financial systems, have created a gap for innovative, accessible, and intelligent solutions. PulseAI bridges this gap by providing an advanced conversational chatbot designed to make financial management simpler, more intuitive, and affordable for all users.
+
+**What is PulseAI?**
+PulseAI is an intelligent finance consulting chatbot that revolutionizes the way individuals and businesses approach their financial management. It enables users to generate accurate financial reports, including income statements and balance sheets, through seamless, natural language interactions. Powered by DeepSeek R1 technology, PulseAI combines the latest AI advancements with an easy-to-use platform that eliminates the need for extensive financial knowledge.
+
+**Key Features of PulseAI:**
+1. **Conversational Engagement:** PulseAI adopts a user-friendly, conversational interface that simplifies data collection. Through intuitive prompts and natural language understanding, it enables users to provide essential financial details without the intimidation of traditional financial tools. This feature makes financial management accessible even to users with minimal expertise.
+
+2. **Real-Time Data Processing:** The chatbot processes financial inputs immediately, delivering near-instantaneous insights and reports. It also ensures user privacy by eliminating data storage, allowing for a seamless interaction without compromising security.
+
+3. **Integration with QuickBooks:** PulseAI integrates directly with QuickBooks via its API, automating data entry and enabling the generation of up-to-date financial reports. This feature is particularly beneficial for small businesses and freelancers, as it streamlines accounting processes and minimizes errors.
+
+4. **Automated Report Generation:** With a few simple inputs, users can generate detailed financial documents like income statements and balance sheets. The chatbot leverages QuickBooks functionality to provide comprehensive, accurate, and professional-grade reports, all while maintaining a clean and easy-to-read format.
+
+5. **Enhanced User Experience:** PulseAI’s clean interface and digestible report presentations cater to a wide range of users. By prioritizing simplicity and clarity, it ensures that users can understand their financial standing at a glance, fostering better financial literacy and confidence.
+
+**Who Can Benefit from PulseAI?**
+PulseAI serves a diverse audience, including individuals, small business owners, and freelancers. It caters to those who seek assistance with financial management but lack the expertise or resources to hire professional accountants. Entrepreneurs and independent professionals also find it invaluable for tracking expenses, generating reports, and preparing for tax filings.
+
+**Why PulseAI?**
+PulseAI offers a cost-effective alternative to traditional accounting services, making it an ideal choice for users who want to save time and money. It not only simplifies financial reporting but also promotes financial literacy by providing actionable insights in an easily understandable manner. By leveraging AI-driven technology, PulseAI empowers users to take control of their finances confidently and effectively.
+
+**Conclusion:**
+PulseAI represents a transformative step in financial management, addressing the pain points of traditional methods with a smart, efficient, and user-focused solution. Whether for individuals striving to better understand their finances or small businesses looking for affordable reporting tools, PulseAI delivers unparalleled value and accessibility. With its innovative features and focus on user empowerment, it is poised to redefine financial consulting in the digital age.`,
 
   'features': `### Features
 
-#### Fix Poor Habits
+**Key Features of PulseAI**
+PulseAI is designed to address the diverse financial management needs of individuals, freelancers, and small businesses. Its innovative features combine cutting-edge AI technology with an intuitive user experience, making financial reporting and decision-making accessible to everyone. Below is an in-depth overview of the key features of PulseAI:
 
-**Progress Tracking**
-- Continuously monitors user progress against financial goals.
+1. **Conversational Engagement**
+PulseAI offers a seamless, natural language interface that simplifies financial management. Instead of navigating complex software, users can engage in intuitive conversations with the chatbot to input data and request insights.
+* **User-Friendly Interaction:** The AI chatbot communicates in plain language, breaking down technical financial terms into simple, understandable instructions.
+* **Guided Data Collection:** Through intelligent prompts, users are guided step-by-step to provide the necessary financial details without requiring prior accounting expertise.
+This conversational feature reduces barriers for users unfamiliar with traditional accounting methods.
 
-**Tailored Advice**
-- Offers actionable tips to improve spending, saving, and budgeting habits.
+2. **Real-Time Data Processing**
+One of PulseAI’s standout features is its ability to process financial inputs in real time. Users can receive immediate feedback and insights without waiting for data to be manually processed.
+* **Instant Report Generation:** Once data is entered, PulseAI processes it instantly to produce accurate financial reports.
+* **Enhanced Privacy:** The platform does not store sensitive user data, ensuring complete privacy and compliance with security standards.
+This capability is particularly valuable for users who need quick, actionable financial insights.
 
-**Motivation System**
-- Sends encouraging notifications and rewards users for achieving milestones.`,
+3. **Integration with QuickBooks**
+PulseAI integrates seamlessly with QuickBooks, one of the most popular accounting platforms. This integration enhances its capabilities, enabling users to automate tasks and access real-time data from their QuickBooks accounts.
+* **Automated Data Entry:** Users can sync their QuickBooks accounts, eliminating the need for manual data input.
+* **Up-to-Date Financial Reports:** With QuickBooks integration, users receive real-time updates and access to comprehensive reports, ensuring accuracy and efficiency.
+This feature makes PulseAI an ideal tool for small business owners and freelancers who already use QuickBooks for their accounting needs.
+
+4. **Automated Report Generation**
+PulseAI’s automated report generation feature simplifies the creation of essential financial documents such as income statements, balance sheets, and cash flow statements.
+* **Professional-Grade Reports:** The platform generates polished, professional reports that are ready for use in business presentations or audits.
+* **Easy-to-Digest Format:** Reports are designed to be visually appealing and easy to understand, even for users without a financial background.
+This feature is particularly helpful for users preparing for tax filings, financial reviews, or investor meetings.
+
+5. **User-Friendly Interface**
+The design of PulseAI prioritizes user experience, ensuring that even first-time users can navigate the platform effortlessly.
+* **Clean and Intuitive Design:** The interface is organized and easy to use, with clear instructions and visual aids.
+* **Customizable Output:** Users can tailor the format of reports and insights to suit their preferences, making the data more actionable.
+This accessibility ensures that users of all technical skill levels can leverage the platform to its fullest potential.
+
+6. **Financial Literacy and Empowerment**
+Beyond report generation, PulseAI is a tool for enhancing financial literacy. By providing actionable insights and breaking down complex financial concepts, it empowers users to make informed decisions.
+* **Simplified Financial Concepts:** Users learn key financial principles as they interact with the chatbot.
+* **Confidence Building:** By eliminating the intimidation of traditional financial tools, PulseAI helps users gain confidence in managing their finances.
+This feature positions PulseAI as not just a tool, but a financial mentor for its users.
+
+7. **Cost-Effective Solution**
+PulseAI offers a cost-efficient alternative to hiring professional accountants or purchasing expensive financial software.
+* **Affordable Pricing Plans:** Designed to suit individuals and small businesses, the platform provides high-value features at a fraction of the cost of traditional solutions.
+* **Time-Saving Efficiency:** Automated processes reduce the time spent on manual data entry and report creation.
+This affordability makes financial management accessible to a broader audience.
+
+**Conclusion**
+PulseAI’s features are carefully crafted to address the unique challenges of modern financial management. Whether it’s the ease of conversational engagement, the precision of real-time data processing, or the power of QuickBooks integration, PulseAI empowers users to take control of their financial health with confidence and clarity. This innovative solution bridges the gap between complex financial tools and user-friendly technology, making it a game-changer for individuals and businesses alike.
+`,
 
   'getting-started': `### How It Works
 
-#### User Profile Setup
-- Users input basic financial information and goals.
-- Pulse AI customizes its approach based on user preferences.`,
+**Getting Started with PulseAI**
+PulseAI is designed to make financial management simple and accessible for everyone, from individuals to small business owners. By following a few straightforward steps, users can set up their accounts, input data, and start generating actionable insights in no time. This guide walks you through the process of getting started with PulseAI.
 
-  'integration': `### Integration Guide
-- Step by step guide for integrating PulseAI.`,
+**Step 1: Sign Up for PulseAI**
+To begin using PulseAI, you first need to create an account on the platform.
+1. **Visit the PulseAI Website:**
+    * Go to the official PulseAI website and click on the "Sign Up" button on the homepage.
+2. **Create Your Account:**
+    * Enter your email address, choose a secure password, and complete the registration form.
+    * Verify your email address by clicking on the confirmation link sent to your inbox.
+3. **Select Your Plan:**
+    * Choose from the available pricing plans:
+        * Free Plan: Limited features for personal use.
+        * Pro Plan: Full access to PulseAI for individuals and small businesses.
+        * Enterprise Plan: Advanced features for professionals and SMEs.
+
+**Step 2: Onboarding Questionnaire**
+After signing up, you will be guided through a quick onboarding process to tailor the PulseAI experience to your needs.
+1. **Provide Your Financial Goals:**
+    * Answer simple questions about your financial objectives, such as managing expenses, generating reports, or preparing for taxes.
+2. **Choose Your User Type:**
+    * Specify whether you are an individual, freelancer, or small business owner.
+3. **Set Up Preferences:**
+    * Customize your experience by selecting your preferred report formats and data presentation style.
+
+**Step 3: Connect Your Financial Tools (Optional)**
+For users who want to leverage PulseAI’s integration capabilities, connecting financial tools such as QuickBooks enhances functionality.
+1. **QuickBooks Integration:**
+    * Navigate to the "Settings" panel on your PulseAI dashboard.
+    * Click on "Integrations" and select "QuickBooks."
+    * Authorize PulseAI to access your QuickBooks account by following the on-screen prompts.
+2. **Third-Party Tools (Coming Soon):**
+    * Stay tuned for additional integrations with platforms like Xero and Zoho Books.
+
+**Step 4: Start a Conversation with the Chatbot**
+Once your account is set up, you’re ready to use PulseAI’s conversational interface.
+1. **Launch the Chatbot:**
+    * Access the chatbot from your dashboard and begin a conversation.
+    * Use simple language to ask questions or input financial data (e.g., “What is my monthly expense breakdown?”).
+2. **Provide Financial Details:**
+    * Enter your income, expenses, and other relevant data as prompted by the chatbot.
+    * PulseAI will guide you step-by-step to ensure all necessary information is collected.
+3. **Explore Insights:**
+    * Once the chatbot processes your inputs, you’ll receive real-time insights and personalized recommendations.
+
+**Step 5: Generate Financial Reports**
+PulseAI’s automated report generation feature allows you to create essential financial documents with ease.
+1. **Select the Report Type:**
+    * Choose from options like income statements, balance sheets, or cash flow statements.
+2. **Customize Your Reports:**
+    * Apply filters and customize the data range or layout to suit your needs.
+3. **Download or Share:**
+    * Download your reports in professional formats (PDF or Excel) or share them directly with stakeholders.
+
+**Step 6: Leverage Additional Resources**
+PulseAI offers more than just chatbot interactions. Use the platform’s additional tools and resources to maximize its value.
+1. **Knowledge Hub:**
+    * Access bite-sized financial insights, templates, and case studies to deepen your understanding of financial concepts.
+2. **Community Access:**
+    * Join the PulseAI community on Discord to collaborate with other users, share tips, and get support from financial experts.
+
+**Tips for Success**
+* **Start Small:** Begin with basic tasks like tracking expenses before diving into advanced features like QuickBooks integration.
+* **Explore Frequently:** Use the chatbot regularly to familiarize yourself with its capabilities and features.
+* **Utilize Help Resources:** Refer to the FAQs and tutorials on the platform if you encounter any issues.
+`,
+
+  'pulse-ai-v2-overview': `### Pulse AI V2 Overview
+
+Stay tuned for exciting updates! **Coming Soon**.
+`,
+
+  'pulse-ai-v2-features': `### Pulse AI V2 Features
+
+We're working on something amazing! **Coming Soon**.
+`,
+
+  'pulse-ai-v2-getting-started': `### Getting Started with Pulse AI V2
+
+Prepare for the next generation of financial management. **Coming Soon**.
+`,
 
   'whats-new': `### What's New
 - New features and updates.`,
@@ -78,14 +215,16 @@ const sections: Section[] = [
     items: [
       { id: 'overview', title: 'Overview' },
       { id: 'features', title: 'Features' },
-      { id: 'getting-started', title: 'Getting Started' },
-      { id: 'integration', title: 'Integration Guide' }
+      { id: 'getting-started', title: 'Getting Started' }
     ]
   },
   {
     id: 'pulseai-v2',
     title: 'PulseAI V2',
     items: [
+      { id: 'pulse-ai-v2-overview', title: 'Overview' },
+      { id: 'pulse-ai-v2-features', title: 'Features' },
+      { id: 'pulse-ai-v2-getting-started', title: 'Getting Started' },
       { id: 'whats-new', title: "What's New" },
       { id: 'migration', title: 'Migration Guide' },
       { id: 'advanced-features', title: 'Advanced Features' }

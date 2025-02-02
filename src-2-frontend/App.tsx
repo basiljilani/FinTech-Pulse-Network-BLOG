@@ -38,6 +38,8 @@ const App: React.FC = () => {
     <AuthProvider>
       <HelmetProvider>
         <div className="flex flex-col min-h-screen bg-black text-white">
+          {/* Fixed background layer */}
+          <div className="hero-background" />
           <Helmet>
             {/* Primary Meta Tags */}
             <title>FinTech Pulse Network</title>

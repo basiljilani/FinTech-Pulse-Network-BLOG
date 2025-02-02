@@ -151,9 +151,31 @@ const PulseAI = () => {
                     transition={{ delay: 0.2 }}
                     className="text-gray-300 text-lg leading-relaxed"
                   >
-                    Pulse AI is a supportive financial guide tailored for individuals and small businesses. 
-                    Its focus is on promoting positive financial habits, building user confidence, and 
-                    simplifying financial management without judgment or complexity.
+                    PulseAI: Transforming Financial Management with AI
+                    In today’s fast-paced financial environment, individuals and small businesses often face challenges in managing their finances efficiently. The high costs of traditional accounting services, coupled with the complexity of financial systems, have created a gap for innovative, accessible, and intelligent solutions. PulseAI bridges this gap by providing an advanced conversational chatbot designed to make financial management simpler, more intuitive, and affordable for all users.
+
+                    What is PulseAI?
+                    PulseAI is an intelligent finance consulting chatbot that revolutionizes the way individuals and businesses approach their financial management. It enables users to generate accurate financial reports, including income statements and balance sheets, through seamless, natural language interactions. Powered by DeepSeek R1 technology, PulseAI combines the latest AI advancements with an easy-to-use platform that eliminates the need for extensive financial knowledge.
+
+                    Key Features of PulseAI:
+                    1. Conversational Engagement: PulseAI adopts a user-friendly, conversational interface that simplifies data collection. Through intuitive prompts and natural language understanding, it enables users to provide essential financial details without the intimidation of traditional financial tools. This feature makes financial management accessible even to users with minimal expertise.
+
+                    2. Real-Time Data Processing: The chatbot processes financial inputs immediately, delivering near-instantaneous insights and reports. It also ensures user privacy by eliminating data storage, allowing for a seamless interaction without compromising security.
+
+                    3. Integration with QuickBooks: PulseAI integrates directly with QuickBooks via its API, automating data entry and enabling the generation of up-to-date financial reports. This feature is particularly beneficial for small businesses and freelancers, as it streamlines accounting processes and minimizes errors.
+
+                    4. Automated Report Generation: With a few simple inputs, users can generate detailed financial documents like income statements and balance sheets. The chatbot leverages QuickBooks functionality to provide comprehensive, accurate, and professional-grade reports, all while maintaining a clean and easy-to-read format.
+
+                    5. Enhanced User Experience: PulseAI’s clean interface and digestible report presentations cater to a wide range of users. By prioritizing simplicity and clarity, it ensures that users can understand their financial standing at a glance, fostering better financial literacy and confidence.
+
+                    Who Can Benefit from PulseAI?
+                    PulseAI serves a diverse audience, including individuals, small business owners, and freelancers. It caters to those who seek assistance with financial management but lack the expertise or resources to hire professional accountants. Entrepreneurs and independent professionals also find it invaluable for tracking expenses, generating reports, and preparing for tax filings.
+
+                    Why PulseAI?
+                    PulseAI offers a cost-effective alternative to traditional accounting services, making it an ideal choice for users who want to save time and money. It not only simplifies financial reporting but also promotes financial literacy by providing actionable insights in an easily understandable manner. By leveraging AI-driven technology, PulseAI empowers users to take control of their finances confidently and effectively.
+
+                    Conclusion:
+                    PulseAI represents a transformative step in financial management, addressing the pain points of traditional methods with a smart, efficient, and user-focused solution. Whether for individuals striving to better understand their finances or small businesses looking for affordable reporting tools, PulseAI delivers unparalleled value and accessibility. With its innovative features and focus on user empowerment, it is poised to redefine financial consulting in the digital age.
                   </motion.p>
                 </div>
               </div>

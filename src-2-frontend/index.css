@@ -6,6 +6,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fixed background and overscroll behavior */
+:root {
+  background-color: #000000;
+}
+
+html {
+  background-color: #000000;
+  overscroll-behavior-y: none;
+}
+
+body {
+  background-color: #000000;
+  min-height: 100vh;
+  @apply antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Create a fixed background layer */
+#root {
+  position: relative;
+  min-height: 100vh;
+  background-color: #000000;
+}
+
+/* Fixed background for hero sections */
+.hero-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background-color: #000000;
+  z-index: -1;
+}
+
 @font-face {
   font-family: 'Remachine Script';
   src: url('/fonts/RemachineScript.ttf') format('truetype');
